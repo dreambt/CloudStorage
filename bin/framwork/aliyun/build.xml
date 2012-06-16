@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="checksum">
+    <target name="checksum">
+        <checksum file="aliyun-openservices-0.0.1.jar" algorithm="SHA" fileext=".sha1"/>
+        <checksum file="aliyun-openservices-0.0.1.pom" algorithm="SHA" fileext=".sha1"/>
+    </target>
+</project> 
