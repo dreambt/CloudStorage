@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.im47.cloud.storage.common.dao.NodesMapper">
+
+    <resultMap id="nodesDetailMap" type="Nodes">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="parentId" column="p_id"/>
+        <result property="leftSibling" column="left_sibling"/>
+    </resultMap>
+
+    <sql id="nodesColumns">N.id, N.name, N.type, N.left_sibling</sql>
+
+    <select id="get" parameterType="Long" resultMap="nodesDetailMap">
+        SELECT
+        <include refid="nodesColumns"/>
+        FROM ${appKey}CA_NODES AS N
+        WHERE id =#{id}
+        LIMIT 1
+    </select>
+
+    <select id="getParent" parameterType="Long" resultMap="nodesDetailMap">
+        SELECT
+        <include refid="nodesColumns"/>
+        FROM ${appKey}CA_NODES AS N
+        JOIN ${appKey}CA_NODES_ADJ AS NA ON N.id=NA.p_id
+        WHERE c_id =#{id} AND p_len=1
+        LIMIT 1
+    </select>
+
+    <select id="getChild" parameterType="Long" resultMap="nodesDetailMap">
+        SELECT
+        <include refid="nodesColumns"/>
+        FROM ${appKey}CA_NODES AS N
+        JOIN ${appKey}CA_NODES_ADJ AS NA ON N.id=NA.c_id
+        WHERE p_id =#{id} AND p_len=1
+    </select>
+
+    <select id="getLeftSibling" parameterType="Long" resultMap="nodesDetailMap">
+        SELECT
+        <include refid="nodesColumns"/>
+        FROM ${appKey}CA_NODES AS N
+        JOIN ${appKey}CA_NODES_ADJ AS NA ON N.id=NA.c_id
+        WHERE id =#{leftSibling}
+    </select>
+
+    <select id="getRightSibling" parameterType="Long" resultMap="nodesDetailMap">
+        SELECT
+        <include refid="nodesColumns"/>
+        FROM ${appKey}CA_NODES AS N
+        WHERE left_sibling =#{id}
+    </select>
+
+    <select id="count" resultType="Long">
+		SELECT COUNT(id)
+		FROM ${appKey}CA_NODES
+	</select>
+
+    <insert id="save" parameterType="Nodes" useGeneratedKeys="true" keyProperty="object.id">
+		INSERT INTO ${appKey}CA_NODES(name, type, left_sibling)
+		VALUES (#{object.name}, #{object.type}, #{object.leftSibling})
+	</insert>
+
+    <insert id="saveADJ" parameterType="NodesAdjacencies">
+		INSERT INTO ${appKey}CA_NODES_ADJ(p_id, c_id, p_len)
+		VALUES (#{pId}, #{cId}, #{pLen})
+	</insert>
+
+    <delete id="delete">
+		DELETE FROM ${appKey}CA_NODES
+		WHERE id=#{id}
+	</delete>
+
+    <delete id="deleteADJ">
+		DELETE FROM ${appKey}CA_NODES_ADJ
+		WHERE c_id=#{id}
+	</delete>
+
+    <update id="updateBool" parameterType="map">
+        UPDATE ${appKey}CA_NODES
+        SET ${column}=1-${column}
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateLeftSiblingForDelete" parameterType="map">
+        UPDATE ${appKey}CA_NODES a
+        INNER JOIN (SELECT left_sibling FROM ${appKey}CA_NODES b WHERE b.id =#{id}) c
+        SET a.left_sibling = c.left_sibling WHERE a.left_sibling =#{id}
+    </update>
+
+    <select id="search" parameterType="map" resultMap="nodesDetailMap">
+    </select>
+</mapper>

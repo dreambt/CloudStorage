@@ -1,6 +1,6 @@
-CloudAlbum
+CloudStorage
 =======================================
-     This is a album run on cloud.
+     This is a storage system run on cloud.
 
 ===========
 重要地址

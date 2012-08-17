@@ -1,0 +1,72 @@
+package cn.im47.cloud.storage.common.service;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Generic Manager (Data Access Object) with common methods to CRUD POJOs.
+ * <p/>
+ * <p>Extend this interface if you want typesafe (no casting necessary) Manager's for your
+ * domain objects.
+ *
+ * @param <T>  a type variable
+ * @param <PK> the primary key for that type
+ * @author baitao.jibt@gmail.com
+ * @version 1.0
+ * @since 2010-04-17
+ */
+public interface GenericManager<T, PK extends Serializable> {
+
+    /**
+     * Generic method to get an object based on class and identifier. An
+     * ObjectRetrievalFailureException Runtime Exception is thrown if
+     * nothing is found.
+     *
+     * @param id the identifier (primary key) of the object to get
+     * @return a populated object
+     * @see org.springframework.orm.ObjectRetrievalFailureException
+     */
+    T get(String appKey, PK id);
+
+    /**
+     * Generic method to save an object - handles insert.  will set modified_time to
+     * current time and will set created_time to current_system_time if it's an insert.
+     *
+     * @param object the object to save
+     * @return the persisted object
+     */
+    int save(String appKey, T object);
+
+    /**
+     * Generic method to update an object - handles update.  will set modified_time to
+     * current time.
+     *
+     * @param object the object to save
+     * @return the persisted object
+     */
+    int update(String appKey, T object);
+
+    /**
+     * Generic method to delete an object based on class and id
+     *
+     * @param id the identifier (primary key) of the object to remove
+     */
+    int delete(String appKey, PK id);
+
+    /**
+     * Generic method used to get all objects of a particular type. This
+     * is the same as lookup up all rows in a table.
+     *
+     * @return List of populated objects
+     */
+    List<T> search(String appKey, Map<String, Object> parameters);
+
+    /**
+     * Generic method used to get all objects of a particular type. This
+     * is the same as lookup up all rows in a table.
+     *
+     * @return List of populated objects
+     */
+    List<T> search(String appKey, Map<String, Object> parameters, int offset, int limit);
+}
