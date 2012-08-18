@@ -8,14 +8,14 @@
 
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="/resources/css/jquery-ui/pepper-grinder/jquery-ui-1.8.16.custom.css"/>'/>
-    <link rel="stylesheet" type="text/css" media="screen" href='<c:url value="/resources/css/style.css"/>'/>
-    <script type='text/javascript' src='<c:url value="/resources/js/jquery-1.6.4.min.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="/resources/js/jquery-ui-1.8.16.custom.min.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="/resources/js/util.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="/resources/js/jquery-fileupload/vendor/jquery.ui.widget.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="/resources/js/jquery-fileupload/jquery.iframe-transport.js"/>'></script>
-    <script type='text/javascript' src='<c:url value="/resources/js/jquery-fileupload/jquery.fileupload.js"/>'></script>
+    <link rel="stylesheet" type="text/css" media="screen" href='{ctx}/static/style/jquery-ui-1.8.23.custom.css"/>'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='{ctx}/static/css/main.css"/>'/>
+    <script type='text/javascript' src="{ctx}/static/js/jquery/jquery-1.7.2.min.js"></script>
+    <script type='text/javascript' src="{ctx}/static/js/jquery-ui-1.8.23.custom.min.js"></script>
+    <script type='text/javascript' src="{ctx}/static/js/util.js"></script>
+    <script type='text/javascript' src="{ctx}/static/js/fileupload/vendor/jquery.ui.widget.js"></script>
+    <script type='text/javascript' src="{ctx}/static/js/fileupload/jquery.iframe-transport.js"></script>
+    <script type='text/javascript' src="{ctx}/static/js/fileupload/jquery.fileupload.js"></script>
 
     <title>Upload</title>
 

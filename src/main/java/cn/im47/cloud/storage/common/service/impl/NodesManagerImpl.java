@@ -1,8 +1,8 @@
 package cn.im47.cloud.storage.common.service.impl;
 
+import cn.im47.album.utilities.memcached.MemcachedObjectType;
 import cn.im47.cloud.storage.common.dao.NodesMapper;
 import cn.im47.cloud.storage.common.entity.Nodes;
-import cn.im47.album.utilities.memcached.MemcachedObjectType;
 import cn.im47.cloud.storage.common.service.NodesManager;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
