@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server xmlns="http://mina.apache.org/ftpserver/spring/v1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://mina.apache.org/ftpserver/spring/v1 http://mina.apache.org/ftpserver/ftpserver-1.0.xsd"
+        id="myFtpServer" max-logins="100" anon-enabled="false" max-anon-logins="0" max-login-failures="3"
+        login-failure-delay="5000" xmlns:beans="http://www.springframework.org/schema/beans">
+    <!-- max-logins 最大并发用户数，默认10
+        anon-enabled 是否允许匿名用户登陆，默认true
+        max-anon-logins 最大匿名用户数，默认10
+        max-login-failures 连接关闭前登陆失败后尝试次数，默认10
+        login-failure-delay 登陆失败后的时间延迟（ms），用于限制配置暴力破解密码，默认10
+     -->
+
+    <listeners>
+        <nio-listener name="default" port="21" idle-timeout="300">
+            <ssl>
+                <keystore file="ftp/ftpserver.jks" password="password" />
+            </ssl>
+        </nio-listener>
+    </listeners>
+
+    <!--<file-user-manager file="ftp/conf/users.properties" />-->
+
+    <db-user-manager>
+        <data-source>
+            <beans:ref bean="dataSource" />
+        </data-source>
+        <insert-user>INSERT INTO CS_FTP_USER (userid, userpassword, homedirectory, enableflag, writepermission, idletime, uploadrate, downloadrate)
+            VALUES ('{userid}', '{userpassword}', '{homedirectory}', {enableflag}, {writepermission}, {idletime}, {uploadrate}, {downloadrate})
+        </insert-user>
+        <update-user>UPDATE CS_FTP_USER SET
+            userpassword='{userpassword}',homedirectory='{homedirectory}',enableflag={enableflag},writepermission={writepermission},idletime={idletime},uploadrate={uploadrate},downloadrate={downloadrate}
+            WHERE userid='{userid}'
+        </update-user>
+        <delete-user>DELETE FROM CS_FTP_USER WHERE userid = '{userid}'</delete-user>
+        <select-user>SELECT userid, userpassword, homedirectory, enableflag, writepermission, idletime, uploadrate, downloadrate, maxloginnumber, maxloginperip
+            FROM FTP_USER WHERE userid = '{userid}'
+        </select-user>
+        <select-all-users>SELECT userid FROM CS_FTP_USER ORDER BY userid</select-all-users>
+        <is-admin>SELECT userid FROM CS_FTP_USER WHERE userid='{userid}' AND userid='admin'</is-admin>
+        <authenticate>SELECT userpassword from CS_FTP_USER WHERE userid='{userid}'</authenticate>
+    </db-user-manager>
+
+</server>

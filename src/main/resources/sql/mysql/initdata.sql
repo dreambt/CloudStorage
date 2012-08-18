@@ -37,6 +37,11 @@ INSERT INTO `CA_NODES_ADJ`(`c_id`, `p_id`, `p_len`) VALUES
 (7, 0, 2);
 
 
+--
+-- 转存表中的数据 `FTP_USER`
+--
+INSERT INTO `FTP_USER` (`userid`, `userpassword`, `homedirectory`, `enableflag`, `writepermission`, `idletime`, `uploadrate`, `downloadrate`, `maxloginnumber`, `maxloginperip`) VALUES
+('admin', '21232F297A57A5A743894A0E4A801FC3', '.', 1, 1, 0, 0, 0, 0, 0);
 
 
 

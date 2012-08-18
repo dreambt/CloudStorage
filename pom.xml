@@ -14,34 +14,82 @@
 
     <groupId>cn.im47.cloud</groupId>
     <artifactId>storage</artifactId>
-    <name>CloudStorage</name>
-    <version>0.1.0</version>
+    <name>Cloud Storage</name>
+    <version>0.0.1</version>
     <packaging>war</packaging>
 
     <description>云存储</description>
 
     <!-- 项目属性 -->
     <properties>
-
+        <!--
         <jdbc.driver.groupId>com.h2database</jdbc.driver.groupId>
         <jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
         <jdbc.driver.version>${h2.version}</jdbc.driver.version>
+        -->
 
         <!--
-            <jdbc.driver.groupId>com.oracle</jdbc.driver.groupId>
-            <jdbc.driver.artifactId>ojdbc14</jdbc.driver.artifactId>
-            <jdbc.driver.version>10.2.0.3</jdbc.driver.version>
-        -->
-        <!--
-                <jdbc.driver.groupId>mysql</jdbc.driver.groupId>
-                <jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
-                <jdbc.driver.version>5.1.13</jdbc.driver.version>
-        -->
+              <jdbc.driver.groupId>com.oracle</jdbc.driver.groupId>
+              <jdbc.driver.artifactId>ojdbc14</jdbc.driver.artifactId>
+              <jdbc.driver.version>10.2.0.3</jdbc.driver.version>
+          -->
+
+        <jdbc.driver.groupId>mysql</jdbc.driver.groupId>
+        <jdbc.driver.artifactId>mysql-connector-java</jdbc.driver.artifactId>
+        <jdbc.driver.version>5.1.13</jdbc.driver.version>
+
         <!--
         <sonar.language>web</sonar.language>
         <sonar.web.sourceDirectory>src/main/webapp</sonar.web.sourceDirectory>
         <sonar.dynamicAnalysis>false</sonar.dynamicAnalysis> -->
     </properties>
+
+    <!-- =========================================================== -->
+    <!-- Repositories                                                -->
+    <!-- =========================================================== -->
+
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+                <checksumPolicy>warn</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>public</id>
+            <name>Public Repositories</name>
+            <url>http://192.168.1.227:8080/nexus/content/groups/public</url>
+            <layout>default</layout>
+        </repository>
+
+        <repository>
+            <id>project.local</id>
+            <name>project</name>
+            <releases>
+                <enabled>true</enabled>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>Release Repository</name>
+            <url>http://192.168.1.227:8080/nexus/content/repositories/releases</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Snapshot Repository</name>
+            <url>http://192.168.1.227:8080/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <!-- =========================================================== -->
     <!-- Dependencies                                                -->
@@ -315,6 +363,27 @@
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
         </dependency>
+
+        <!-- Apache Mina FtpServer -->
+        <dependency>
+            <groupId>org.apache.ftpserver</groupId>
+            <artifactId>ftpserver-core</artifactId>
+            <version>1.0.6</version>
+        </dependency>
+
+        <!-- Appache upload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <!-- 验证码 -->
+        <dependency>
+            <groupId>org.patchca</groupId>
+            <artifactId>patchca</artifactId>
+            <version>0.5.0</version>
+        </dependency>
         <!-- OTHER UTILS end-->
 
         <!-- TEST begin -->
@@ -408,6 +477,17 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- war打包插件, 排除图片文件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <warSourceExcludes>static/**/*.*</warSourceExcludes>
+		            <warName>cms4j##${maven.build.timestamp}</warName>
+                </configuration>
             </plugin>
 
             <!-- 增加functional test的Source目录 -->

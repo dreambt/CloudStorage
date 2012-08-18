@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- 应用表
 -- --------------------------------------------------------
-DROP TABLE IF EXISTS `CA_APP`;
-CREATE TABLE IF NOT EXISTS `CA_APP` (
+DROP TABLE IF EXISTS `CS_APP`;
+CREATE TABLE IF NOT EXISTS `CS_APP` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `short_name` varchar(50) NOT NULL,
@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS `CA_APP` (
 -- --------------------------------------------------------
 -- 目录表
 -- --------------------------------------------------------
-DROP TABLE IF EXISTS `CA_NODES`;
-CREATE TABLE IF NOT EXISTS `CA_NODES` (
+DROP TABLE IF EXISTS `CS_NODES`;
+CREATE TABLE IF NOT EXISTS `CS_NODES` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `type` varchar(20) NOT NULL,
@@ -33,8 +33,8 @@ CREATE TABLE IF NOT EXISTS `CA_NODES` (
 -- -----------------------------------------------------
 -- 目录邻接矩阵表       ADJACENCIES
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `CA_NODES_ADJ`;
-CREATE  TABLE IF NOT EXISTS `CA_NODES_ADJ` (
+DROP TABLE IF EXISTS `CS_NODES_ADJ`;
+CREATE  TABLE IF NOT EXISTS `CS_NODES_ADJ` (
   `id` int(11) NOT NULL AUTO_INCREMENT ,
   `p_id` int(11) NOT NULL ,
   `c_id` int(11) NOT NULL ,
@@ -46,8 +46,8 @@ CREATE  TABLE IF NOT EXISTS `CA_NODES_ADJ` (
 -- --------------------------------------------------------
 -- 文件表
 -- --------------------------------------------------------
-DROP TABLE IF EXISTS `CA_FILE`;
-CREATE TABLE IF NOT EXISTS `CA_FILE` (
+DROP TABLE IF EXISTS `CS_FILE`;
+CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `custom_name` varchar(50) NOT NULL,
   `virtual_name` varchar(50) NOT NULL,
@@ -63,7 +63,23 @@ CREATE TABLE IF NOT EXISTS `CA_FILE` (
 );
 
 
-
+--
+-- 表的结构 `CS_FTP_USER`
+--
+DROP TABLE IF EXISTS `CS_FTP_USER`;
+CREATE TABLE IF NOT EXISTS `CS_FTP_USER` (
+  `userid` varchar(64) NOT NULL,
+  `userpassword` varchar(64) DEFAULT NULL,
+  `homedirectory` varchar(128) NOT NULL,
+  `enableflag` tinyint(1) DEFAULT '1',
+  `writepermission` tinyint(1) DEFAULT '0',
+  `idletime` int(11) DEFAULT '0',
+  `uploadrate` int(11) DEFAULT '0',
+  `downloadrate` int(11) DEFAULT '0',
+  `maxloginnumber` int(11) DEFAULT '0',
+  `maxloginperip` int(11) DEFAULT '0',
+  PRIMARY KEY (`userid`)
+);
 
 
 

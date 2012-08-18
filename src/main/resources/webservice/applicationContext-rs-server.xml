@@ -4,5 +4,6 @@
        default-lazy-init="true">
     <description>Restful Service Bean的配置文件</description>
 
+    <bean class="cn.im47.cloud.storage.webservice.FileResouceService"/>
 
 </beans>

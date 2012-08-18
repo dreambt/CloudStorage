@@ -25,6 +25,11 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+    <!-- Apache Ftp Server -->
+    <listener>
+        <listener-class>cn.im47.cloud.storage.web.FtpServerListener</listener-class>
+    </listener>
+
     <!-- Spring MVC Servlet -->
     <servlet>
         <servlet-name>springServlet</servlet-name>
@@ -85,6 +90,16 @@
         <filter-name>sitemeshFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
+    <!-- Apache Ftp Server 监控 -->
+    <servlet>
+        <servlet-name>status</servlet-name>
+        <servlet-class>cn.im47.cloud.storage.web.FtpServerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>status</servlet-name>
+        <url-pattern>/ftp-status</url-pattern>
+    </servlet-mapping>
 
     <!-- session超时定义,单位为分钟 -->
     <session-config>
