@@ -1,7 +1,7 @@
-package cn.im47.cloud.storage.common.service.impl;
+package cn.im47.cloud.storage.common.service.file.impl;
 
-import cn.im47.cloud.storage.common.entity.UploadedFile;
-import cn.im47.cloud.storage.common.service.FileManager;
+import cn.im47.cloud.storage.common.entity.file.UploadedFile;
+import cn.im47.cloud.storage.common.service.file.FileManager;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

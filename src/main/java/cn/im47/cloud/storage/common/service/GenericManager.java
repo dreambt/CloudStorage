@@ -27,7 +27,7 @@ public interface GenericManager<T, PK extends Serializable> {
      * @return a populated object
      * @see org.springframework.orm.ObjectRetrievalFailureException
      */
-    T get(String appKey, PK id);
+    T get(PK id);
 
     /**
      * Generic method to save an object - handles insert.  will set modified_time to
@@ -36,7 +36,7 @@ public interface GenericManager<T, PK extends Serializable> {
      * @param object the object to save
      * @return the persisted object
      */
-    int save(String appKey, T object);
+    int save(T object);
 
     /**
      * Generic method to update an object - handles update.  will set modified_time to
@@ -45,14 +45,14 @@ public interface GenericManager<T, PK extends Serializable> {
      * @param object the object to save
      * @return the persisted object
      */
-    int update(String appKey, T object);
+    int update(T object);
 
     /**
      * Generic method to delete an object based on class and id
      *
      * @param id the identifier (primary key) of the object to remove
      */
-    int delete(String appKey, PK id);
+    int delete(PK id);
 
     /**
      * Generic method used to get all objects of a particular type. This
@@ -60,7 +60,7 @@ public interface GenericManager<T, PK extends Serializable> {
      *
      * @return List of populated objects
      */
-    List<T> search(String appKey, Map<String, Object> parameters);
+    List<T> search(Map<String, Object> parameters);
 
     /**
      * Generic method used to get all objects of a particular type. This
@@ -68,5 +68,5 @@ public interface GenericManager<T, PK extends Serializable> {
      *
      * @return List of populated objects
      */
-    List<T> search(String appKey, Map<String, Object> parameters, int offset, int limit);
+    List<T> search(Map<String, Object> parameters, int offset, int limit);
 }

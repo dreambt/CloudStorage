@@ -1,15 +1,13 @@
-package cn.im47.cloud.storage.common.dao;
-
-import org.apache.ibatis.annotations.Param;
+package cn.im47.cloud.storage.common.service;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Generic DAO (Data Access Object) with common methods to CRUD POJOs.
+ * Generic Manager (Data Access Object) with common methods to CRUD POJOs.
  * <p/>
- * <p>Extend this interface if you want typesafe (no casting necessary) DAO's for your
+ * <p>Extend this interface if you want typesafe (no casting necessary) Manager's for your
  * domain objects.
  *
  * @param <T>  a type variable
@@ -18,7 +16,7 @@ import java.util.Map;
  * @version 1.0
  * @since 2010-04-17
  */
-public interface GenericDao<T, PK extends Serializable> {
+public interface GenericAppManager<T, PK extends Serializable> {
 
     /**
      * Generic method to get an object based on class and identifier. An
@@ -29,14 +27,7 @@ public interface GenericDao<T, PK extends Serializable> {
      * @return a populated object
      * @see org.springframework.orm.ObjectRetrievalFailureException
      */
-    T get(@Param("id") PK id);
-
-    /**
-     * 返回实体个数
-     *
-     * @return 记录数
-     */
-    Long count();
+    T get(String appKey, PK id);
 
     /**
      * Generic method to save an object - handles insert.  will set modified_time to
@@ -45,31 +36,23 @@ public interface GenericDao<T, PK extends Serializable> {
      * @param object the object to save
      * @return the persisted object
      */
-    int save(@Param("object") T object);
+    int save(String appKey, T object);
 
     /**
-     * 更新实体
+     * Generic method to update an object - handles update.  will set modified_time to
+     * current time.
      *
      * @param object the object to save
      * @return the persisted object
      */
-    int update(@Param("object") T object);
-
-    /**
-     * 更新bool字段
-     *
-     * @param id     the object to save
-     * @param column the object to save
-     * @return the persisted object
-     */
-    int updateBool(@Param("id") Long id, @Param("column") String column);
+    int update(String appKey, T object);
 
     /**
      * Generic method to delete an object based on class and id
      *
      * @param id the identifier (primary key) of the object to remove
      */
-    int delete(@Param("id") PK id);
+    int delete(String appKey, PK id);
 
     /**
      * Generic method used to get all objects of a particular type. This
@@ -77,6 +60,13 @@ public interface GenericDao<T, PK extends Serializable> {
      *
      * @return List of populated objects
      */
-    List<T> search(@Param("parameters") Map<String, Object> parameters);
+    List<T> search(String appKey, Map<String, Object> parameters);
 
+    /**
+     * Generic method used to get all objects of a particular type. This
+     * is the same as lookup up all rows in a table.
+     *
+     * @return List of populated objects
+     */
+    List<T> search(String appKey, Map<String, Object> parameters, int offset, int limit);
 }

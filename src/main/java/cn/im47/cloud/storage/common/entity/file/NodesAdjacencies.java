@@ -1,4 +1,4 @@
-package cn.im47.cloud.storage.common.entity;
+package cn.im47.cloud.storage.common.entity.file;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

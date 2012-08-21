@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package cn.im47.cloud.storage.web;
+package cn.im47.cloud.storage.ftp;
 
 import org.apache.ftpserver.FtpServer;
 
@@ -38,11 +38,11 @@ public class FtpServerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        
+
         FtpServer server = (FtpServer) getServletContext().getAttribute(FtpServerListener.FTPSERVER_CONTEXT_NAME);
-        
+
         PrintWriter wr = resp.getWriter();
-        
+
         wr.print("<html>");
         wr.print("<head>");
         wr.print("<title>FtpServer status servlet</title>");
@@ -51,10 +51,10 @@ public class FtpServerServlet extends HttpServlet {
         wr.print("<form method='post'>");
 
 
-        if(server.isStopped()) {
+        if (server.isStopped()) {
             wr.print("<p>FtpServer is stopped.</p>");
         } else {
-            if(server.isSuspended()) {
+            if (server.isSuspended()) {
                 wr.print("<p>FtpServer is suspended.</p>");
                 wr.print("<p><input type='submit' name='resume' value='Resume'></p>");
                 wr.print("<p><input type='submit' name='stop' value='Stop'></p>");
@@ -64,7 +64,7 @@ public class FtpServerServlet extends HttpServlet {
                 wr.print("<p><input type='submit' name='stop' value='Stop'></p>");
             }
         }
-        
+
         wr.print("</form>");
         wr.print("</body>");
         wr.print("</html>");
@@ -73,17 +73,17 @@ public class FtpServerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        
+
         FtpServer server = (FtpServer) getServletContext().getAttribute(FtpServerListener.FTPSERVER_CONTEXT_NAME);
-        
-        if(req.getParameter("stop") != null) {
+
+        if (req.getParameter("stop") != null) {
             server.stop();
-        } else if(req.getParameter("resume") != null) {
+        } else if (req.getParameter("resume") != null) {
             server.resume();
-        } else if(req.getParameter("suspend") != null) {
+        } else if (req.getParameter("suspend") != null) {
             server.suspend();
         }
-        
+
         resp.sendRedirect("/");
     }
 

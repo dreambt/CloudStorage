@@ -1,9 +1,9 @@
-package cn.im47.cloud.storage.common.service.impl;
+package cn.im47.cloud.storage.common.service.file.impl;
 
-import cn.im47.album.utilities.memcached.MemcachedObjectType;
-import cn.im47.cloud.storage.common.dao.NodesMapper;
-import cn.im47.cloud.storage.common.entity.Nodes;
-import cn.im47.cloud.storage.common.service.NodesManager;
+import cn.im47.cloud.storage.common.dao.file.NodesMapper;
+import cn.im47.cloud.storage.common.entity.file.Nodes;
+import cn.im47.cloud.storage.common.service.file.NodesManager;
+import cn.im47.cloud.storage.memcached.MemcachedObjectType;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -47,7 +47,7 @@ public class NodesManagerImpl implements NodesManager {
     public List<Nodes> getTree(String appKey) {
         List<Nodes> nodesList = Lists.newArrayList();
 
-        String key = MemcachedObjectType.NODES.getPrefix() + "user:" + appKey;
+        String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
         key = Encodes.encodeHex(Digests.sha1(key.getBytes()));
         String jsonString = spyMemcachedClient.get(key);
 
@@ -61,7 +61,7 @@ public class NodesManagerImpl implements NodesManager {
                 }
             }
             jsonString = jsonMapper.toJson(nodesList);
-            spyMemcachedClient.set(key, MemcachedObjectType.NODES.getExpiredTime(), jsonString);
+            spyMemcachedClient.set(key, MemcachedObjectType.NODE.getExpiredTime(), jsonString);
         } else {
             nodesList = jsonMapper.fromJson(jsonString, jsonMapper.createCollectionType(List.class, Nodes.class));
         }
@@ -96,7 +96,7 @@ public class NodesManagerImpl implements NodesManager {
         }
 
         // 清理缓存
-        String key = MemcachedObjectType.NODES.getPrefix() + "user:" + appKey;
+        String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
         spyMemcachedClient.delete(key);
         return num;
     }
@@ -105,7 +105,7 @@ public class NodesManagerImpl implements NodesManager {
     @Transactional(readOnly = false)
     public int update(String appKey, Nodes object) {
         // 清理缓存
-        String key = MemcachedObjectType.NODES.getPrefix() + "user:" + appKey;
+        String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
         spyMemcachedClient.delete(key);
 
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
@@ -124,7 +124,7 @@ public class NodesManagerImpl implements NodesManager {
         nodesMapper.deleteADJ(appKey, id);
 
         // 清理缓存
-        String key = MemcachedObjectType.NODES.getPrefix() + "user:" + appKey;
+        String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
         spyMemcachedClient.delete(key);
 
         return 1;

@@ -1,7 +1,7 @@
 package cn.im47.cloud.storage.common.web;
 
-import cn.im47.cloud.storage.common.entity.UploadedFile;
-import cn.im47.cloud.storage.common.service.FileManager;
+import cn.im47.cloud.storage.common.entity.file.UploadedFile;
+import cn.im47.cloud.storage.common.service.file.FileManager;
 import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

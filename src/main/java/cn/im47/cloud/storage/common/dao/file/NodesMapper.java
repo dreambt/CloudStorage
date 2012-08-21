@@ -1,6 +1,7 @@
-package cn.im47.cloud.storage.common.dao;
+package cn.im47.cloud.storage.common.dao.file;
 
-import cn.im47.cloud.storage.common.entity.Nodes;
+import cn.im47.cloud.storage.common.dao.GenericAppDao;
+import cn.im47.cloud.storage.common.entity.file.Nodes;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * Date: 12-7-11
  * Time: 上午10:56
  */
-public interface NodesMapper extends GenericDao<Nodes, Long> {
+public interface NodesMapper extends GenericAppDao<Nodes, Long> {
 
     Nodes getParent(@Param("appKey") String appKey, @Param("id") Long id);
 

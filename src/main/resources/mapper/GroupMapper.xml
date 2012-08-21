@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.im47.cloud.storage.common.dao.account.GroupMapper">
+
+    <resultMap id="groupDetailMap" type="Group">
+        <id property="id" column="id"/>
+        <result property="groupName" column="group_name"/>
+        <collection property="permissionList" javaType="String">
+            <result property="id" column="permission"/>
+        </collection>
+    </resultMap>
+
+    <!-- 获取用户组 -->
+    <select id="get" parameterType="Long" resultMap="groupDetailMap">
+        SELECT G.id, group_name, permission
+        FROM CT_GROUP as G
+        LEFT OUTER JOIN CT_GROUP_PERMISSION as P ON G.id=P.group_id
+        WHERE G.id=#{groupId}
+        LIMIT 99
+	</select>
+
+    <!--获取用户组数量 -->
+    <select id="count" resultType="Long">
+        SELECT count(id)
+        FROM CT_GROUP
+        LIMIT 1
+	</select>
+
+    <!-- 查询用户 -->
+    <select id="search" parameterType="map" resultType="ArrayList">
+        SELECT *
+        FROM CT_GROUP
+        <where>
+            <if test="id != null">
+                id=#{id}
+            </if>
+            <if test="groupName != null">
+                and group_name=#{groupName}
+            </if>
+        </where>
+        ORDER BY ${Sort} ${Direction}
+    </select>
+
+</mapper>

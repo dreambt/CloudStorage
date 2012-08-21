@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.im47.cloud.storage.common.dao.account.UserMapper">
+
+    <resultMap id="userDetailMap" type="User">
+        <id property="id" column="id"/>
+        <result property="email" column="email"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="salt" column="salt"/>
+        <result property="status" column="status"/>
+        <result property="emailStatus" column="email_status"/>
+        <result property="avatarStatus" column="avatar_status"/>
+        <result property="photoURL" column="photo_url"/>
+        <result property="timeOffset" column="time_offset"/>
+        <result property="lastIP" column="last_ip"/>
+        <result property="lastTime" column="last_time"/>
+        <result property="lastActTime" column="last_act_time"/>
+        <result property="lastModifiedDate" column="last_modified_date"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="deleted" column="deleted"/>
+        <collection property="groupList" column="group_id" javaType="ArrayList" ofType="Group" columnPrefix="group_"
+                    resultMap="cn.im47.cloud.storage.common.dao.account.GroupMapper.groupDetailMap"/>
+    </resultMap>
+
+    <!-- 查询用户 -->
+    <select id="get" parameterType="Long" resultMap="userDetailMap">
+        SELECT U.id, U.group_id, email, username, PASSWORD , salt, STATUS , deleted,
+        email_status, avatar_status, photo_url, time_offset, last_ip, last_time, last_act_time, created_date, last_modified_date,
+        group_name as group_group_name, permission as group_permission
+        FROM CT_USER AS U
+        LEFT OUTER JOIN CT_GROUP AS G ON G.id = U.group_id
+        LEFT OUTER JOIN CT_GROUP_PERMISSION AS P ON P.group_id = G.id
+        WHERE U.id =#{id}
+    </select>
+
+    <!-- 获取用户数量 -->
+    <select id="count" resultType="Long">
+        SELECT COUNT( id )
+        FROM CT_USER
+        LIMIT 1
+	</select>
+
+    <!-- 更新用户 -->
+    <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO CT_USER (id, group_id, email, username, password, salt, status, email_status, avatar_status, photo_url, time_offset, last_ip, last_time, last_act_time, created_date, deleted)
+        VALUES (#{id},#{groupId},#{email},#{username},#{password},#{salt},#{status},#{emailStatus},#{avatarStatus},#{photoURL},#{timeOffset},#{lastIP},#{lastTime},#{lastActTime},null,0)
+	</insert>
+
+    <!-- 更新用户 -->
+    <update id="update" parameterType="User">
+        UPDATE CT_USER
+        <set>
+            <if test="email != null and email !=''">
+                email=#{email},
+            </if>
+            <if test="groupList != null and groupId > 0">
+                group_id=#{groupId},
+            </if>
+            <if test="username != null and username !=''">
+                username=#{username},
+            </if>
+            <if test="password != null and password !=''">
+                password=#{password},
+            </if>
+            <if test="salt != null and salt !=''">
+                salt=#{salt},
+            </if>
+            <if test="emailStatus != null and emailStatus !=''">
+                email_status=#{emailStatus},
+            </if>
+            <if test="avatarStatus != null and avatarStatus !=''">
+                avatar_status=#{avatarStatus},
+            </if>
+            <if test="photoURL != null and photoURL !=''">
+                photo_url=#{photoURL},
+            </if>
+            <if test="timeOffset != null and timeOffset !=''">
+                time_offset=#{timeOffset},
+            </if>
+            <if test="lastIP != null and lastIP !=''">
+                last_ip=#{lastIP},
+            </if>
+            <if test="lastTime != null and lastTime !=''">
+                last_time=#{lastTime},
+            </if>
+            <if test="lastActTime != null and lastActTime !=''">
+                last_act_time=#{lastActTime},
+            </if>
+            <if test="deleted != null and deleted !=''">
+                deleted=#{deleted},
+            </if>
+            last_modified_date=null
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <!-- 更新用户bool字段 -->
+    <update id="updateBool" parameterType="map">
+        UPDATE CT_USER
+        SET ${column}=1-${column}
+        WHERE id=#{id}
+    </update>
+
+    <!-- 标记删除 -->
+    <update id="delete">
+        UPDATE CT_USER
+        SET deleted=1
+        WHERE id=#{id}
+    </update>
+
+    <!-- 更新用户 -->
+    <delete id="deleteByTask">
+        DELETE FROM CT_USER
+        WHERE deleted=1
+	</delete>
+
+    <!-- 查询用户 -->
+    <select id="search" parameterType="map" resultMap="userDetailMap">
+        select U.id, U.group_id, email, username, PASSWORD , salt,STATUS , deleted,
+        email_status, avatar_status, photo_url, time_offset, last_ip, last_time, last_act_time, created_date,
+        last_modified_date,
+        group_name as group_group_name, permission as group_permission
+        FROM CT_USER AS U
+        LEFT OUTER JOIN CT_GROUP AS G ON G.id = U.group_id
+        LEFT OUTER JOIN CT_GROUP_PERMISSION AS P ON P.group_id = G.id
+        <where>
+            <if test="email != null and email !=''">
+                email=#{email}
+            </if>
+            <if test="username != null and username !=''">
+                and username=#{username}
+            </if>
+            <if test="status != null">
+                and status=#{status}
+            </if>
+            <if test="emailStatus != null">
+                and email_status=#{emailStatus}
+            </if>
+            <if test="avatarStatus != null">
+                and avatar_status=#{avatarStatus}
+            </if>
+            <if test="timeOffset != null and timeOffset !=''">
+                and time_offset=#{timeOffset}
+            </if>
+            <if test="sex != null">
+                and sex=#{sex}
+            </if>
+            <if test="birthday != null">
+                and birthday=#{birthday}
+            </if>
+            <if test="bloodGroup != null and bloodGroup !=''">
+                and blood_group=#{bloodGroup}
+            </if>
+            <if test="home != null and home !=''">
+                and home=#{home}
+            </if>
+            <if test="livingAddress != null and livingAddress !=''">
+                and living_address=#{livingAddress}
+            </if>
+            <if test="zipCode != null and zipCode !=''">
+                and zip_code=#{zipCode}
+            </if>
+            <if test="profession != null and profession !=''">
+                and profession=#{profession}
+            </if>
+            <if test="education != null and education !=''">
+                and education=#{education}
+            </if>
+        </where>
+        ORDER BY ${Sort} ${Direction}
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <!--根据email查询用户-->
+    <select id="getUserByEmail" parameterType="String" resultMap="userDetailMap">
+        SELECT U.id, U.group_id, email, username, PASSWORD , salt, STATUS , deleted,
+        group_name as group_group_name, permission as group_permission
+        FROM CT_USER AS U
+        LEFT OUTER JOIN CT_GROUP AS G ON G.id = U.group_id
+        LEFT OUTER JOIN CT_GROUP_PERMISSION AS P ON P.group_id = U.group_id
+        WHERE email =#{email}
+    </select>
+
+    <!-- 获取已标记为删除的用户id -->
+    <select id="getDeletedUserId" resultType="int">
+        SELECT id
+        FROM CT_USER
+        WHERE deleted=1
+	</select>
+
+    <!-- 检测邮箱是否注册 -->
+    <select id="isUsedEmail" parameterType="String" resultType="int">
+        SELECT count(id)
+        FROM CT_USER
+        WHERE email=#{email}
+	</select>
+
+</mapper>

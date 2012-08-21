@@ -1,6 +1,7 @@
-package cn.im47.cloud.storage.common.service;
+package cn.im47.cloud.storage.common.service.file;
 
-import cn.im47.cloud.storage.common.entity.Nodes;
+import cn.im47.cloud.storage.common.entity.file.Nodes;
+import cn.im47.cloud.storage.common.service.GenericAppManager;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Date: 12-7-15
  * Time: 下午8:12
  */
-public interface NodesManager extends GenericManager<Nodes, Long> {
+public interface NodesManager extends GenericAppManager<Nodes, Long> {
 
     /**
      * 获取整个树

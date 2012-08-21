@@ -1,10 +1,7 @@
 package cn.im47.cloud.storage.webservice;
 
-import cn.im47.cloud.storage.common.entity.UploadedFile;
-import cn.im47.cloud.storage.common.service.FileManager;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.joda.time.LocalDateTime;
+import cn.im47.cloud.storage.common.entity.file.UploadedFile;
+import cn.im47.cloud.storage.common.service.file.FileManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,16 +10,12 @@ import org.springside.modules.mapper.BeanMapper;
 import org.springside.modules.mapper.JsonMapper;
 import org.springside.modules.memcached.SpyMemcachedClient;
 import org.springside.modules.rest.RsResponse;
-import org.springside.modules.security.utils.Digests;
-import org.springside.modules.utils.Encodes;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * 单程航班资源的REST服务

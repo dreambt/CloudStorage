@@ -27,7 +27,7 @@
 
     <!-- Apache Ftp Server -->
     <listener>
-        <listener-class>cn.im47.cloud.storage.web.FtpServerListener</listener-class>
+        <listener-class>cn.im47.cloud.storage.ftp.FtpServerListener</listener-class>
     </listener>
 
     <!-- Spring MVC Servlet -->
@@ -94,7 +94,7 @@
     <!-- Apache Ftp Server 监控 -->
     <servlet>
         <servlet-name>status</servlet-name>
-        <servlet-class>cn.im47.cloud.storage.web.FtpServerServlet</servlet-class>
+        <servlet-class>cn.im47.cloud.storage.ftp.FtpServerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>status</servlet-name>

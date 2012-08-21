@@ -1,6 +1,6 @@
 package cn.im47.cloud.storage.common.web;
 
-import cn.im47.cloud.storage.common.service.NodesManager;
+import cn.im47.cloud.storage.common.service.file.NodesManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

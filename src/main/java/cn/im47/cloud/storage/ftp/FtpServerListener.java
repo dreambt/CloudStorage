@@ -16,9 +16,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package cn.im47.cloud.storage.web;
+package cn.im47.cloud.storage.ftp;
 
 import org.apache.ftpserver.FtpServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -30,38 +32,37 @@ import javax.servlet.ServletContextListener;
  */
 public class FtpServerListener implements ServletContextListener {
 
+    private final Logger logger = LoggerFactory.getLogger(FtpServerListener.class);
+
     public static final String FTPSERVER_CONTEXT_NAME = "org.apache.ftpserver";
-    
+
     public void contextDestroyed(ServletContextEvent sce) {
-        System.out.println("Stopping FtpServer");
-        
+        logger.debug("Stopping FtpServer");
+
         FtpServer server = (FtpServer) sce.getServletContext().getAttribute(FTPSERVER_CONTEXT_NAME);
-        
-        if(server != null) {
+
+        if (server != null) {
             server.stop();
-            
             sce.getServletContext().removeAttribute(FTPSERVER_CONTEXT_NAME);
-            
-            System.out.println("FtpServer stopped");
+            logger.debug("FtpServer stopped");
         } else {
-            System.out.println("No running FtpServer found");
+            logger.warn("No running FtpServer found");
         }
-        
+
     }
 
     public void contextInitialized(ServletContextEvent sce) {
-        System.out.println("Starting FtpServer");   
+        logger.debug("Starting FtpServer");
 
         WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(sce.getServletContext());
-        
         FtpServer server = (FtpServer) ctx.getBean("myFtpServer");
-        
         sce.getServletContext().setAttribute(FTPSERVER_CONTEXT_NAME, server);
-        
+
         try {
             server.start();
-            System.out.println("FtpServer started");
+            logger.debug("FtpServer started");
         } catch (Exception e) {
+            logger.error("Failed to start FtpServer", e);
             throw new RuntimeException("Failed to start FtpServer", e);
         }
     }
