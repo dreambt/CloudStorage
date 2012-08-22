@@ -1,4 +1,4 @@
-<%--
+﻿<%--
   首页模板
   User: baitao.jibt@gmail.com
   Date: 12-5-4
@@ -22,10 +22,9 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <link href="${ctx}/static/bootstrap/2.0.3/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="${ctx}/static/style/Proxy.css" type="text/css" rel="stylesheet"/>
-    <script src="${ctx}/static/jquery/jquery-1.7.2.min.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/modernizr.2.5.3.18679.js" type="text/javascript"></script>
+    <link href="${ctx}/static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="${ctx}/static/style/main.css" type="text/css" rel="stylesheet"/>
+    <script src="${ctx}/static/jquery/jquery-1.8.0.min.js" type="text/javascript"></script>
     <sitemesh:head/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -44,6 +43,6 @@
     <sitemesh:body/>
     <%@ include file="/WEB-INF/layouts/footer.jsp" %>
 </div>
-<script src="${ctx}/static/bootstrap/2.0.3/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

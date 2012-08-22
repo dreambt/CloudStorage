@@ -10,7 +10,7 @@
 <head>
     <link rel="stylesheet" type="text/css" media="screen" href='{ctx}/static/style/jquery-ui-1.8.23.custom.css"/>'/>
     <link rel="stylesheet" type="text/css" media="screen" href='{ctx}/static/css/main.css"/>'/>
-    <script type='text/javascript' src="{ctx}/static/js/jquery/jquery-1.7.2.min.js"></script>
+    <script type='text/javascript' src="{ctx}/static/js/jquery/jquery-1.8.0.min.js"></script>
     <script type='text/javascript' src="{ctx}/static/js/jquery-ui-1.8.23.custom.min.js"></script>
     <script type='text/javascript' src="{ctx}/static/js/util.js"></script>
     <script type='text/javascript' src="{ctx}/static/js/fileupload/vendor/jquery.ui.widget.js"></script>
