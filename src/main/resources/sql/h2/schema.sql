@@ -56,8 +56,8 @@ CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `CRC` varchar(8) NOT NULL,
   `shared` tinyint(1) NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL DEFAULT 0,
-  `last_modified_date` TIMESTAMP NOT NULL DEFAULT 0,
-  `created_date` TIMESTAMP NOT NULL DEFAULT 0,
+  `last_modified_date` TIMESTAMP DEFAULT null,
+  `created_date` TIMESTAMP DEFAULT null,
   `deleted` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 );
@@ -67,20 +67,70 @@ CREATE TABLE IF NOT EXISTS `CS_FILE` (
 -- 表的结构 `CS_FTP_USER`
 --
 DROP TABLE IF EXISTS `CS_FTP_USER`;
+
 CREATE TABLE IF NOT EXISTS `CS_FTP_USER` (
-  `userid` varchar(64) NOT NULL,
-  `userpassword` varchar(64) DEFAULT NULL,
-  `homedirectory` varchar(128) NOT NULL,
-  `enableflag` tinyint(1) DEFAULT '1',
-  `writepermission` tinyint(1) DEFAULT '0',
-  `idletime` int(11) DEFAULT '0',
-  `uploadrate` int(11) DEFAULT '0',
-  `downloadrate` int(11) DEFAULT '0',
-  `maxloginnumber` int(11) DEFAULT '0',
-  `maxloginperip` int(11) DEFAULT '0',
-  PRIMARY KEY (`userid`)
+  `id` int(11) default NULL,
+  `user_name` varchar(64) default NULL,
+  `user_password` varchar(64) DEFAULT NULL,
+  `home_directory` varchar(128) DEFAULT NULL,
+  `enable_flag` tinyint(1) DEFAULT '1',
+  `write_permission` tinyint(1) DEFAULT '0',
+  `idle_time` int(11) DEFAULT '0',
+  `upload_rate` int(11) DEFAULT '0',
+  `download_rate` int(11) DEFAULT '0',
+  `max_login_number` int(11) DEFAULT '0',
+  `max_login_per_ip` int(11) DEFAULT '0',
+  `deleted` tinyint(1) DEFAULT '0',
+  `last_modified_date` TIMESTAMP DEFAULT null,
+  `created_date` TIMESTAMP DEFAULT null,
+  PRIMARY KEY (`id`)
 );
 
+-- -----------------------------------------------------
+-- 用户组 `CT_GROUP`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CT_GROUP` ;
+CREATE  TABLE IF NOT EXISTS `CT_GROUP` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT ,
+  `group_name` VARCHAR(40) NOT NULL ,
+  PRIMARY KEY (`id`)
+);
+
+-- -----------------------------------------------------
+-- 用户组权限 `CT_GROUP_PERMISSION`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `CT_GROUP_PERMISSION` ;
+CREATE  TABLE IF NOT EXISTS `CT_GROUP_PERMISSION` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT ,
+  `group_id` int(11) unsigned NOT NULL ,
+  `permission` VARCHAR(20) NOT NULL ,
+  PRIMARY KEY (`id`)
+);
+
+--
+-- 用户信息 `CS_USER`
+--
+DROP TABLE IF EXISTS `CS_USER` ;
+CREATE  TABLE IF NOT EXISTS `CS_USER` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT ,
+  `group_id` int(11) UNSIGNED NOT NULL ,
+  `email` VARCHAR(40) NOT NULL ,
+  `username` VARCHAR(40) NOT NULL,
+  `password` VARCHAR(40) NOT NULL ,
+  `salt` VARCHAR(16) NOT NULL ,
+  `status` TINYINT(1) NOT NULL DEFAULT 0,
+  `email_status` TINYINT(1) NOT NULL DEFAULT 0,
+  `avatar_status` TINYINT(1) NOT NULL DEFAULT 0,
+  `photo_url` VARCHAR(40) NOT NULL DEFAULT '/default.jpg' ,
+  `time_offset` VARCHAR(4) NOT NULL DEFAULT '0800',
+  `deleted` TINYINT(1) NOT NULL ,
+  `last_ip` INT(10) unsigned NOT NULL ,
+  `last_time` DATETIME DEFAULT NULL,
+  `last_act_time` DATETIME DEFAULT NULL,
+  `last_modified_date` TIMESTAMP DEFAULT NULL,
+  `created_date` TIMESTAMP DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
 
 
 

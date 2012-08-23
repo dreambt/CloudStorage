@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.im47.cloud.storage.common.dao.account.FtpUserMapper">
+
+    <resultMap id="ftpUserDetailMap" type="FtpUser">
+        <result property="id" column="id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPassword" column="user_password"/>
+        <result property="homeDirectory" column="home_directory"/>
+        <result property="enableFlag" column="enable_flag"/>
+        <result property="writePermission" column="write_permission"/>
+        <result property="idleTime" column="idle_time"/>
+        <result property="uploadRate" column="upload_rate"/>
+        <result property="downloadRate" column="download_rate"/>
+        <result property="maxLoginNumber" column="max_login_number"/>
+        <result property="maxLoginPerIp" column="max_login_per_ip"/>
+        <result property="lastModifiedDate" column="last_modified_date"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <sql id="ftpUserColumns">FU.id, FU.user_name, FU.user_password, FU.home_directory, FU.enable_flag, FU.write_permission,
+        FU.idle_time, FU.upload_rate, FU.download_rate, FU.max_login_number, FU.max_login_per_ip, FU.last_modified_date, FU.created_date, FU.deleted</sql>
+
+    <!-- 查询用户 -->
+    <select id="get" parameterType="Long" resultMap="ftpUserDetailMap">
+        SELECT <include refid="ftpUserColumns"/>
+        FROM CS_FTP_USER AS FU
+        WHERE FU.id =#{id}
+    </select>
+
+    <!-- 获取用户数量 -->
+    <select id="count" resultType="Long">
+        SELECT COUNT( id )
+        FROM CS_FTP_USER
+        LIMIT 1
+	</select>
+
+    <!-- 保存用户 -->
+    <insert id="save" parameterType="FtpUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO CS_FTP_USER (id, user_name, user_password, home_directory, enable_flag, write_permission, idle_time, upload_rate, download_rate, max_login_number, max_login_per_ip)
+        VALUES (#{id}, #{userName},#{userPassword},#{homeDirectory},#{enableFlag},#{writePermission},#{idleTime},#{uploadRate},#{downloadRate},#{maxLoginNumber},#{maxLoginPerIp})
+	</insert>
+
+    <!-- 更新用户 -->
+    <update id="update" parameterType="FtpUser">
+        UPDATE CS_FTP_USER
+        <set>
+            <if test="userName != null and userName !=''">
+                user_name=#{userName},
+            </if>
+            <if test="userPassword != null and userPassword !=''">
+                user_password=#{userPassword},
+            </if>
+            <if test="homeDirectory != null and homeDirectory !=''">
+                home_directory=#{homeDirectory},
+            </if>
+            <if test="idleTime != null">
+                idle_time=#{idleTime},
+            </if>
+            <if test="uploadRate != null">
+                upload_rate=#{uploadRate},
+            </if>
+            <if test="downloadRate != null">
+                download_rate=#{downloadRate},
+            </if>
+            <if test="maxLoginNumber != null">
+                max_login_number=#{maxLoginNumber},
+            </if>
+            <if test="maxLoginPerIp != null">
+                max_login_per_ip=#{maxLoginPerIp},
+            </if>
+            last_modified_date = null
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <!-- 更新用户bool字段 -->
+    <update id="updateBool" parameterType="map">
+        UPDATE CS_FTP_USER
+        SET ${column}=1-${column}
+        WHERE id=#{id}
+    </update>
+
+    <!-- 标记删除 -->
+    <update id="delete">
+        DELETE CS_FTP_USER
+        WHERE id=#{id}
+    </update>
+
+    <!-- 查询用户 -->
+    <select id="search" parameterType="map" resultMap="ftpUserDetailMap">
+        select <include refid="ftpUserColumns"/>
+        FROM CS_FTP_USER AS FU
+        <where>
+            1=1
+            <if test="userName != null and userName !=''">
+                and user_name=#{userName}
+            </if>
+            <if test="userPassword != null and userPassword !=''">
+                and user_password=#{userPassword}
+            </if>
+            <if test="homeDirectory != null and homeDirectory > 0">
+                and home_directory=#{homeDirectory}
+            </if>
+            <if test="idleTime != null">
+                and idle_time=#{idleTime}
+            </if>
+            <if test="uploadRate != null">
+                and  upload_rate=#{uploadRate}
+            </if>
+            <if test="downloadRate != null">
+                and download_rate=#{downloadRate}
+            </if>
+            <if test="maxLoginNumber != null">
+                and max_login_number=#{maxLoginNumber}
+            </if>
+            <if test="maxLoginPerIp != null">
+                and max_login_per_ip=#{maxLoginPerIp}
+            </if>
+            <if test="lastModifiedDate != null">
+                and last_modified_date=#{lastModifiedDate}
+            </if>
+            <if test="createdDate != null">
+                and created_date=#{createdDate}
+            </if>
+        </where>
+        <if test="Sort != null and Sort!=''">
+            ORDER BY FU.${Sort} ${Direction}
+        </if>
+        <if test="limit != null and limit>0">
+            LIMIT ${offset}, ${limit}
+        </if>
+    </select>
+
+</mapper>

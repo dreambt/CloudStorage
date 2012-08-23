@@ -317,7 +317,7 @@ public class User extends PersistableEntity {
     public Long getGroupId() {
         // TODO 如果不判断，攻略列表分页出现group NullPointException
         if (this.groupList.size() == 0) {
-            return 0L;
+            return 1L;
         } else {
             return groupList.get(0).getId();
         }

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <!-- 用户组测试数据 pengfei.dongpf@gmail.com -->
+    <CT_GROUP ID="1" GROUP_NAME="后台管理员"/>
+    <CT_GROUP ID="2" GROUP_NAME="前台管理员"/>
+    <CT_GROUP ID="3" GROUP_NAME="自由撰稿人"/>
+
+    <!-- 用户组权限测试数据 pengfei.dongpf@gmail.com -->
+    <!-- 管理员 -->
+    <CT_GROUP_PERMISSION ID="1" GROUP_ID="1" PERMISSION="user:create"/>
+    <CT_GROUP_PERMISSION ID="2" GROUP_ID="1" PERMISSION="user:edit"/>
+    <CT_GROUP_PERMISSION ID="3" GROUP_ID="1" PERMISSION="user:save"/>
+    <CT_GROUP_PERMISSION ID="4" GROUP_ID="1" PERMISSION="user:delete"/>
+    <CT_GROUP_PERMISSION ID="5" GROUP_ID="1" PERMISSION="user:list"/>
+
+    <!-- 用户测试数据 pengfei.dongpf@gmail.com -->
+    <CS_USER ID="1" GROUP_ID="1" EMAIL="dreambt@126.com" USERNAME="纪柏涛"
+             PASSWORD="691b14d79bf0fa2215f155235df5e670b64394cc"
+             SALT="7efbd59d9741d34f" STATUS="0" EMAIL_STATUS="1" AVATAR_STATUS="0" DELETED="0" PHOTO_URL="female.gif"
+             TIME_OFFSET="8" LAST_IP="134744072" LAST_TIME="1987-06-01 00:00:00"
+             LAST_ACT_TIME="1987-06-01 00:00:00" CREATED_DATE="1987-06-01 00:00:00"
+             LAST_MODIFIED_DATE="1987-06-01 00:00:00"/>
+    <CS_USER ID="2" GROUP_ID="2" EMAIL="826323891@qq.com" USERNAME="董鹏飞"
+             PASSWORD="691b14d79bf0fa2215f155235df5e670b64394cc"
+             SALT="7efbd59d9741d34f" STATUS="0" EMAIL_STATUS="1" AVATAR_STATUS="0" DELETED="0" PHOTO_URL="male.gif"
+             TIME_OFFSET="8" LAST_IP="134744072" LAST_TIME="1987-06-01 00:00:00"
+             LAST_ACT_TIME="1987-06-01 00:00:00" CREATED_DATE="1987-06-01 00:00:00"
+             LAST_MODIFIED_DATE="1987-06-01 00:00:00"/>
+
+    <!-- 用户测试数据 pengfei.dongpf@gmail.com -->
+    <CS_FTP_USER ID="1" USER_NAME="纪柏涛" USER_PASSWORD="691b14d79bf0fa2215f155235df5e670b64394cc" HOME_DIRECTORY="." ENABLE_FLAG="1"
+                 WRITE_PERMISSION="1" IDLE_TIME="10" UPLOAD_RATE="5" DOWNLOAD_RATE="5" MAX_LOGIN_NUMBER="5" MAX_LOGIN_PER_IP="12"
+                 DELETED="0" CREATED_DATE="1987-06-01 00:00:00" LAST_MODIFIED_DATE="1987-06-01 00:00:00" />
+    <CS_FTP_USER ID="2" USER_NAME="董鹏飞" USER_PASSWORD="691b14d79bf0fa2215f155235df5e670b64394cc" HOME_DIRECTORY="." ENABLE_FLAG="1"
+                 WRITE_PERMISSION="1" IDLE_TIME="10" UPLOAD_RATE="5" DOWNLOAD_RATE="5" MAX_LOGIN_NUMBER="5" MAX_LOGIN_PER_IP="12"
+                 DELETED="0" CREATED_DATE="1987-06-01 00:00:00" LAST_MODIFIED_DATE="1987-06-01 00:00:00"/>
+</dataset>

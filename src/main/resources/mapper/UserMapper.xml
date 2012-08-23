@@ -30,7 +30,7 @@
         SELECT U.id, U.group_id, email, username, PASSWORD , salt, STATUS , deleted,
         email_status, avatar_status, photo_url, time_offset, last_ip, last_time, last_act_time, created_date, last_modified_date,
         group_name as group_group_name, permission as group_permission
-        FROM CT_USER AS U
+        FROM CS_USER AS U
         LEFT OUTER JOIN CT_GROUP AS G ON G.id = U.group_id
         LEFT OUTER JOIN CT_GROUP_PERMISSION AS P ON P.group_id = G.id
         WHERE U.id =#{id}
@@ -39,24 +39,24 @@
     <!-- 获取用户数量 -->
     <select id="count" resultType="Long">
         SELECT COUNT( id )
-        FROM CT_USER
+        FROM CS_USER
         LIMIT 1
 	</select>
 
     <!-- 更新用户 -->
     <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO CT_USER (id, group_id, email, username, password, salt, status, email_status, avatar_status, photo_url, time_offset, last_ip, last_time, last_act_time, created_date, deleted)
+        INSERT INTO CS_USER (id, group_id, email, username, password, salt, status, email_status, avatar_status, photo_url, time_offset, last_ip, last_time, last_act_time, created_date, deleted)
         VALUES (#{id},#{groupId},#{email},#{username},#{password},#{salt},#{status},#{emailStatus},#{avatarStatus},#{photoURL},#{timeOffset},#{lastIP},#{lastTime},#{lastActTime},null,0)
 	</insert>
 
     <!-- 更新用户 -->
     <update id="update" parameterType="User">
-        UPDATE CT_USER
+        UPDATE CS_USER
         <set>
             <if test="email != null and email !=''">
                 email=#{email},
             </if>
-            <if test="groupList != null and groupId > 0">
+            <if test="groupList != null">
                 group_id=#{groupId},
             </if>
             <if test="username != null and username !=''">
@@ -99,21 +99,21 @@
 
     <!-- 更新用户bool字段 -->
     <update id="updateBool" parameterType="map">
-        UPDATE CT_USER
+        UPDATE CS_USER
         SET ${column}=1-${column}
         WHERE id=#{id}
     </update>
 
     <!-- 标记删除 -->
     <update id="delete">
-        UPDATE CT_USER
+        UPDATE CS_USER
         SET deleted=1
         WHERE id=#{id}
     </update>
 
     <!-- 更新用户 -->
     <delete id="deleteByTask">
-        DELETE FROM CT_USER
+        DELETE FROM CS_USER
         WHERE deleted=1
 	</delete>
 
@@ -123,12 +123,13 @@
         email_status, avatar_status, photo_url, time_offset, last_ip, last_time, last_act_time, created_date,
         last_modified_date,
         group_name as group_group_name, permission as group_permission
-        FROM CT_USER AS U
+        FROM CS_USER AS U
         LEFT OUTER JOIN CT_GROUP AS G ON G.id = U.group_id
         LEFT OUTER JOIN CT_GROUP_PERMISSION AS P ON P.group_id = G.id
         <where>
+            1=1
             <if test="email != null and email !=''">
-                email=#{email}
+                and email=#{email}
             </if>
             <if test="username != null and username !=''">
                 and username=#{username}
@@ -170,15 +171,19 @@
                 and education=#{education}
             </if>
         </where>
-        ORDER BY ${Sort} ${Direction}
-        LIMIT #{offset}, #{limit}
+        <if test="Sort != null and Sort!=''">
+            ORDER BY U.${Sort} ${Direction}
+        </if>
+        <if test="limit != null and limit>0">
+            LIMIT ${offset}, ${limit}
+        </if>
     </select>
 
     <!--根据email查询用户-->
     <select id="getUserByEmail" parameterType="String" resultMap="userDetailMap">
         SELECT U.id, U.group_id, email, username, PASSWORD , salt, STATUS , deleted,
         group_name as group_group_name, permission as group_permission
-        FROM CT_USER AS U
+        FROM CS_USER AS U
         LEFT OUTER JOIN CT_GROUP AS G ON G.id = U.group_id
         LEFT OUTER JOIN CT_GROUP_PERMISSION AS P ON P.group_id = U.group_id
         WHERE email =#{email}
@@ -187,14 +192,14 @@
     <!-- 获取已标记为删除的用户id -->
     <select id="getDeletedUserId" resultType="int">
         SELECT id
-        FROM CT_USER
+        FROM CS_USER
         WHERE deleted=1
 	</select>
 
     <!-- 检测邮箱是否注册 -->
     <select id="isUsedEmail" parameterType="String" resultType="int">
         SELECT count(id)
-        FROM CT_USER
+        FROM CS_USER
         WHERE email=#{email}
 	</select>
 

@@ -45,7 +45,7 @@ public interface GenericDao<T, PK extends Serializable> {
      * @param object the object to save
      * @return the persisted object
      */
-    int save(@Param("object") T object);
+    int save(T object);
 
     /**
      * 更新实体
@@ -53,7 +53,7 @@ public interface GenericDao<T, PK extends Serializable> {
      * @param object the object to save
      * @return the persisted object
      */
-    int update(@Param("object") T object);
+    int update(T object);
 
     /**
      * 更新bool字段
@@ -77,6 +77,6 @@ public interface GenericDao<T, PK extends Serializable> {
      *
      * @return List of populated objects
      */
-    List<T> search(@Param("parameters") Map<String, Object> parameters);
+    List<T> search(Map<String, Object> parameters);
 
 }

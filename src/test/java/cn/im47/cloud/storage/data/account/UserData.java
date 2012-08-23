@@ -7,6 +7,7 @@ import cn.im47.cloud.storage.security.ShiroDbRealm;
 import com.google.common.collect.Lists;
 import org.springside.modules.test.data.RandomData;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +43,8 @@ public class UserData {
         user.setPhotoURL("default.jpg");
         user.setTimeOffset("aa");
         user.setLastIP(1L);
+        user.setLastTime(new Date());
+        user.setLastActTime(new Date());
         return user;
     }
 
