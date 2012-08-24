@@ -1,10 +1,12 @@
 package cn.im47.cloud.storage.common.service.file.impl;
 
+import cn.im47.cloud.storage.common.dao.file.NodesAdjMapper;
 import cn.im47.cloud.storage.common.dao.file.NodesMapper;
 import cn.im47.cloud.storage.common.entity.file.Nodes;
 import cn.im47.cloud.storage.common.service.file.NodesManager;
 import cn.im47.cloud.storage.memcached.MemcachedObjectType;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +37,8 @@ public class NodesManagerImpl implements NodesManager {
     private JsonMapper jsonMapper = JsonMapper.nonDefaultMapper();
 
     private NodesMapper nodesMapper;
+
+    private NodesAdjMapper nodesAdjMapper;
 
     private SpyMemcachedClient spyMemcachedClient;
 
@@ -71,29 +75,30 @@ public class NodesManagerImpl implements NodesManager {
     @Override
     @Transactional(readOnly = false)
     public int save(String appKey, Nodes object) {
-        long parentId = object.getParentId();
+        long parentId = object.getParent().getId();
         long parentLen = 0;
         List<Nodes> nodesList = nodesMapper.getChild(appKey, parentId);
-        if (nodesList.size() > 0) {
+        // TODO
+        /*if (nodesList.size() > 0) {
             object.setLeftSibling(nodesList.get(nodesList.size() - 1).getId());
         } else {
             object.setLeftSibling(0L);
-        }
+        }*/
 
         // 添加node
         int num = nodesMapper.save(appKey, object);
         long id = object.getId();
 
-        // 建立node关系
-        nodesMapper.saveADJ(appKey, id, id, parentLen);
+        // 建立node关系 TODO
+        /*nodesAdjMapper.save(appKey, id, id, parentLen);
         try {
             for (; parentId > 0; ) {
                 nodesMapper.saveADJ(appKey, parentId, id, ++parentLen);
-                parentId = nodesMapper.getParent(appKey, parentId).getId();
+                parentId = nodesMapper.get(appKey, parentId).getParent().getId();
             }
         } catch (NullPointerException npe) {
             nodesMapper.saveADJ(appKey, 0L, id, ++parentLen);
-        }
+        }*/
 
         // 清理缓存
         String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
@@ -115,13 +120,14 @@ public class NodesManagerImpl implements NodesManager {
     @Transactional(readOnly = false)
     public int delete(String appKey, Long id) {
         // 修正右兄弟的左兄弟
-        nodesMapper.updateLeftSiblingForDelete(appKey, id);
+        Nodes left_sibling = nodesMapper.get(appKey, id);
+        nodesMapper.update(appKey, left_sibling);
 
         // 删除结点信息
         nodesMapper.delete(appKey, id);
 
-        // 删除结点关系
-        nodesMapper.deleteADJ(appKey, id);
+        // 删除结点关系 TODO
+        //nodesMapper.deleteADJ(appKey, id);
 
         // 清理缓存
         String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
@@ -143,7 +149,7 @@ public class NodesManagerImpl implements NodesManager {
     /**/
     @Override
     public Nodes getParent(String appKey, Long id) {
-        return nodesMapper.getParent(appKey, id);
+        return nodesMapper.get(appKey, id).getParent();
     }
 
     @Override
@@ -164,6 +170,11 @@ public class NodesManagerImpl implements NodesManager {
     @Autowired
     public void setNodesMapper(NodesMapper nodesMapper) {
         this.nodesMapper = nodesMapper;
+    }
+
+    @Autowired
+    public void setNodesAdjMapper(NodesAdjMapper nodesAdjMapper) {
+        this.nodesAdjMapper = nodesAdjMapper;
     }
 
     @Autowired

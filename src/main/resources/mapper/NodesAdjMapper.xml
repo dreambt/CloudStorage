@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.im47.cloud.storage.common.dao.file.NodesAdjMapper">
+
+    <resultMap id="nodesAdjDetailMap" type="NodesAdjacencies">
+        <id property="id" column="id"/>
+        <result property="pId" column="p_id"/>
+        <result property="cId" column="c_id"/>
+        <result property="pLen" column="p_len"/>
+    </resultMap>
+
+    <sql id="nodesAdjColumns">NA.id, NA.p_id, NA.c_id, NA.p_len</sql>
+
+    <select id="get" parameterType="Long" resultMap="nodesAdjDetailMap">
+        SELECT
+        <include refid="nodesAdjColumns"/>
+        FROM ${appKey}CS_NODES_ADJ AS NA
+        WHERE id =#{id}
+        LIMIT 1
+    </select>
+
+    <select id="count" resultType="Long">
+		SELECT COUNT(id)
+		FROM ${appKey}CS_NODES_ADJ
+	</select>
+
+    <insert id="save" parameterType="NodesAdjacencies">
+		INSERT INTO ${appKey}CS_NODES_ADJ(p_id, c_id, p_len)
+		VALUES (#{object.pId}, #{object.cId}, #{object.pLen})
+	</insert>
+
+    <delete id="delete">
+		DELETE FROM ${appKey}CS_NODES_ADJ
+		WHERE c_id=#{id}
+	</delete>
+
+    <update id="update" parameterType="NodesAdjacencies">
+        UPDATE ${appKey}CS_NODES_ADJ
+        <set>
+            <if test="object.pId != null">
+                p_id=#{object.pId},
+            </if>
+            <if test="object.cId != null">
+                c_id=#{object.cId},
+            </if>
+            <if test="object.pLen != null">
+                p_len=#{object.pLen},
+            </if>
+        </set>
+        WHERE id=#{object.id}
+    </update>
+
+    <select id="search" parameterType="map" resultMap="nodesAdjDetailMap">
+        select <include refid="nodesAdjColumns"/>
+        FROM ${appKey}CS_NODES_ADJ AS NA
+        <where>
+            1=1
+            <if test="parameters.pId != null">
+                and p_id=#{parameters.pId}
+            </if>
+            <if test="parameters.cId != null">
+                and c_id=#{parameters.cId}
+            </if>
+            <if test="parameters.pLen != null">
+                and p_len=#{parameters.pLen}
+            </if>
+        </where>
+        <if test="parameters.Sort != null and parameters.Sort!=''">
+            ORDER BY NA.${parameters.Sort} ${parameters.Direction}
+        </if>
+        <if test="parameters.limit != null and parameters.limit>0">
+            LIMIT ${parameters.offset}, ${parameters.limit}
+        </if>
+    </select>
+</mapper>

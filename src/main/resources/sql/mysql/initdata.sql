@@ -1,20 +1,20 @@
 -- -----------------------------------------------------
 -- 目录表测试数据
 -- -----------------------------------------------------
-INSERT INTO `CA_NODES` (`id`, `name`, `type`, `left_sibling`) VALUES
-(1, 'node 1', 'OTHER', 0),
-(2, 'node 1.1', 'OTHER', 0),
-(3, 'node 2', 'OTHER', 1),
-(4, 'node 1.1.1', 'OTHER', 0),
-(5, 'node 2.1', 'TXT', 0),
-(6, 'node 1.2', 'MOVIE', 2),
-(7, 'node 1.3', 'PIC', 6);
+INSERT INTO `CS_NODES` (`id`, `name`, `type`, `left_sibling`, `parent_id`) VALUES
+(1, 'node 1', 'OTHER', 0, 0),
+(2, 'node 1.1', 'OTHER', 0, 1),
+(3, 'node 2', 'OTHER', 1, 0),
+(4, 'node 1.1.1', 'OTHER', 0, 2),
+(5, 'node 2.1', 'TXT', 0, 2),
+(6, 'node 1.2', 'MOVIE', 2, 1),
+(7, 'node 1.3', 'PIC', 6, 1);
 
 
 -- -----------------------------------------------------
 -- 目录邻接矩阵表测试数据
 -- -----------------------------------------------------
-INSERT INTO `CA_NODES_ADJ`(`c_id`, `p_id`, `p_len`) VALUES
+INSERT INTO `CS_NODES_ADJ`(`c_id`, `p_id`, `p_len`) VALUES
 (1, 1, 0),
 (1, 0, 1),
 (2, 2, 0),
@@ -36,6 +36,12 @@ INSERT INTO `CA_NODES_ADJ`(`c_id`, `p_id`, `p_len`) VALUES
 (7, 1, 1),
 (7, 0, 2);
 
+-- -----------------------------------------------------
+-- 文件表测试数据
+-- -----------------------------------------------------
+INSERT INTO `CS_FILE` (`id`, `custom_name`, `virtual_name`, `real_name`, `size`, `md5`, `CRC`, `shared`, `status`, `last_modified_date`, `created_date`, `deleted`) VALUES
+(1, 'aaa.jpg', 'ASKFAGERDFASDSDFAF', 'aaa.jpg', 10, 'ASDFASDFASDF', 'ASDFDF', 1, 1, '2012-04-16 10:46:32', '1987-05-31 15:00:00', 0),
+(1, 'CCC.jpg', 'ASKFAGERDFASDSDFAF', 'aaa.jpg', 13, 'ASDFASDFASDF', 'ASDFAS', 1, 1, '2012-04-16 10:46:32', '1987-05-31 15:00:00', 0);
 --
 -- 转存表中的数据 `FTP_USER`
 --

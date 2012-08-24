@@ -10,6 +10,6 @@ import cn.im47.cloud.storage.common.entity.file.UploadedFile;
  * Date: 12-7-16
  * Time: 下午10:56
  */
-public interface FileMapper extends GenericAppDao<UploadedFile, Long> {
+public interface UploadedFileMapper extends GenericAppDao<UploadedFile, Long> {
 
 }

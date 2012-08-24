@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.im47.cloud.storage.common.dao.file.UploadedFileMapper">
+
+    <resultMap id="fileDetailMap" type="UploadedFile">
+        <id property="id" column="id"/>
+        <result property="customName" column="custom_name"></result>
+        <result property="virtualName" column="virtual_name"></result>
+        <result property="realName" column="real_name"></result>
+        <result property="md5" column="md5"></result>
+        <result property="CRC" column="CRC"></result>
+        <result property="shared" column="shared"></result>
+        <result property="status" column="status"></result>
+        <result property="lastModifiedDate" column="last_modified_date"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="deleted" column="deleted"></result>
+    </resultMap>
+
+    <sql id="fileColumns">F.id, F.custom_name, F.virtual_name, F.real_name, F.size, F.md5, F.CRC, F.shared, F.status,
+        F.last_modified_date, F.created_date, F.deleted</sql>
+
+    <select id="get" parameterType="Long" resultMap="fileDetailMap">
+        SELECT
+        <include refid="fileColumns"/>
+        FROM ${appKey}CS_FILE AS F
+        WHERE id =#{id}
+        LIMIT 1
+    </select>
+
+    <select id="count" resultType="Long">
+		SELECT COUNT(id)
+		FROM ${appKey}CS_FILE
+	</select>
+
+    <insert id="save" parameterType="UploadedFile">
+		INSERT INTO ${appKey}CS_FILE
+		(id, custom_name, virtual_name, real_name, size, md5, CRC, shared, status, deleted, last_modified_date, created_date)
+		VALUES
+		(null, #{object.customName}, #{object.virtualName}, #{object.realName}, #{object.size}, #{object.md5}, #{object.CRC},
+		 #{object.shared}, #{object.status}, #{object.deleted}, #{object.lastModifiedDate},null)
+	</insert>
+
+    <delete id="delete">
+		DELETE FROM ${appKey}CS_FILE
+		WHERE id=#{id}
+	</delete>
+
+    <update id="update" parameterType="UploadedFile">
+        UPDATE ${appKey}CS_FILE
+        <set>
+            <if test="object.customName != null and object.customName !=''">
+                custom_name=#{object.customName},
+            </if>
+            <if test="object.virtualName != null and object.virtualName !=''">
+                virtual_name=#{object.virtualName},
+            </if>
+            <if test="object.realName != null and object.realName !=''">
+                real_name=#{object.realName},
+            </if>
+            <if test="object.size != null">
+                size=#{object.size},
+            </if>
+            <if test="object.md5 != null and object.md5 !=''">
+                md5=#{object.md5},
+            </if>
+            <if test="object.CRC != null and object.CRC !=''">
+                CRC=#{object.CRC},
+            </if>
+            last_modified_date = null
+        </set>
+        WHERE id=#{object.id}
+    </update>
+
+    <select id="search" parameterType="map" resultMap="fileDetailMap">
+        select <include refid="fileColumns"/>
+        FROM ${appKey}CS_FILE AS F
+        <where>
+            1=1
+            <if test="parameters.customName != null and parameters.customName !=''">
+                and custom_name=#{parameters.customName}
+            </if>
+            <if test="parameters.virtualName != null and parameters.virtualName !=''">
+                and virtual_name=#{parameters.virtualName}
+            </if>
+            <if test="parameters.realName != null and parameters.realName !=''">
+                and real_name=#{parameters.realName}
+            </if>
+            <if test="parameters.size != null">
+                and size=#{parameters.size}
+            </if>
+            <if test="parameters.md5 != null and parameters.md5 !=''">
+                and md5=#{parameters.md5}
+            </if>
+            <if test="parameters.CRC != null and parameters.CRC !=''">
+                and CRC=#{parameters.CRC}
+            </if>
+            <if test="parameters.shared != null">
+                and shared=#{parameters.shared}
+            </if>
+            <if test="parameters.status != null">
+                and status=#{parameters.status}
+            </if>
+            <if test="parameters.deleted != null">
+                and deleted=#{parameters.deleted}
+            </if>
+        </where>
+        <if test="parameters.Sort != null and parameters.Sort!=''">
+            ORDER BY F.${parameters.Sort} ${parameters.Direction}
+        </if>
+        <if test="parameters.limit != null and parameters.limit>0">
+            LIMIT ${parameters.offset}, ${parameters.limit}
+        </if>
+    </select>
+</mapper>

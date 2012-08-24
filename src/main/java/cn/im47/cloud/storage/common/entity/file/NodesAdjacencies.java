@@ -1,5 +1,6 @@
 package cn.im47.cloud.storage.common.entity.file;
 
+import cn.im47.cloud.storage.common.entity.IdEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,35 +13,35 @@ import java.io.Serializable;
  * Date: 12-7-11
  * Time: 上午10:56
  */
-public class NodesAdjacencies implements Serializable {
+public class NodesAdjacencies extends IdEntity implements Serializable {
 
     private static final long serialVersionUID = -38331060124340967L;
 
-    private int pId;
-    private int cId;
-    private int pLen;
+    private Long pId;
+    private Long cId;
+    private Long pLen;
 
-    public int getpId() {
+    public Long getPId() {
         return pId;
     }
 
-    public void setpId(int pId) {
+    public void setPId(Long pId) {
         this.pId = pId;
     }
 
-    public int getcId() {
+    public Long getCId() {
         return cId;
     }
 
-    public void setcId(int cId) {
+    public void setCId(Long cId) {
         this.cId = cId;
     }
 
-    public int getpLen() {
+    public Long getPLen() {
         return pLen;
     }
 
-    public void setpLen(int pLen) {
+    public void setPLen(Long pLen) {
         this.pLen = pLen;
     }
 

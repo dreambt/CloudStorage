@@ -22,10 +22,11 @@ CREATE TABLE IF NOT EXISTS `CS_APP` (
 -- --------------------------------------------------------
 DROP TABLE IF EXISTS `CS_NODES`;
 CREATE TABLE IF NOT EXISTS `CS_NODES` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `left_sibling` int(11) NOT NULL,
+  `id` int(11) unsigned DEFAULT NULL AUTO_INCREMENT,
+  `name` varchar(20) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL,
+  `left_sibling` int(11) DEFAULT NULL,
+  `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -51,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `custom_name` varchar(50) NOT NULL,
   `virtual_name` varchar(50) NOT NULL,
+  `real_name` varchar(50) NOT NULL,
   `size` int(11) NOT NULL,
   `md5` varchar(32) NOT NULL,
   `CRC` varchar(8) NOT NULL,

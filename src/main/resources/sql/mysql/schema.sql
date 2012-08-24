@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `CS_NODES` (
   `name` varchar(50) NOT NULL,
   `type` varchar(20) NOT NULL,          --指定该文件夹下文件类型（决定文件展示方式）
   `left_sibling` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
@@ -40,31 +41,6 @@ CREATE  TABLE IF NOT EXISTS `CS_NODES_ADJ` (
   `p_len` int(11) NOT NULL ,             --深度
   INDEX (`p_id`)
 )ENGINE = InnoDB DEFAULT CHARSET=UTF8;
-
--- --------------------------------------------------------
--- 目录表
--- --------------------------------------------------------
-DROP TABLE IF EXISTS `CS_NODES`;
-CREATE TABLE IF NOT EXISTS `CS_NODES` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `type` varchar(20) NOT NULL,          --指定该文件夹下文件类型（决定文件展示方式）
-  `left_sibling` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
-
-
--- -----------------------------------------------------
--- 目录邻接矩阵表       CS_NODES_ADJ
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `CS_NODES_ADJ`;
-CREATE  TABLE IF NOT EXISTS `CS_NODES_ADJ` (
-  `p_id` int(11) NOT NULL ,              --父级id
-  `c_id` int(11) NOT NULL ,              --当前id
-  `p_len` int(11) NOT NULL ,             --深度
-  INDEX (`p_id`)
-)ENGINE = InnoDB DEFAULT CHARSET=UTF8;
-
 
 -- --------------------------------------------------------
 -- 文件表
@@ -74,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `custom_name` varchar(50) NOT NULL,    -- 用户自定义文件名，如果用户没有自定义就使用上传前的文件名
   `virtual_name` varchar(50) NOT NULL,   -- 随机40位hash值
+  `real_name` varchar(50) NOT NULL,
   `size` int(11) NOT NULL,
   `md5` varchar(32) NOT NULL,
   `CRC` varchar(8) NOT NULL,
