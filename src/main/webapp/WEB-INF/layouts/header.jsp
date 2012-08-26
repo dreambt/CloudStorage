@@ -16,28 +16,30 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="${ctx}">去这网</a>
+            <a class="brand" href="${ctx}">网站名</a>
 
             <div class="nav-collapse">
                 <ul class="nav">
                     <li id="index-page"><a href="${ctx}">首页</a></li>
-                    <li id="route-page"><a href="${ctx}/route">线路查询</a></li>
-                    <li id="flight-page" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">航班查询 <b class="caret"></b></a>
+                    <li id="file-page"><a href="${ctx}/file">文件管理</a></li>
+                    <li id="sort-page" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">分类管理 <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="${ctx}/flight">机票查询</a></li>
-                            <li><a href="${ctx}/airport">机场查询</a></li>
                         </ul>
                     </li>
-                    <li id="train-page"><a href="${ctx}/train">火车查询(无效)</a></li>
-                    <li id="hotel-page"><a href="${ctx}/hotel">酒店查询</a></li>
-                    <li id="hotPoint-page"><a href="${ctx}/hotPoint">景点查询</a></li>
-                    <li id="guide-page"><a href="${ctx}/guide">攻略查询(无效)</a></li>
+                    <li id="user-page"><a href="${ctx}/user">用户管理</a></li>
+                    <li id="course-page"><a href="${ctx}/course">课程查询</a></li>
                     <li id="about-page"><a href="${ctx}/about">关于我们</a></li>
                 </ul>
                 <form class="navbar-search pull-left" action="">
                     <input type="text" class="search-query span2" placeholder="Search">
                 </form>
+                <ul class="nav pull-right">
+                    <shiro:guest>
+                        <li id="login-page"><a href="${ctx}/login">登录</a></li>
+                        <li id="reg-page"><a href="${ctx}/reg">注册</a></li>
+                    </shiro:guest>
+                </ul>
             </div>
             <!-- /.nav-collapse -->
         </div>

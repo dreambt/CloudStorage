@@ -24,7 +24,7 @@
 
     <link href="${ctx}/static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="${ctx}/static/style/main.css" type="text/css" rel="stylesheet"/>
-    <script src="${ctx}/static/jquery/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script src="${ctx}/static/js/jquery.js" type="text/javascript"></script>
     <sitemesh:head/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
