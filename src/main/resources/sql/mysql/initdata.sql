@@ -39,9 +39,9 @@ INSERT INTO `CS_NODES_ADJ`(`c_id`, `p_id`, `p_len`) VALUES
 -- -----------------------------------------------------
 -- 文件表测试数据
 -- -----------------------------------------------------
-INSERT INTO `CS_FILE` (`id`, `custom_name`, `virtual_name`, `real_name`, `size`, `md5`, `CRC`, `shared`, `status`, `last_modified_date`, `created_date`, `deleted`) VALUES
-(1, 'aaa.jpg', 'ASKFAGERDFASDSDFAF', 'aaa.jpg', 10, 'ASDFASDFASDF', 'ASDFDF', 1, 1, '2012-04-16 10:46:32', '1987-05-31 15:00:00', 0),
-(1, 'CCC.jpg', 'ASKFAGERDFASDSDFAF', 'aaa.jpg', 13, 'ASDFASDFASDF', 'ASDFAS', 1, 1, '2012-04-16 10:46:32', '1987-05-31 15:00:00', 0);
+INSERT INTO `CS_FILE` (`id`, `nodes_id`, `custom_name`, `virtual_name`, `real_name`, `size`, `md5`, `CRC`, `shared`, `status`, `last_modified_date`, `created_date`, `deleted`) VALUES
+(1, 2, 'aaa.jpg', 'ASKFAGERDFASDSDFAF', 'aaa.jpg', 10, 'ASDFASDFASDF', 'ASDFDF', 1, 1, '2012-04-16 10:46:32', '1987-05-31 15:00:00', 0),
+(2, 2, 'CCC.jpg', 'ASKFAGERDFASDSDFAF', 'aaa.jpg', 13, 'ASDFASDFASDF', 'ASDFAS', 1, 1, '2012-04-16 10:46:32', '1987-05-31 15:00:00', 0);
 --
 -- 转存表中的数据 `FTP_USER`
 --

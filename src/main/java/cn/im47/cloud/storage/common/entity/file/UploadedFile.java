@@ -17,6 +17,7 @@ public class UploadedFile extends PersistableEntity implements Serializable {
 
     private static final long serialVersionUID = -38331060124340964L;
 
+    private Nodes nodes;
     private String customName;
     private String virtualName;
     private String realName;
@@ -34,6 +35,14 @@ public class UploadedFile extends PersistableEntity implements Serializable {
         this.customName = customName;
         this.realName = realName;
         this.size = size;
+    }
+
+    public Nodes getNodes() {
+        return nodes;
+    }
+
+    public void setNodes(Nodes nodes) {
+        this.nodes = nodes;
     }
 
     public String getCustomName() {

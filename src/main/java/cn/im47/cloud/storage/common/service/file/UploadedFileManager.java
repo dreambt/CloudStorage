@@ -3,6 +3,8 @@ package cn.im47.cloud.storage.common.service.file;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.GenericAppManager;
 
+import java.util.List;
+
 /**
  * 文件 Manager
  * <p/>
@@ -10,6 +12,10 @@ import cn.im47.cloud.storage.common.service.GenericAppManager;
  * Date: 12-7-16
  * Time: 下午22:12
  */
-public interface FileManager extends GenericAppManager<UploadedFile, Long> {
+public interface UploadedFileManager extends GenericAppManager<UploadedFile, Long> {
+
+    public List<UploadedFile> getByNodes(String appKey, Long id);
+
+    public int updateBool(String appKey, Long id, String column);
 
 }

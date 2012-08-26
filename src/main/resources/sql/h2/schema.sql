@@ -50,6 +50,7 @@ CREATE  TABLE IF NOT EXISTS `CS_NODES_ADJ` (
 DROP TABLE IF EXISTS `CS_FILE`;
 CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `nodes_id` int(11) NOT NULL,
   `custom_name` varchar(50) NOT NULL,
   `virtual_name` varchar(50) NOT NULL,
   `real_name` varchar(50) NOT NULL,

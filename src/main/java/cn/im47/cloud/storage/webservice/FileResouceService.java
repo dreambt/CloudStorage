@@ -1,7 +1,7 @@
 package cn.im47.cloud.storage.webservice;
 
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
-import cn.im47.cloud.storage.common.service.file.FileManager;
+import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ import javax.ws.rs.core.UriInfo;
 @Path("/file")
 public class FileResouceService {
 
-    private FileManager fileManager;
+    private UploadedFileManager fileManager;
 
     private static final Logger logger = LoggerFactory.getLogger(FileResouceService.class);
 
@@ -60,7 +60,7 @@ public class FileResouceService {
     }
 
     @Autowired
-    public void setFileManager(@Qualifier("fileManagerImpl") FileManager fileManager) {
+    public void setFileManager(@Qualifier("uploadedFileManagerImpl") UploadedFileManager fileManager) {
         this.fileManager = fileManager;
     }
 

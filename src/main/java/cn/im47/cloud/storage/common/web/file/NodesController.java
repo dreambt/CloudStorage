@@ -1,4 +1,4 @@
-package cn.im47.cloud.storage.common.web;
+package cn.im47.cloud.storage.common.web.file;
 
 import cn.im47.cloud.storage.common.service.file.NodesManager;
 import org.springframework.beans.factory.annotation.Autowired;

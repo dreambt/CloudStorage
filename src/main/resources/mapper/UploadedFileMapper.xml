@@ -16,12 +16,21 @@
         <result property="lastModifiedDate" column="last_modified_date"/>
         <result property="createdDate" column="created_date"/>
         <result property="deleted" column="deleted"></result>
+
     </resultMap>
 
     <sql id="fileColumns">F.id, F.custom_name, F.virtual_name, F.real_name, F.size, F.md5, F.CRC, F.shared, F.status,
         F.last_modified_date, F.created_date, F.deleted</sql>
 
     <select id="get" parameterType="Long" resultMap="fileDetailMap">
+        SELECT
+        <include refid="fileColumns"/>
+        FROM ${appKey}CS_FILE AS F
+        WHERE id =#{id}
+        LIMIT 1
+    </select>
+
+    <select id="getByNodes" parameterType="Long" resultMap="fileDetailMap">
         SELECT
         <include refid="fileColumns"/>
         FROM ${appKey}CS_FILE AS F
@@ -71,6 +80,12 @@
             last_modified_date = null
         </set>
         WHERE id=#{object.id}
+    </update>
+
+    <update id="updateBool">
+        UPDATE ${appKey}CS_FILE
+        SET ${column}=1-${column}
+        WHERE id=#{id}
     </update>
 
     <select id="search" parameterType="map" resultMap="fileDetailMap">

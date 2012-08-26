@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -41,6 +42,12 @@ public class UploadedFileMapperTest extends SpringTransactionalTestCase {
 
         //删除 测试
         assertEquals(1, uploadedFileMapper.delete(APP_KEY, 3L));
+    }
+
+    @Test
+    public void testGetByNodes() throws Exception {
+        List<UploadedFile> uploadedFiles = uploadedFileMapper.getByNodes(APP_KEY, 2L);
+        assertEquals(2, uploadedFiles.size());
     }
 
     @Test

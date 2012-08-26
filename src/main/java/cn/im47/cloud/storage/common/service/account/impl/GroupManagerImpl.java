@@ -2,6 +2,7 @@ package cn.im47.cloud.storage.common.service.account.impl;
 
 import cn.im47.cloud.storage.common.dao.account.GroupMapper;
 import cn.im47.cloud.storage.common.entity.account.Group;
+import cn.im47.cloud.storage.common.service.account.GroupManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Component
 @Transactional(readOnly = true)
-public class GroupManager {
+public class GroupManagerImpl implements GroupManager {
 
-    private static final Logger logger = LoggerFactory.getLogger(GroupManager.class);
+    private static final Logger logger = LoggerFactory.getLogger(GroupManagerImpl.class);
 
     private GroupMapper groupMapper;
 
