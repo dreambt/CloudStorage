@@ -1,7 +1,7 @@
 package cn.im47.cloud.storage.common.dao.file;
 
-import cn.im47.cloud.storage.common.entity.file.NodesAdjacencies;
-import cn.im47.cloud.storage.data.file.NodesData;
+import cn.im47.cloud.storage.common.entity.file.NodeAdjacencies;
+import cn.im47.cloud.storage.data.file.NodeData;
 import com.google.common.collect.Maps;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,27 +19,27 @@ import static org.junit.Assert.assertEquals;
  * Time: 下午7:01
  */
 @ContextConfiguration(locations = {"/applicationContext.xml", "/applicationContext-other.xml"})
-public class NodesAdjMapperTest extends SpringTransactionalTestCase {
+public class NodeAdjMapperTest extends SpringTransactionalTestCase {
 
-    private NodesAdjMapper nodesAdjMapper;
+    private NodeAdjMapper nodeAdjMapper;
     private static final String APP_KEY = "";
 
     @Test
     public void testCrud() throws Exception {
         //新建并保存带权限组的用户
-        NodesAdjacencies nodesAdjacencies = NodesData.getNodesAdjData();
+        NodeAdjacencies nodeAdjacencies = NodeData.getNodeAdjData();
 
         //新建 查询 测试
-        assertEquals(1, nodesAdjMapper.save(APP_KEY, nodesAdjacencies));
-        assertEquals(1, nodesAdjMapper.get(APP_KEY, 21L).getPLen().intValue());
+        assertEquals(1, nodeAdjMapper.save(APP_KEY, nodeAdjacencies));
+        assertEquals(1, nodeAdjMapper.get(APP_KEY, 21L).getPLen().intValue());
 
         //更新 测试
-        nodesAdjacencies.setPId(1L);
-        nodesAdjMapper.update(APP_KEY, nodesAdjacencies);
-        assertEquals(1, nodesAdjacencies.getPId().intValue());
+        nodeAdjacencies.setPId(1L);
+        nodeAdjMapper.update(APP_KEY, nodeAdjacencies);
+        assertEquals(1, nodeAdjacencies.getPId().intValue());
 
         //删除 测试
-        assertEquals(1, nodesAdjMapper.delete(APP_KEY, 8L));
+        assertEquals(1, nodeAdjMapper.delete(APP_KEY, 8L));
     }
 
     @Test
@@ -50,11 +50,11 @@ public class NodesAdjMapperTest extends SpringTransactionalTestCase {
         parameters.put("Direction", "ASC");
         parameters.put("offset", 0);
         parameters.put("limit", 10);
-        assertEquals(2, nodesAdjMapper.search(APP_KEY, parameters).size());
+        assertEquals(2, nodeAdjMapper.search(APP_KEY, parameters).size());
     }
 
     @Autowired
-    public void setFtpUserMapper(NodesAdjMapper nodesAdjMapper) {
-        this.nodesAdjMapper = nodesAdjMapper;
+    public void setFtpUserMapper(NodeAdjMapper nodeAdjMapper) {
+        this.nodeAdjMapper = nodeAdjMapper;
     }
 }

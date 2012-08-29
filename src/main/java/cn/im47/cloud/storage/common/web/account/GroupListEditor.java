@@ -29,7 +29,7 @@ public class GroupListEditor extends PropertyEditorSupport {
         String[] ids = StringUtils.split(text, ",");
         List<Group> groups = Lists.newArrayList();
         for (String id : ids) {
-            Group group = groupManager.getGroup(Long.valueOf(id));
+            Group group = groupManager.get(Long.valueOf(id));
             groups.add(group);
         }
         setValue(groups);

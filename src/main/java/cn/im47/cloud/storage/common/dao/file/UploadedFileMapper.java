@@ -2,6 +2,7 @@ package cn.im47.cloud.storage.common.dao.file;
 
 import cn.im47.cloud.storage.common.dao.GenericAppDao;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +15,6 @@ import java.util.List;
  */
 public interface UploadedFileMapper extends GenericAppDao<UploadedFile, Long> {
 
-    List<UploadedFile> getByNodes(String appKey, Long id);
+    List<UploadedFile> getByNode(@Param("appKey") String appKey, @Param("id") Long id);
 
 }

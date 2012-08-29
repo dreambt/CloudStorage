@@ -1,13 +1,10 @@
 package cn.im47.cloud.storage.common.dao.account;
 
 import cn.im47.cloud.storage.common.entity.account.FtpUser;
-import cn.im47.cloud.storage.common.entity.account.User;
 import cn.im47.cloud.storage.data.account.FtpUserData;
-import cn.im47.cloud.storage.data.account.UserData;
 import com.google.common.collect.Maps;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 

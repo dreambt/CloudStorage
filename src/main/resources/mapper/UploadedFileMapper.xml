@@ -16,7 +16,10 @@
         <result property="lastModifiedDate" column="last_modified_date"/>
         <result property="createdDate" column="created_date"/>
         <result property="deleted" column="deleted"></result>
+        <association property="node" column="node_id" javaType="Node"
+                    resultMap="cn.im47.cloud.storage.common.dao.file.NodeMapper.nodeDetailMap">
 
+        </association>
     </resultMap>
 
     <sql id="fileColumns">F.id, F.custom_name, F.virtual_name, F.real_name, F.size, F.md5, F.CRC, F.shared, F.status,
@@ -30,12 +33,11 @@
         LIMIT 1
     </select>
 
-    <select id="getByNodes" parameterType="Long" resultMap="fileDetailMap">
+    <select id="getByNode" parameterType="Long" resultMap="fileDetailMap">
         SELECT
         <include refid="fileColumns"/>
         FROM ${appKey}CS_FILE AS F
-        WHERE id =#{id}
-        LIMIT 1
+        WHERE node_id =#{id}
     </select>
 
     <select id="count" resultType="Long">

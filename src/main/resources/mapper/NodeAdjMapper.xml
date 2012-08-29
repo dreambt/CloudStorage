@@ -2,42 +2,42 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.im47.cloud.storage.common.dao.file.NodesAdjMapper">
+<mapper namespace="cn.im47.cloud.storage.common.dao.file.NodeAdjMapper">
 
-    <resultMap id="nodesAdjDetailMap" type="NodesAdjacencies">
+    <resultMap id="nodeAdjDetailMap" type="NodeAdjacencies">
         <id property="id" column="id"/>
         <result property="pId" column="p_id"/>
         <result property="cId" column="c_id"/>
         <result property="pLen" column="p_len"/>
     </resultMap>
 
-    <sql id="nodesAdjColumns">NA.id, NA.p_id, NA.c_id, NA.p_len</sql>
+    <sql id="nodeAdjColumns">NA.id, NA.p_id, NA.c_id, NA.p_len</sql>
 
-    <select id="get" parameterType="Long" resultMap="nodesAdjDetailMap">
+    <select id="get" parameterType="Long" resultMap="nodeAdjDetailMap">
         SELECT
-        <include refid="nodesAdjColumns"/>
-        FROM ${appKey}CS_NODES_ADJ AS NA
+        <include refid="nodeAdjColumns"/>
+        FROM ${appKey}CS_NODE_ADJ AS NA
         WHERE id =#{id}
         LIMIT 1
     </select>
 
     <select id="count" resultType="Long">
 		SELECT COUNT(id)
-		FROM ${appKey}CS_NODES_ADJ
+		FROM ${appKey}CS_NODE_ADJ
 	</select>
 
-    <insert id="save" parameterType="NodesAdjacencies">
-		INSERT INTO ${appKey}CS_NODES_ADJ(p_id, c_id, p_len)
+    <insert id="save" parameterType="NodeAdjacencies">
+		INSERT INTO ${appKey}CS_NODE_ADJ(p_id, c_id, p_len)
 		VALUES (#{object.pId}, #{object.cId}, #{object.pLen})
 	</insert>
 
     <delete id="delete">
-		DELETE FROM ${appKey}CS_NODES_ADJ
+		DELETE FROM ${appKey}CS_NODE_ADJ
 		WHERE c_id=#{id}
 	</delete>
 
-    <update id="update" parameterType="NodesAdjacencies">
-        UPDATE ${appKey}CS_NODES_ADJ
+    <update id="update" parameterType="NodeAdjacencies">
+        UPDATE ${appKey}CS_NODE_ADJ
         <set>
             <if test="object.pId != null">
                 p_id=#{object.pId},
@@ -52,9 +52,9 @@
         WHERE id=#{object.id}
     </update>
 
-    <select id="search" parameterType="map" resultMap="nodesAdjDetailMap">
-        select <include refid="nodesAdjColumns"/>
-        FROM ${appKey}CS_NODES_ADJ AS NA
+    <select id="search" parameterType="map" resultMap="nodeAdjDetailMap">
+        select <include refid="nodeAdjColumns"/>
+        FROM ${appKey}CS_NODE_ADJ AS NA
         <where>
             1=1
             <if test="parameters.pId != null">

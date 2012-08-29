@@ -10,7 +10,7 @@ package cn.im47.album.utilities.memcached;
 public enum MemcachedObjectType {
 
     // 大数据请把过期时间调小一些，谢谢~
-    NODES("flight:", 60 * 60 * 1);              // 文件存储结点
+    NODE("flight:", 60 * 60 * 1);              // 文件存储结点
 
     private String prefix;
     private int expiredTime;

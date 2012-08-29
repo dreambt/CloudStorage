@@ -1,6 +1,6 @@
 package cn.im47.cloud.storage.common.service.file;
 
-import cn.im47.cloud.storage.common.entity.file.Nodes;
+import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.service.GenericAppManager;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * Date: 12-7-15
  * Time: 下午8:12
  */
-public interface NodesManager extends GenericAppManager<Nodes, Long> {
+public interface NodeManager extends GenericAppManager<Node, Long> {
 
     /**
      * 获取整个树
@@ -20,7 +20,7 @@ public interface NodesManager extends GenericAppManager<Nodes, Long> {
      * @param appKey
      * @return
      */
-    List<Nodes> getTree(String appKey);
+    List<Node> getTree(String appKey);
 
     /**
      * 获取父节点
@@ -29,7 +29,7 @@ public interface NodesManager extends GenericAppManager<Nodes, Long> {
      * @param id
      * @return
      */
-    Nodes getParent(String appKey, Long id);
+    Node getParent(String appKey, Long id);
 
     /**
      * 获取子节点
@@ -38,6 +38,6 @@ public interface NodesManager extends GenericAppManager<Nodes, Long> {
      * @param id
      * @return
      */
-    List<Nodes> getChildren(String appKey, Long id);
+    List<Node> getChildren(String appKey, Long id);
 
 }

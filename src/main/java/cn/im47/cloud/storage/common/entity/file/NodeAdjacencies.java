@@ -13,7 +13,7 @@ import java.io.Serializable;
  * Date: 12-7-11
  * Time: 上午10:56
  */
-public class NodesAdjacencies extends IdEntity implements Serializable {
+public class NodeAdjacencies extends IdEntity implements Serializable {
 
     private static final long serialVersionUID = -38331060124340967L;
 

@@ -3,8 +3,6 @@ package cn.im47.cloud.storage.common.web.account;
 import cn.im47.cloud.storage.common.entity.account.User;
 import cn.im47.cloud.storage.common.service.account.GroupManager;
 import cn.im47.cloud.storage.common.service.account.UserManager;
-import cn.im47.cloud.storage.common.service.account.impl.UserManagerImpl;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;

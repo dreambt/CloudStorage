@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS `CS_APP` (
 -- --------------------------------------------------------
 -- 目录表
 -- --------------------------------------------------------
-DROP TABLE IF EXISTS `CS_NODES`;
-CREATE TABLE IF NOT EXISTS `CS_NODES` (
+DROP TABLE IF EXISTS `CS_NODE`;
+CREATE TABLE IF NOT EXISTS `CS_NODE` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `type` varchar(20) NOT NULL,
@@ -32,10 +32,10 @@ CREATE TABLE IF NOT EXISTS `CS_NODES` (
 
 
 -- -----------------------------------------------------
--- 目录邻接矩阵表       CS_NODES_ADJ
+-- 目录邻接矩阵表       CS_NODE_ADJ
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `CS_NODES_ADJ`;
-CREATE  TABLE IF NOT EXISTS `CS_NODES_ADJ` (
+DROP TABLE IF EXISTS `CS_NODE_ADJ`;
+CREATE  TABLE IF NOT EXISTS `CS_NODE_ADJ` (
   `p_id` int(11) NOT NULL ,
   `c_id` int(11) NOT NULL ,
   `p_len` int(11) NOT NULL ,
@@ -48,7 +48,7 @@ CREATE  TABLE IF NOT EXISTS `CS_NODES_ADJ` (
 DROP TABLE IF EXISTS `CS_FILE`;
 CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `nodes_id` int(11) NOT NULL,
+  `node_id` int(11) NOT NULL,
   `custom_name` varchar(50) NOT NULL,
   `virtual_name` varchar(50) NOT NULL,
   `real_name` varchar(50) NOT NULL,

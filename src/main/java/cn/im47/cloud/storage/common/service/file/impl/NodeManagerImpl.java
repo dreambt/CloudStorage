@@ -1,12 +1,11 @@
 package cn.im47.cloud.storage.common.service.file.impl;
 
-import cn.im47.cloud.storage.common.dao.file.NodesAdjMapper;
-import cn.im47.cloud.storage.common.dao.file.NodesMapper;
-import cn.im47.cloud.storage.common.entity.file.Nodes;
-import cn.im47.cloud.storage.common.service.file.NodesManager;
+import cn.im47.cloud.storage.common.dao.file.NodeAdjMapper;
+import cn.im47.cloud.storage.common.dao.file.NodeMapper;
+import cn.im47.cloud.storage.common.entity.file.Node;
+import cn.im47.cloud.storage.common.service.file.NodeManager;
 import cn.im47.cloud.storage.memcached.MemcachedObjectType;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,74 +29,74 @@ import java.util.Map;
  */
 @Component
 @Transactional(readOnly = true)
-public class NodesManagerImpl implements NodesManager {
+public class NodeManagerImpl implements NodeManager {
 
-    private static final Logger logger = LoggerFactory.getLogger(NodesManagerImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(NodeManagerImpl.class);
 
     private JsonMapper jsonMapper = JsonMapper.nonDefaultMapper();
 
-    private NodesMapper nodesMapper;
+    private NodeMapper nodeMapper;
 
-    private NodesAdjMapper nodesAdjMapper;
+    private NodeAdjMapper nodeAdjMapper;
 
     private SpyMemcachedClient spyMemcachedClient;
 
     @Override
-    public Nodes get(String appKey, Long id) {
-        return nodesMapper.get(appKey, id);
+    public Node get(String appKey, Long id) {
+        return nodeMapper.get(appKey, id);
     }
 
     @Override
-    public List<Nodes> getTree(String appKey) {
-        List<Nodes> nodesList = Lists.newArrayList();
+    public List<Node> getTree(String appKey) {
+        List<Node> nodeList = Lists.newArrayList();
 
         String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
         key = Encodes.encodeHex(Digests.sha1(key.getBytes()));
         String jsonString = spyMemcachedClient.get(key);
 
         if (StringUtils.isBlank(jsonString)) {
-            nodesList = nodesMapper.getChild(appKey, 0L);
-            int size = nodesList.size();
-            for (Nodes node : nodesList) {
-                List<Nodes> temp = nodesMapper.getChild(appKey, node.getId());
+            nodeList = nodeMapper.getChild(appKey, 0L);
+            int size = nodeList.size();
+            for (Node node : nodeList) {
+                List<Node> temp = nodeMapper.getChild(appKey, node.getId());
                 if (null != temp) {
-                    node.setNodesList(temp);
+                    node.setNodeList(temp);
                 }
             }
-            jsonString = jsonMapper.toJson(nodesList);
+            jsonString = jsonMapper.toJson(nodeList);
             spyMemcachedClient.set(key, MemcachedObjectType.NODE.getExpiredTime(), jsonString);
         } else {
-            nodesList = jsonMapper.fromJson(jsonString, jsonMapper.createCollectionType(List.class, Nodes.class));
+            nodeList = jsonMapper.fromJson(jsonString, jsonMapper.createCollectionType(List.class, Node.class));
         }
-        return nodesList;
+        return nodeList;
     }
 
     @Override
     @Transactional(readOnly = false)
-    public int save(String appKey, Nodes object) {
+    public int save(String appKey, Node object) {
         long parentId = object.getParent().getId();
         long parentLen = 0;
-        List<Nodes> nodesList = nodesMapper.getChild(appKey, parentId);
+        List<Node> nodeList = nodeMapper.getChild(appKey, parentId);
         // TODO
-        /*if (nodesList.size() > 0) {
-            object.setLeftSibling(nodesList.get(nodesList.size() - 1).getId());
+        /*if (nodeList.size() > 0) {
+            object.setLeftSibling(nodeList.get(nodeList.size() - 1).getId());
         } else {
             object.setLeftSibling(0L);
         }*/
 
         // 添加node
-        int num = nodesMapper.save(appKey, object);
+        int num = nodeMapper.save(appKey, object);
         long id = object.getId();
 
         // 建立node关系 TODO
-        /*nodesAdjMapper.save(appKey, id, id, parentLen);
+        /*nodeAdjMapper.save(appKey, id, id, parentLen);
         try {
             for (; parentId > 0; ) {
-                nodesMapper.saveADJ(appKey, parentId, id, ++parentLen);
-                parentId = nodesMapper.get(appKey, parentId).getParent().getId();
+                nodeMapper.saveADJ(appKey, parentId, id, ++parentLen);
+                parentId = nodeMapper.get(appKey, parentId).getParent().getId();
             }
         } catch (NullPointerException npe) {
-            nodesMapper.saveADJ(appKey, 0L, id, ++parentLen);
+            nodeMapper.saveADJ(appKey, 0L, id, ++parentLen);
         }*/
 
         // 清理缓存
@@ -108,7 +107,7 @@ public class NodesManagerImpl implements NodesManager {
 
     @Override
     @Transactional(readOnly = false)
-    public int update(String appKey, Nodes object) {
+    public int update(String appKey, Node object) {
         // 清理缓存
         String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
         spyMemcachedClient.delete(key);
@@ -120,14 +119,14 @@ public class NodesManagerImpl implements NodesManager {
     @Transactional(readOnly = false)
     public int delete(String appKey, Long id) {
         // 修正右兄弟的左兄弟
-        Nodes left_sibling = nodesMapper.get(appKey, id);
-        nodesMapper.update(appKey, left_sibling);
+        Node left_sibling = nodeMapper.get(appKey, id);
+        nodeMapper.update(appKey, left_sibling);
 
         // 删除结点信息
-        nodesMapper.delete(appKey, id);
+        nodeMapper.delete(appKey, id);
 
         // 删除结点关系 TODO
-        //nodesMapper.deleteADJ(appKey, id);
+        //nodeMapper.deleteADJ(appKey, id);
 
         // 清理缓存
         String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
@@ -137,44 +136,44 @@ public class NodesManagerImpl implements NodesManager {
     }
 
     @Override
-    public List<Nodes> search(String appKey, Map<String, Object> parameters) {
+    public List<Node> search(String appKey, Map<String, Object> parameters) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public List<Nodes> search(String appKey, Map<String, Object> parameters, int offset, int limit) {
+    public List<Node> search(String appKey, Map<String, Object> parameters, int offset, int limit) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     /**/
     @Override
-    public Nodes getParent(String appKey, Long id) {
-        return nodesMapper.get(appKey, id).getParent();
+    public Node getParent(String appKey, Long id) {
+        return nodeMapper.get(appKey, id).getParent();
     }
 
     @Override
-    public List<Nodes> getChildren(String appKey, Long id) {
-        List<Nodes> nodesList = Lists.newArrayList();
+    public List<Node> getChildren(String appKey, Long id) {
+        List<Node> nodeList = Lists.newArrayList();
 
-        nodesList = nodesMapper.getChild(appKey, id);
-        int size = nodesList.size();
-        for (Nodes node : nodesList) {
-            List<Nodes> temp = nodesMapper.getChild(appKey, node.getId());
+        nodeList = nodeMapper.getChild(appKey, id);
+        int size = nodeList.size();
+        for (Node node : nodeList) {
+            List<Node> temp = nodeMapper.getChild(appKey, node.getId());
             if (null != temp) {
-                node.setNodesList(temp);
+                node.setNodeList(temp);
             }
         }
-        return nodesList;
+        return nodeList;
     }
 
     @Autowired
-    public void setNodesMapper(NodesMapper nodesMapper) {
-        this.nodesMapper = nodesMapper;
+    public void setNodeMapper(NodeMapper nodeMapper) {
+        this.nodeMapper = nodeMapper;
     }
 
     @Autowired
-    public void setNodesAdjMapper(NodesAdjMapper nodesAdjMapper) {
-        this.nodesAdjMapper = nodesAdjMapper;
+    public void setNodeAdjMapper(NodeAdjMapper nodeAdjMapper) {
+        this.nodeAdjMapper = nodeAdjMapper;
     }
 
     @Autowired

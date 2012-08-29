@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 用户组管理类
  * <p/>
@@ -30,9 +33,34 @@ public class GroupManagerImpl implements GroupManager {
      * @param id
      * @return
      */
-    public Group getGroup(Long id) {
-        logger.info("Info: {}", "getGroup where id=" + id);
+    public Group get(Long id) {
+        logger.info("Info: {}", "get where id=" + id);
         return groupMapper.get(id);
+    }
+
+    @Override
+    public int save(Group object) {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public int update(Group object) {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public int delete(Long id) {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<Group> search(Map<String, Object> parameters) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public List<Group> search(Map<String, Object> parameters, int offset, int limit) {
+        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     /**
@@ -40,8 +68,8 @@ public class GroupManagerImpl implements GroupManager {
      *
      * @return
      */
-    public Long getCount() {
-        logger.info("Info: {}", "getCount");
+    public Long count() {
+        logger.info("Info: {}", "count");
         return groupMapper.count();
     }
 

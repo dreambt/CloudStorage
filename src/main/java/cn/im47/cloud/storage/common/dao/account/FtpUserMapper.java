@@ -2,10 +2,6 @@ package cn.im47.cloud.storage.common.dao.account;
 
 import cn.im47.cloud.storage.common.dao.GenericDao;
 import cn.im47.cloud.storage.common.entity.account.FtpUser;
-import cn.im47.cloud.storage.common.entity.account.User;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * Ftp用户 Dao 接口

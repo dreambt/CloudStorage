@@ -1,11 +1,9 @@
 package cn.im47.cloud.storage.common.web.account;
 
 import cn.im47.cloud.storage.common.entity.account.User;
-import cn.im47.cloud.storage.common.service.account.GroupManager;
 import cn.im47.cloud.storage.common.service.account.UserManager;
 import cn.im47.cloud.storage.common.service.account.impl.UserManagerImpl;
 import com.google.common.collect.Maps;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -78,17 +76,17 @@ public class UserDetailController {
     @RequestMapping(value = "save/{id}")
     public String save(@ModelAttribute("user") User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (null == user) {
-        redirectAttributes.addFlashAttribute("info", "该用户不存在，请刷新重试");
+            redirectAttributes.addFlashAttribute("info", "该用户不存在，请刷新重试");
+            return "redirect:/account/userinfo" + user.getId();
+        }
+        if (bindingResult.hasErrors()) {
+            return updateForm(user, redirectAttributes);
+        }
+
+        userManager.update(user);
+        redirectAttributes.addFlashAttribute("info", "修改用户成功");
         return "redirect:/account/userinfo" + user.getId();
     }
-    if (bindingResult.hasErrors()) {
-        return updateForm(user, redirectAttributes);
-    }
-
-    userManager.update(user);
-    redirectAttributes.addFlashAttribute("info", "修改用户成功");
-    return "redirect:/account/userinfo" + user.getId();
-}
 
     @ModelAttribute("user")
     public User getAccount(@PathVariable("id") Long id) {

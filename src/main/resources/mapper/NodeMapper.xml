@@ -2,67 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="cn.im47.cloud.storage.common.dao.file.NodesMapper">
+<mapper namespace="cn.im47.cloud.storage.common.dao.file.NodeMapper">
 
-    <resultMap id="nodesDetailMap" type="Nodes">
+    <resultMap id="nodeDetailMap" type="Node">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="type" column="type"/>
-        <collection property="leftSibling" column="left_sibling" javaType="Nodes"
-                    resultMap="cn.im47.cloud.storage.common.dao.file.NodesMapper.nodesDetailMap" >
+        <collection property="leftSibling" column="left_sibling" javaType="Node"
+                    resultMap="cn.im47.cloud.storage.common.dao.file.NodeMapper.nodeDetailMap" >
         </collection>
-        <collection property="parent" column="parent_id" javaType="Nodes"
-                    resultMap="cn.im47.cloud.storage.common.dao.file.NodesMapper.nodesDetailMap" >
+        <collection property="parent" column="parent_id" javaType="Node"
+                    resultMap="cn.im47.cloud.storage.common.dao.file.NodeMapper.nodeDetailMap" >
         </collection>
     </resultMap>
 
-    <sql id="nodesColumns">N.id, N.name, N.type, N.left_sibling, N.parent_id</sql>
+    <sql id="nodeColumns">N.id, N.name, N.type, N.left_sibling, N.parent_id</sql>
 
-    <select id="get" parameterType="Long" resultMap="nodesDetailMap">
+    <select id="get" parameterType="Long" resultMap="nodeDetailMap">
         SELECT
-        <include refid="nodesColumns"/>
-        FROM ${appKey}CS_NODES AS N
+        <include refid="nodeColumns"/>
+        FROM ${appKey}CS_NODE AS N
         WHERE id =#{id}
         LIMIT 1
     </select>
 
-    <select id="getChild" parameterType="Long" resultMap="nodesDetailMap">
+    <select id="getChild" parameterType="Long" resultMap="nodeDetailMap">
         SELECT
-        <include refid="nodesColumns"/>
-        FROM ${appKey}CS_NODES AS N
+        <include refid="nodeColumns"/>
+        FROM ${appKey}CS_NODE AS N
         WHERE parent_id =#{id}
     </select>
 
-    <select id="getRightSibling" parameterType="Long" resultMap="nodesDetailMap">
+    <select id="getRightSibling" parameterType="Long" resultMap="nodeDetailMap">
         SELECT
-        <include refid="nodesColumns"/>
-        FROM ${appKey}CS_NODES AS N
+        <include refid="nodeColumns"/>
+        FROM ${appKey}CS_NODE AS N
         WHERE left_sibling =#{id}
     </select>
 
     <select id="count" resultType="Long">
 		SELECT COUNT(id)
-		FROM ${appKey}CS_NODES
+		FROM ${appKey}CS_NODE
 	</select>
 
-    <insert id="save" parameterType="Nodes" useGeneratedKeys="true" keyProperty="object.id">
-		INSERT INTO ${appKey}CS_NODES(id, name, type, left_sibling, parent_id)
+    <insert id="save" parameterType="Node" useGeneratedKeys="true" keyProperty="object.id">
+		INSERT INTO ${appKey}CS_NODE(id, name, type, left_sibling, parent_id)
 		VALUES (null, #{object.name}, #{object.type}, #{object.leftSibling.id}, #{object.parent.id})
 	</insert>
 
     <delete id="delete">
-		DELETE FROM ${appKey}CS_NODES
+		DELETE FROM ${appKey}CS_NODE
 		WHERE id=#{id}
 	</delete>
 
     <update id="updateBool" parameterType="map">
-        UPDATE ${appKey}CS_NODES
+        UPDATE ${appKey}CS_NODE
         SET ${column}=1-${column}
         WHERE id=#{id}
     </update>
 
-    <update id="update" parameterType="Nodes">
-        UPDATE ${appKey}CS_NODES
+    <update id="update" parameterType="Node">
+        UPDATE ${appKey}CS_NODE
         <set>
             <if test="object.name != null and object.name !=''">
                 name=#{object.name},
@@ -80,9 +80,9 @@
         WHERE id=#{object.id}
     </update>
 
-    <select id="search" parameterType="map" resultMap="nodesDetailMap">
-        select <include refid="nodesColumns"/>
-        FROM ${appKey}CS_NODES AS N
+    <select id="search" parameterType="map" resultMap="nodeDetailMap">
+        select <include refid="nodeColumns"/>
+        FROM ${appKey}CS_NODE AS N
         <where>
             1=1
             <if test="parameters.name != null and parameters.name !=''">

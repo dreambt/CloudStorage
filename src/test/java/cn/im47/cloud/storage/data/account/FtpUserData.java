@@ -1,14 +1,6 @@
 package cn.im47.cloud.storage.data.account;
 
 import cn.im47.cloud.storage.common.entity.account.FtpUser;
-import cn.im47.cloud.storage.common.entity.account.Group;
-import cn.im47.cloud.storage.common.entity.account.Permission;
-import cn.im47.cloud.storage.common.entity.account.User;
-import cn.im47.cloud.storage.security.ShiroDbRealm;
-import com.google.common.collect.Lists;
-import org.springside.modules.test.data.RandomData;
-
-import java.util.List;
 
 /**
  * FtpUser相关实体测试数据生成.

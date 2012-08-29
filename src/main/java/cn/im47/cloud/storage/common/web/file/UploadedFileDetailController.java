@@ -1,28 +1,16 @@
 package cn.im47.cloud.storage.common.web.file;
 
-import cn.im47.cloud.storage.common.entity.account.User;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
-import cn.im47.cloud.storage.common.service.account.GroupManager;
-import cn.im47.cloud.storage.common.service.account.UserManager;
-import cn.im47.cloud.storage.common.service.account.impl.UserManagerImpl;
-import cn.im47.cloud.storage.common.service.file.NodesManager;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
-import cn.im47.cloud.storage.common.web.account.GroupListEditor;
 import com.google.common.collect.Maps;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -75,14 +63,14 @@ public class UploadedFileDetailController {
     @RequestMapping(value = "save/{id}")
     public String save(@ModelAttribute("file") UploadedFile file, RedirectAttributes redirectAttributes) {
         if (null == file) {
-        redirectAttributes.addFlashAttribute("info", "该文件不存在，请刷新重试");
-        return "redirect:/file/edit";
-    }
+            redirectAttributes.addFlashAttribute("info", "该文件不存在，请刷新重试");
+            return "redirect:/file/edit";
+        }
 
-    uploadedFileManager.update(APP_KEY, file);
-    redirectAttributes.addFlashAttribute("info", "修改上传文件成功");
-    return "redirect:/file/getByNodes";
-}
+        uploadedFileManager.update(APP_KEY, file);
+        redirectAttributes.addFlashAttribute("info", "修改上传文件成功");
+        return "redirect:/file/getByNode";
+    }
 
     @ModelAttribute("file")
     public UploadedFile getUploadedFile(@PathVariable("id") Long id) {

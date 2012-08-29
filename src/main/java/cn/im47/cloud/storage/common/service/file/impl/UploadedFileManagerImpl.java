@@ -3,7 +3,6 @@ package cn.im47.cloud.storage.common.service.file.impl;
 import cn.im47.cloud.storage.common.dao.file.UploadedFileMapper;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
-import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,8 +27,8 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
-    public List<UploadedFile> getByNodes(String appKey, Long id) {
-        return uploadedFileMapper.getByNodes(appKey, id);
+    public List<UploadedFile> getByNode(String appKey, Long id) {
+        return uploadedFileMapper.getByNode(appKey, id);
     }
 
     @Override

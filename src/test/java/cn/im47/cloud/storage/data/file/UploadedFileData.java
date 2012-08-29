@@ -1,8 +1,5 @@
 package cn.im47.cloud.storage.data.file;
 
-import cn.im47.cloud.storage.common.entity.file.FileTypeEnum;
-import cn.im47.cloud.storage.common.entity.file.Nodes;
-import cn.im47.cloud.storage.common.entity.file.NodesAdjacencies;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 
 import java.util.Date;

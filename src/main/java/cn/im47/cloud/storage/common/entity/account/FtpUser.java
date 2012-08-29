@@ -1,6 +1,5 @@
 package cn.im47.cloud.storage.common.entity.account;
 
-import cn.im47.cloud.storage.common.entity.IdEntity;
 import cn.im47.cloud.storage.common.entity.PersistableEntity;
 
 /**

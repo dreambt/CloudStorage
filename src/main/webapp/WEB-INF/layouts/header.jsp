@@ -6,6 +6,7 @@
 --%>
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%--<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>--%>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <div class="navbar navbar-fixed-top">
@@ -21,24 +22,19 @@
             <div class="nav-collapse">
                 <ul class="nav">
                     <li id="index-page"><a href="${ctx}">首页</a></li>
-                    <li id="file-page"><a href="${ctx}/file">文件管理</a></li>
-                    <li id="sort-page" class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">分类管理 <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        </ul>
-                    </li>
+                    <li id="file-page"><a href="${ctx}/file/list/0">文件管理</a></li>
+                    <li id="sort-page"><a href="${ctx}/node/">分类管理</a></li>
                     <li id="user-page"><a href="${ctx}/user">用户管理</a></li>
-                    <li id="course-page"><a href="${ctx}/course">课程查询</a></li>
                     <li id="about-page"><a href="${ctx}/about">关于我们</a></li>
                 </ul>
                 <form class="navbar-search pull-left" action="">
                     <input type="text" class="search-query span2" placeholder="Search">
                 </form>
                 <ul class="nav pull-right">
-                    <shiro:guest>
-                        <li id="login-page"><a href="${ctx}/login">登录</a></li>
-                        <li id="reg-page"><a href="${ctx}/reg">注册</a></li>
-                    </shiro:guest>
+                    <%--<shiro:guest>--%>
+                        <%--<li id="login-page"><a href="${ctx}/login">登录</a></li>--%>
+                        <%--<li id="reg-page"><a href="${ctx}/reg">注册</a></li>--%>
+                    <%--</shiro:guest>--%>
                 </ul>
             </div>
             <!-- /.nav-collapse -->

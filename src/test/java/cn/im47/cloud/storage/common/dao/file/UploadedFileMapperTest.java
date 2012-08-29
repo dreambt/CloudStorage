@@ -1,7 +1,6 @@
 package cn.im47.cloud.storage.common.dao.file;
 
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
-import cn.im47.cloud.storage.data.file.NodesData;
 import cn.im47.cloud.storage.data.file.UploadedFileData;
 import com.google.common.collect.Maps;
 import org.junit.Test;
@@ -45,8 +44,8 @@ public class UploadedFileMapperTest extends SpringTransactionalTestCase {
     }
 
     @Test
-    public void testGetByNodes() throws Exception {
-        List<UploadedFile> uploadedFiles = uploadedFileMapper.getByNodes(APP_KEY, 2L);
+    public void testGetByNode() throws Exception {
+        List<UploadedFile> uploadedFiles = uploadedFileMapper.getByNode(APP_KEY, 2L);
         assertEquals(2, uploadedFiles.size());
     }
 

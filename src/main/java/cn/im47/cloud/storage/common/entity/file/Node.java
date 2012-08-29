@@ -15,16 +15,16 @@ import java.util.List;
  * Date: 12-7-11
  * Time: 上午10:56
  */
-public class Nodes extends IdEntity implements Serializable {
+public class Node extends IdEntity implements Serializable {
 
     private static final long serialVersionUID = -38331060124340966L;
 
     private String name;                 // 结点名称
     private FileTypeEnum type;           // 结点类型
-    private Nodes leftSibling;          // 左兄弟编号
+    private Node leftSibling;          // 左兄弟编号
 
-    private Nodes parent;              // 父节点编号
-    private List<Nodes> nodesList = Lists.newArrayList();
+    private Node parent;              // 父节点编号
+    private List<Node> nodeList = Lists.newArrayList();
 
     public String getName() {
         return name;
@@ -42,28 +42,28 @@ public class Nodes extends IdEntity implements Serializable {
         this.type = type;
     }
 
-    public Nodes getLeftSibling() {
+    public Node getLeftSibling() {
         return leftSibling;
     }
 
-    public void setLeftSibling(Nodes leftSibling) {
+    public void setLeftSibling(Node leftSibling) {
         this.leftSibling = leftSibling;
     }
 
-    public Nodes getParent() {
+    public Node getParent() {
         return parent;
     }
 
-    public void setParent(Nodes parent) {
+    public void setParent(Node parent) {
         this.parent = parent;
     }
 
-    public List<Nodes> getNodesList() {
-        return nodesList;
+    public List<Node> getList() {
+        return nodeList;
     }
 
-    public void setNodesList(List<Nodes> nodesList) {
-        this.nodesList = nodesList;
+    public void setNodeList(List<Node> nodeList) {
+        this.nodeList = nodeList;
     }
 
     @Override
