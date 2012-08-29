@@ -97,7 +97,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "audit/{id}")
-    public String auditArticle(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    public String audit(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         if (userManager.update(id, "status") > 0) {
             redirectAttributes.addFlashAttribute("info", "操作用户 " + id + " 成功.");
         } else {
@@ -113,7 +113,7 @@ public class UserController {
      * @return
      */
     @RequestMapping(value = "delete/{id}")
-    public String deleteArticle(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         if (userManager.update(id, "deleted") > 0) {
             redirectAttributes.addFlashAttribute("info", "操作用户 " + id + " 成功.");
         } else {

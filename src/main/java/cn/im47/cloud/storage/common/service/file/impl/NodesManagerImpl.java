@@ -153,7 +153,7 @@ public class NodesManagerImpl implements NodesManager {
     }
 
     @Override
-    public List<Nodes> getChild(String appKey, Long id) {
+    public List<Nodes> getChildren(String appKey, Long id) {
         List<Nodes> nodesList = Lists.newArrayList();
 
         nodesList = nodesMapper.getChild(appKey, id);

@@ -38,6 +38,6 @@ public interface NodesManager extends GenericAppManager<Nodes, Long> {
      * @param id
      * @return
      */
-    List<Nodes> getChild(String appKey, Long id);
+    List<Nodes> getChildren(String appKey, Long id);
 
 }

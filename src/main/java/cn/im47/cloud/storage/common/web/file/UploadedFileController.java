@@ -30,27 +30,53 @@ public class UploadedFileController {
 
     private static final String APP_KEY = "";
 
+    /**
+     * 获得编号为id 的文件, ajax返回
+     *
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
     @ResponseBody
     public UploadedFile get(@PathVariable("id") Long id) {
         return uploadedFileManager.get(APP_KEY, id);
     }
 
+    /**
+     * 获得分类编号为id 的所有文件， ajax返回
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/getByNodes/{id}", method = RequestMethod.GET)
     @ResponseBody
     public List<UploadedFile> getByNodes(@PathVariable("id") Long id) {
         return uploadedFileManager.getByNodes(APP_KEY, id);
     }
 
+    /**
+     * 跳转到上传页面
+     *
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "/create")
     public String create(Model model) {
         model.addAttribute("file", new UploadedFile());
         return "file/edit";
     }
 
+    /**
+     * 保存上传文件
+     *
+     * @param model
+     * @param file
+     * @param uploadedFile
+     * @return
+     */
     @RequestMapping(value = "/save")
-    public String save(Model model, UploadedFile file) {
-        if(uploadedFileManager.save(APP_KEY, file) > 0) {
+    public String save(Model model, @RequestParam(value = "file", required = false) MultipartFile file, UploadedFile uploadedFile) {
+
+        if(uploadedFileManager.save(APP_KEY, uploadedFile) > 0) {
             model.addAttribute("info", "上传文件成功");
         } else {
             model.addAttribute("error", "上传文件失败");
@@ -58,21 +84,13 @@ public class UploadedFileController {
         return "redirect:/file/getByNodes";
     }
 
-    @RequestMapping(value = "/put", method = RequestMethod.GET)
-    public List<UploadedFile> put(@RequestParam("file") MultipartFile file) {
-        // Do custom steps here
-        // i.e. Save the file to a temporary location or database
-        logger.debug("Writing file to disk...done");
-
-        List<UploadedFile> uploadedFiles = Lists.newArrayList();
-        UploadedFile u = new UploadedFile(file.getOriginalFilename(),
-                Long.valueOf(file.getSize()).intValue(),
-                "http://localhost:8080/spring-fileupload-tutorial/resources/" + file.getOriginalFilename());
-
-        uploadedFiles.add(u);
-        return uploadedFiles;
-    }
-
+    /**
+     * 标记删除上传文件
+     *
+     * @param model
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String delete(Model model, @PathVariable("id") Long id) {
         if(uploadedFileManager.updateBool(APP_KEY, id, "deleted") > 0) {
