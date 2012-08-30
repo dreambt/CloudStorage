@@ -1,7 +1,6 @@
 package cn.im47.cloud.storage.common.web;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,7 +18,7 @@ public class GeneralController {
      *
      * @return
      */
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String index() {
         return "index";
     }
@@ -27,11 +26,6 @@ public class GeneralController {
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about() {
         return "about";
-    }
-
-    @RequestMapping(value = "/{path}", method = RequestMethod.GET)
-    public String index(@PathVariable("path") String path) {
-        return path + "/index";
     }
 
 }

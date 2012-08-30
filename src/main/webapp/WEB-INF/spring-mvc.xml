@@ -30,7 +30,7 @@
     </bean>
 
     <!-- 定义无Controller的path<->view直接映射 -->
-    <mvc:view-controller path="/" view-name="forward:/login"/>
+    <mvc:view-controller path="/" view-name="forward:/index"/>
     <mvc:view-controller path="/web/mashup-client" view-name="/web/mashup-client"/>
 
     <mvc:resources mapping="/static/**" location="/static/"/>

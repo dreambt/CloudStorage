@@ -14,11 +14,11 @@
         </param-value>
     </context-param>
 
-	<!-- 設定Spring Context的默认Profile -->
-	<context-param>
-    	<param-name>spring.profiles.default</param-name>
-    	<param-value>production</param-value>
-	</context-param>
+    <!-- 設定Spring Context的默认Profile -->
+    <context-param>
+        <param-name>spring.profiles.default</param-name>
+        <param-value>production</param-value>
+    </context-param>
 
     <!--Spring的ApplicationContext 载入 -->
     <listener>
@@ -49,7 +49,7 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-<!-- JMX JSON Agent servlet-->
+    <!-- JMX JSON Agent servlet-->
     <servlet>
         <servlet-name>jolokia-agent</servlet-name>
         <servlet-class>org.jolokia.http.AgentServlet</servlet-class>
@@ -164,12 +164,14 @@
         <filter-class>org.eclipse.jetty.servlets.GzipFilter</filter-class>
         <init-param>
             <param-name>mimeTypes</param-name>
-            <param-value>text/javascript,application/x-javascript,text/html,text/css,image/gif,image/jpg,image/jpeg,image/png</param-value>
+            <param-value>
+                text/html,text/plain,text/xml,application/xhtml+xml,text/css,application/javascript,application/json,image/svg+xml
+            </param-value>
         </init-param>
     </filter>
     <filter-mapping>
         <filter-name>jettyGzipFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/static/*</url-pattern>
     </filter-mapping>
 
     <!-- session超时定义,单位为分钟 -->

@@ -27,27 +27,7 @@
                 /login = authc
                 /logout = logout
                 /static/** = anon
-                /dashboard/** = user
                 /account/** = user
-                <!-- 文章管理 -->
-                /article/create = perms["article:create"]
-                /article/edit/** = perms["article:edit"]
-                /article/save/** = perms["article:edit"]
-                /article/delete/** = perms["article:save"]
-                /article/allow/** = perms["article:save"]
-                /article/top/** = perms["article:save"]
-                /article/audit/** = perms["article:save"]
-                /article/batchDelete/** = perms["article:save"]
-                /article/batchAudit/** = perms["article:save"]
-                /article/listAll = perms["article:list"]
-                <!-- 归档管理 -->
-                /archive/save/** = perms["article:list"]
-                <!-- 评论管理 -->
-                /comment/delete/** = perms["comment:save"]
-                /comment/audit/** = perms["comment:save"]
-                /comment/batchDelete/** = perms["comment:save"]
-                /comment/batchAudit/** = perms["comment:save"]
-                /comment/listAll = perms["comment:list"]
                 <!-- 用户管理 -->
                 /account/user/create = perms["user:create"]
                 /account/user/edit/** = perms["user:edit"]
@@ -57,22 +37,6 @@
                 /account/user/batchDelete/** = perms["user:save"]
                 /account/user/batchAudit/** = perms["user:save"]
                 /account/user/listAll = perms["user:list"]
-                <!-- 相册管理 -->
-                /gallery/create = perms["gallery:create"]
-                /gallery/edit/** = perms["gallery:edit"]
-                /gallery/save/** = perms["gallery:edit"]
-                /gallery/showIndex/** = perms["gallery:save"]
-                /gallery/delete/** = perms["gallery:save"]
-                /gallery/batchDelete/** = perms["gallery:save"]
-                /gallery/listAll = perms["gallery:list"]
-                <!-- 菜单管理 -->
-                /category/**= perms["category:list"]
-                <!-- 友情链接管理 -->
-                /link/** = perms["link:list"]
-                <!-- 研究所管理 -->
-                /agency/** = perms["agency:list"]
-                <!-- 老师管理 -->
-                /teacher/** = perms["teacher:list"]
             </value>
         </property>
     </bean>
