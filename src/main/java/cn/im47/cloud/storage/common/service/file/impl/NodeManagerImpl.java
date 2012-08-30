@@ -4,7 +4,7 @@ import cn.im47.cloud.storage.common.dao.file.NodeAdjMapper;
 import cn.im47.cloud.storage.common.dao.file.NodeMapper;
 import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
-import cn.im47.cloud.storage.memcached.MemcachedObjectType;
+import cn.im47.cloud.storage.utilities.memcached.MemcachedObjectType;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -12,8 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springside.modules.cache.memcached.SpyMemcachedClient;
 import org.springside.modules.mapper.JsonMapper;
-import org.springside.modules.memcached.SpyMemcachedClient;
 import org.springside.modules.security.utils.Digests;
 import org.springside.modules.utils.Encodes;
 

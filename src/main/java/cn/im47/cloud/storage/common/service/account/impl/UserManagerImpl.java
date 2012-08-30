@@ -8,7 +8,7 @@ import cn.im47.cloud.storage.common.service.ServiceException;
 import cn.im47.cloud.storage.common.service.account.UserManager;
 import cn.im47.cloud.storage.jms.NotifyMessageProducer;
 import cn.im47.cloud.storage.security.ShiroDbRealm;
-import cn.im47.cloud.storage.utilities.RandomString;
+import cn.im47.commons.utilities.RandomString;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -31,9 +31,7 @@ import java.util.Map;
  * Date: 12-3-22
  * Time: 下午5:25
  */
-//Spring Bean的标识.
 @Component
-//默认将类中的所有public函数纳入事务管理.
 @Transactional(readOnly = true)
 public class UserManagerImpl implements UserManager {
 
@@ -51,7 +49,7 @@ public class UserManagerImpl implements UserManager {
 
     public User get(Long id) {
         logger.debug("== Find user by id={}.", id);
-        return (User) userMapper.get(id);
+        return userMapper.get(id);
     }
 
     @Transactional(readOnly = false)
@@ -256,4 +254,5 @@ public class UserManagerImpl implements UserManager {
     public void setShiroRealm(ShiroDbRealm shiroRealm) {
         this.shiroRealm = shiroRealm;
     }
+
 }

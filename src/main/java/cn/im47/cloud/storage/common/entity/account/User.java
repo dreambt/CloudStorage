@@ -1,10 +1,10 @@
 package cn.im47.cloud.storage.common.entity.account;
 
 import cn.im47.cloud.storage.common.entity.PersistableEntity;
-import cn.im47.cloud.storage.utilities.encoder.IPEncoder;
+import cn.im47.commons.utilities.encoder.IPEncodes;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springside.modules.utils.Collections3;
@@ -163,11 +163,11 @@ public class User extends PersistableEntity {
     }
 
     public String getLastLoginIP() {
-        return IPEncoder.longToIp(lastIP);
+        return IPEncodes.longToIp(lastIP);
     }
 
     public void setLastLoginIP(String lastLoginIP) {
-        this.lastIP = IPEncoder.ipToLong(lastLoginIP);
+        this.lastIP = IPEncodes.ipToLong(lastLoginIP);
     }
 
     public Date getLastTime() {

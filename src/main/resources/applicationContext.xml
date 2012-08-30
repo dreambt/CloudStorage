@@ -42,31 +42,58 @@
     <!-- 使用annotation定义事务 -->
     <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
+    <!-- 定义aspectj -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-    <!-- JSR303 Validator定义 -->
+    <!-- hibernate validator -->
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
-    <!-- production/local development环境 -->
-    <beans profile="production,development">
+    <!-- production环境 -->
+    <beans profile="production">
         <context:property-placeholder ignore-resource-not-found="true"
                                       location="classpath*:/application.properties,
                                       classpath*:/application.local.properties,
-                                      file:/opt/CT-Proxy/application.server.properties"/>
+                                      file:/opt/CS/application.server.properties"/>
 
         <!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
-        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
             <!-- Connection Info -->
             <property name="driverClassName" value="${jdbc.driver}"/>
             <property name="url" value="${jdbc.url}"/>
             <property name="username" value="${jdbc.username}"/>
             <property name="password" value="${jdbc.password}"/>
-            <property name="defaultAutoCommit" value="false"/>
+            <property name="maxActive" value="20"/>
         </bean>
 
         <!-- quartz使用的数据源配置 -->
-        <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-            <property name="driverClass" value="${quartz.jdbc.driver}"/>
+        <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="${quartz.jdbc.driver}"/>
+            <property name="url" value="${quartz.jdbc.url}"/>
+            <property name="username" value="${quartz.jdbc.username}"/>
+            <property name="password" value="${quartz.jdbc.password}"/>
+        </bean>
+    </beans>
+
+    <!-- local development环境 -->
+    <beans profile="development">
+        <context:property-placeholder ignore-resource-not-found="true"
+                                      location="classpath*:/application.properties,
+          			  classpath*:/application.development.properties,
+          			  classpath*:/application.development-local.properties"/>
+
+        <!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
+        <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+            <!-- Connection Info -->
+            <property name="driverClassName" value="${jdbc.driver}"/>
+            <property name="url" value="${jdbc.url}"/>
+            <property name="username" value="${jdbc.username}"/>
+            <property name="password" value="${jdbc.password}"/>
+            <property name="maxActive" value="20"/>
+        </bean>
+
+        <!-- quartz使用的数据源配置 -->
+        <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+            <property name="driverClassName" value="${quartz.jdbc.driver}"/>
             <property name="url" value="${quartz.jdbc.url}"/>
             <property name="username" value="${quartz.jdbc.username}"/>
             <property name="password" value="${quartz.jdbc.password}"/>
@@ -82,17 +109,12 @@
         <!-- 嵌入式内存中数据库 -->
         <jdbc:embedded-database id="dataSource" type="H2">
             <jdbc:script location="classpath:sql/h2/schema.sql"/>
+            <jdbc:script location="classpath:data/import-data.sql"/>
         </jdbc:embedded-database>
 
         <jdbc:embedded-database id="quartzDataSource" type="H2">
             <jdbc:script location="classpath:sql/h2/quartz.sql"/>
         </jdbc:embedded-database>
-
-        <!-- 初始化默认数据 -->
-        <bean class="org.springside.modules.test.data.DataInitializer" lazy-init="false">
-            <property name="dataSource" ref="dataSource"/>
-            <property name="dataFile" value="/data/sample-data.xml"/>
-        </bean>
     </beans>
 
     <!-- functional test环境 -->
@@ -102,13 +124,14 @@
           			  classpath*:/application.functional.properties,
           			  classpath*:/application.functional-local.properties"/>
 
-        <!-- 简单data source -->
-        <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
+        <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
             <!-- Connection Info -->
-            <property name="driverClass" value="${jdbc.driver}"/>
+            <property name="driverClassName" value="${jdbc.driver}"/>
             <property name="url" value="${jdbc.url}"/>
             <property name="username" value="${jdbc.username}"/>
             <property name="password" value="${jdbc.password}"/>
+            <property name="defaultAutoCommit" value="false"/>
         </bean>
 
         <bean id="quartzDataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
@@ -120,11 +143,11 @@
 
         <!-- 初始化数据结构 -->
         <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
-            <jdbc:script location="classpath:sql/mysql/schema.sql"/>
+            <jdbc:script location="classpath:sql/h2/schema.sql"/>
         </jdbc:initialize-database>
 
         <jdbc:initialize-database data-source="quartzDataSource" ignore-failures="ALL">
-            <jdbc:script location="classpath:sql/mysql/quartz.sql"/>
+            <jdbc:script location="classpath:sql/h2/quartz.sql"/>
         </jdbc:initialize-database>
     </beans>
 </beans>

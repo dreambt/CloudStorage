@@ -5,12 +5,15 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Map;
@@ -36,17 +39,20 @@ public class UserRecoveryMailService {
     /**
      * 发送MIME格式的用户修改通知邮件.
      */
-    public void sendNotificationMail(String email, String username, String plainPassword) {
+    public void sendNotificationMail(String email, String userName, String plainPassword) {
         try {
             MimeMessage msg = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(msg, true, DEFAULT_ENCODING);
 
             helper.setTo(email);
             helper.setFrom("baitao.jibt@gmail.com");
-            helper.setSubject("用户信息修改通知");
+            helper.setSubject("用户修改通知");
 
-            String content = generateContent(username, plainPassword);
+            String content = generateContent(userName, plainPassword);
             helper.setText(content, true);
+
+            //File attachment = generateAttachment();
+            //helper.addAttachment("mailAttachment.txt", attachment);
 
             mailSender.send(msg);
             logger.info("HTML版邮件已发送至 " + email);
@@ -60,7 +66,7 @@ public class UserRecoveryMailService {
     /**
      * 使用Freemarker生成html格式内容.
      */
-    private String generateContent(String username, String plainPassword) throws MessagingException {
+    private String generateContent(String userName, String plainPassword) throws MessagingException {
         try {
             Map context = Collections.singletonMap("password", plainPassword);
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, context);
@@ -70,6 +76,19 @@ public class UserRecoveryMailService {
         } catch (TemplateException e) {
             logger.error("生成邮件内容失败, FreeMarker处理失败", e);
             throw new MessagingException("FreeMarker处理失败", e);
+        }
+    }
+
+    /**
+     * 获取classpath中的附件.
+     */
+    private File generateAttachment() throws MessagingException {
+        try {
+            Resource resource = new ClassPathResource("/email/mailAttachment.txt");
+            return resource.getFile();
+        } catch (IOException e) {
+            logger.error("构造邮件失败,附件文件不存在", e);
+            throw new MessagingException("附件文件不存在", e);
         }
     }
 
@@ -85,7 +104,7 @@ public class UserRecoveryMailService {
      */
     public void setFreemarkerConfiguration(Configuration freemarkerConfiguration) throws IOException {
         //根据freemarkerConfiguration的templateLoaderPath载入文件.
-        template = freemarkerConfiguration.getTemplate("userRecoveryTemplate.vm", DEFAULT_ENCODING);
+        template = freemarkerConfiguration.getTemplate("userRecoveryTemplate.ftl", DEFAULT_ENCODING);
     }
 
 }

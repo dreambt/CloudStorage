@@ -2,7 +2,7 @@ package cn.im47.cloud.storage.jms;
 
 import cn.im47.cloud.storage.utilities.email.MimeMailService;
 import cn.im47.cloud.storage.utilities.email.UserRecoveryMailService;
-import cn.im47.cloud.storage.utilities.thumb.ImageThumb;
+import cn.im47.commons.utilities.thumb.ImageThumb;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

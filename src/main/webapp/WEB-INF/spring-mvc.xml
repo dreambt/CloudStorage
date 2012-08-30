@@ -9,28 +9,56 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
     <!-- 自动扫描且只扫描@Controller -->
-    <context:component-scan base-package="cn.im47.cloud.storage" use-default-filters="false">
+    <context:component-scan base-package="cn.im47.cloud.storage.common.web" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
     </context:component-scan>
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <!-- TODO 暂时解决Spring 输出 JSON 乱码问题 -->
+        <mvc:message-converters>
+            <bean class="cn.im47.commons.utilities.patch.MappingJacksonHttpMessageConverter"/>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
-    <mvc:view-controller path="/" view-name="forward:/index"/>
-
+    <!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
     <mvc:default-servlet-handler/>
 
+    <!-- 定义JSP文件的位置 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <!-- 定义无Controller的path<->view直接映射 -->
+    <mvc:view-controller path="/" view-name="forward:/login"/>
+    <mvc:view-controller path="/web/mashup-client" view-name="/web/mashup-client"/>
+
+    <mvc:resources mapping="/static/**" location="/static/"/>
+
+    <!-- 支持 Shiro对Controller的方法级AOP安全控制 begin-->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor">
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="org.apache.shiro.authz.UnauthorizedException">error/403</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- end -->
 
     <!-- Configure the multipart resolver -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
           p:maxUploadSize="1000000"/>
 
     <!-- http://stackoverflow.com/questions/6479712/why-is-jackson-wrapping-my-objects-with-an-extra-layer-named-after-the-class -->
-    <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"
+    <bean class="cn.im47.commons.utilities.patch.MappingJacksonJsonView"
           p:extractValueFromSingleKeyModel="true"/>
 
 </beans>

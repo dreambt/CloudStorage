@@ -1,7 +1,7 @@
 package cn.im47.cloud.storage.functional;
 
 import org.eclipse.jetty.server.Server;
-import org.springside.modules.test.functional.JettyFactory;
+import org.springside.modules.test.jetty.JettyFactory;
 
 /**
  * 使用Jetty运行调试Web应用, 在Console输入回车停止服务器
@@ -34,4 +34,5 @@ public class Start {
         server.join();
         System.out.println("Server stopped");
     }
+
 }

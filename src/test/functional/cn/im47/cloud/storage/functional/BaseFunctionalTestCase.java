@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springside.modules.test.data.DataFixtures;
-import org.springside.modules.test.functional.JettyFactory;
+import org.springside.modules.test.jetty.JettyFactory;
 import org.springside.modules.utils.PropertiesLoader;
 
 import java.net.URL;
@@ -83,6 +83,7 @@ public class BaseFunctionalTestCase {
      * 载入测试数据.
      */
     protected static void reloadSampleData() throws Exception {
-        DataFixtures.reloadData(dataSource, "/data/sample-data-cloud.xml");
+        DataFixtures.executeScript(dataSource, "/data/import-data.sql");
     }
+
 }

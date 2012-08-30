@@ -39,16 +39,17 @@ public class MimeMailService {
     /**
      * 发送MIME格式的用户修改通知邮件.
      */
-    public void sendNotificationMail(String email, String username) {
+    public void sendNotificationMail(String email, String userName) {
+
         try {
             MimeMessage msg = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(msg, true, DEFAULT_ENCODING);
 
             helper.setTo(email);
             helper.setFrom("baitao.jibt@gmail.com");
-            helper.setSubject("用户信息修改通知");
+            helper.setSubject("用户修改通知");
 
-            String content = generateContent(username);
+            String content = generateContent(userName);
             helper.setText(content, true);
 
             //File attachment = generateAttachment();
@@ -66,10 +67,10 @@ public class MimeMailService {
     /**
      * 使用Freemarker生成html格式内容.
      */
-    private String generateContent(String username) throws MessagingException {
+    private String generateContent(String userName) throws MessagingException {
 
         try {
-            Map context = Collections.singletonMap("username", username);
+            Map context = Collections.singletonMap("userName", userName);
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, context);
         } catch (IOException e) {
             logger.error("生成邮件内容失败, FreeMarker模板不存在", e);
@@ -105,7 +106,7 @@ public class MimeMailService {
      */
     public void setFreemarkerConfiguration(Configuration freemarkerConfiguration) throws IOException {
         //根据freemarkerConfiguration的templateLoaderPath载入文件.
-        template = freemarkerConfiguration.getTemplate("mailTemplate.vm", DEFAULT_ENCODING);
+        template = freemarkerConfiguration.getTemplate("mailTemplate.ftl", DEFAULT_ENCODING);
     }
 
 }
