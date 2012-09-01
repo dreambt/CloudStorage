@@ -10,14 +10,14 @@ import cn.im47.cloud.storage.common.entity.PersistableEntity;
  */
 public class FtpUser extends PersistableEntity {
 
-    private String userName;
+    private String userName;            //ftp用户名
     private String userPassword;
-    private String homeDirectory;
-    private boolean enableFlag;
-    private boolean writePermission;
+    private String homeDirectory;      //用户根路径
+    private boolean enableFlag;       //是否审核
+    private boolean writePermission; //写权限
     private int idleTime;
-    private int uploadRate;
-    private int downloadRate;
+    private int uploadRate;            //上传速度
+    private int downloadRate;         //下载速度
     private int maxLoginNumber;
     private int maxLoginPerIp;
     private boolean deleted;

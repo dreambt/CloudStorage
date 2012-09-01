@@ -309,19 +309,19 @@
 <script type="text/javascript">
     $(function(){
         $("#browser").treeview();
-            //        checkbox全选与取消
-        $("#checkedAll").click(function(){
-            if($(this).attr("checked")==undefined){
-                $("input[name='subBox']").each(function(){
-                    $(this).attr("checked",false);
-                });
-            }
-            else{
-                $("input[name='subBox']").each(function(){
-                    $(this).attr("checked",true);
-                });
-            }
-        });
+//            //        checkbox全选与取消
+//        $("#checkedAll").click(function(){
+//            if($(this).attr("checked")==undefined){
+//                $("input[name='subBox']").each(function(){
+//                    $(this).attr("checked",false);
+//                });
+//            }
+//            else{
+//                $("input[name='subBox']").each(function(){
+//                    $(this).attr("checked",true);
+//                });
+//            }
+//        });
                 //视频jPlayer
         $("#jquery_jplayer_1").jPlayer({
             ready: function () {

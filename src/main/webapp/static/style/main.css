@@ -1004,3 +1004,15 @@ form.well {
 .accordion-heading a:hover {
     text-decoration: none;
 }
+
+
+/* node/list弹窗位置修复 green1225grass@163.com*/
+#myModal.modal.fade.in {
+    top: 60%;
+}
+#Tips.modal.fade.in {
+    top: 70%;
+    left:60%;
+    width:300px;
+    text-align: center;
+}

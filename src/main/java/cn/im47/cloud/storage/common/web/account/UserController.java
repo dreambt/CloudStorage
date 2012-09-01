@@ -3,6 +3,7 @@ package cn.im47.cloud.storage.common.web.account;
 import cn.im47.cloud.storage.common.entity.account.User;
 import cn.im47.cloud.storage.common.service.account.GroupManager;
 import cn.im47.cloud.storage.common.service.account.UserManager;
+import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户管理控制器
@@ -46,9 +48,13 @@ public class UserController {
      */
     @RequestMapping(value = "list")
     public String list(Model model) {
-
-        //model.addAttribute("users", userManager.search());
-        return "account/userList";
+        Map<String, Object> parameters = Maps.newHashMap();
+        parameters.put("offset", 0);
+        parameters.put("limit", 10);
+        parameters.put("Sort", "id");
+        parameters.put("Direction", "DESC");
+        model.addAttribute("users", userManager.search(parameters));
+        return "account/list";
     }
 
     /**
