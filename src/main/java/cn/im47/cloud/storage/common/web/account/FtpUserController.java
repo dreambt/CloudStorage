@@ -75,7 +75,7 @@ public class FtpUserController {
         } else {
             redirectAttributes.addFlashAttribute("error", "添加ftp用户失败");
         }
-        return "redirect:/account/list";
+        return "redirect:/ftpUser/list";
     }
 
     /**
@@ -91,7 +91,7 @@ public class FtpUserController {
         } else {
             redirectAttributes.addFlashAttribute("error", "操作ftp用户 " + id + " 失败.");
         }
-        return "redirect:/account/list";
+        return "redirect:/ftpUser/list";
     }
 
     @RequestMapping(value = "deleteInBatch")
@@ -99,11 +99,11 @@ public class FtpUserController {
         String[] isSelected = request.getParameterValues("isSelected");
         if (isSelected == null) {
             redirectAttributes.addFlashAttribute("error", "请选择要删除的ftp用户.");
-            return "redirect:/account/list";
+            return "redirect:/ftpUser/list";
         } else {
             ftpUserManager.deleteInBatch(isSelected);
             redirectAttributes.addFlashAttribute("info", "批量删除ftp用户成功.");
-            return "redirect:/account/list";
+            return "redirect:/ftpUser/list";
         }
     }
 
