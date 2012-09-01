@@ -57,7 +57,7 @@ public class NodeMapperTest extends SpringTransactionalTestCase {
 
     @Test
     public void testGetChild() throws Exception {
-        List<Node> children = nodeMapper.getChild(APP_KEY, 1L);
+        List<Node> children = nodeMapper.getChildren(APP_KEY, 1L);
         assertEquals(3, children.size());
     }
 
@@ -65,6 +65,12 @@ public class NodeMapperTest extends SpringTransactionalTestCase {
     public void testGetRightSibling() throws Exception {
         Node right = nodeMapper.getRightSibling(APP_KEY, 2L);
         assertEquals(6, right.getId().intValue());
+    }
+
+    @Test
+    public void testGetByName() throws Exception {
+        Node node = nodeMapper.getByName(APP_KEY, "node 1");
+        assertEquals(1, node.getId().intValue());
     }
 
     @Autowired

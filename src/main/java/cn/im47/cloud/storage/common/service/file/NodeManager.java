@@ -40,4 +40,20 @@ public interface NodeManager extends GenericAppManager<Node, Long> {
      */
     List<Node> getChildren(String appKey, Long id);
 
+    /**
+     * 通过路径获得节点
+     *
+     * @param path
+     * @return
+     */
+    Node getByPath(String path);
+
+    /**
+     * 通过节点名称获得节点
+     *
+     * @param nodeName
+     * @return
+     */
+    Node getBuName(String nodeName);
+
 }

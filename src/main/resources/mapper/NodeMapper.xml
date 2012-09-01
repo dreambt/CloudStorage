@@ -26,7 +26,7 @@
         LIMIT 1
     </select>
 
-    <select id="getChild" parameterType="Long" resultMap="nodeDetailMap">
+    <select id="getChildren" parameterType="Long" resultMap="nodeDetailMap">
         SELECT
         <include refid="nodeColumns"/>
         FROM ${appKey}CS_NODE AS N
@@ -38,6 +38,13 @@
         <include refid="nodeColumns"/>
         FROM ${appKey}CS_NODE AS N
         WHERE left_sibling =#{id}
+    </select>
+
+    <select id="getByName" parameterType="String" resultMap="nodeDetailMap">
+        SELECT
+        <include refid="nodeColumns"/>
+        FROM ${appKey}CS_NODE AS N
+        WHERE name =#{nodeName}
     </select>
 
     <select id="count" resultType="Long">

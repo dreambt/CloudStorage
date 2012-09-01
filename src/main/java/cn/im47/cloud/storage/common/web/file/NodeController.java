@@ -28,12 +28,23 @@ public class NodeController {
     private static final String APP_KEY = "";
 
     /**
+     * 获得所有节点
+     *
+     * @return
+     */
+    @RequestMapping(value = "getAll", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Node> getAll() {
+        return nodeManager.getTree(APP_KEY);
+    }
+
+    /**
      * 获得编号为id 的分类, ajax返回
      *
      * @param id
      * @return
      */
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Node get(@PathVariable("id") Long id) {
         return nodeManager.get(APP_KEY, id);
@@ -45,7 +56,7 @@ public class NodeController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/getChildren/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "getChildren/{id}", method = RequestMethod.GET)
     @ResponseBody
     public List<Node> getChildren(@PathVariable("id") Long id) {
         return nodeManager.getChildren(APP_KEY, id);
@@ -57,7 +68,7 @@ public class NodeController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/create")
+    @RequestMapping(value = "create")
     public String create(Model model) {
         model.addAttribute("node", new Node());
         return "node/edit";
@@ -70,7 +81,7 @@ public class NodeController {
      * @param node
      * @return
      */
-    @RequestMapping(value = "/save")
+    @RequestMapping(value = "save")
     public String save(Model model, Node node) {
 
         if (nodeManager.save(APP_KEY, node) > 0) {
@@ -88,7 +99,7 @@ public class NodeController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String delete(Model model, @PathVariable("id") Long id) {
         if (nodeManager.delete(APP_KEY, id) > 0) {
             model.addAttribute("info", "删除文件成功");

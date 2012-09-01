@@ -19,26 +19,34 @@
         </nio-listener>
     </listeners>
 
+    <ftplets>
+        <ftplet name="ftplet1">
+            <beans:bean class="cn.im47.cloud.storage.ftp.FileFtplet" />
+        </ftplet>
+    </ftplets>
+
     <!--<file-user-manager file="ftp/conf/users.properties" />-->
 
     <db-user-manager>
         <data-source>
             <beans:ref bean="dataSource" />
         </data-source>
-        <insert-user>INSERT INTO CS_FTP_USER (userid, userpassword, homedirectory, enableflag, writepermission, idletime, uploadrate, downloadrate)
+        <insert-user>INSERT INTO CS_FTP_USER (user_name, user_password, home_directory, enable_flag, write_permission, idle_time, upload_rate, download_rate)
             VALUES ('{userid}', '{userpassword}', '{homedirectory}', {enableflag}, {writepermission}, {idletime}, {uploadrate}, {downloadrate})
         </insert-user>
         <update-user>UPDATE CS_FTP_USER SET
-            userpassword='{userpassword}',homedirectory='{homedirectory}',enableflag={enableflag},writepermission={writepermission},idletime={idletime},uploadrate={uploadrate},downloadrate={downloadrate}
-            WHERE userid='{userid}'
+            user_password='{userpassword}',home_directory='{homedirectory}',enable_flag={enableflag},write_permission={writepermission},idle_time={idletime},upload_rate={uploadrate},download_rate={downloadrate}
+            WHERE user_name='{userid}'
         </update-user>
-        <delete-user>DELETE FROM CS_FTP_USER WHERE userid = '{userid}'</delete-user>
-        <select-user>SELECT userid, userpassword, homedirectory, enableflag, writepermission, idletime, uploadrate, downloadrate, maxloginnumber, maxloginperip
-            FROM FTP_USER WHERE userid = '{userid}'
+        <delete-user>DELETE FROM CS_FTP_USER WHERE user_name = '{userid}'</delete-user>
+        <select-user>SELECT user_name AS userid, user_password AS userpassword, home_directory AS homedirectory, enable_flag AS enableflag,
+            write_permission AS writepermission, idle_time AS idletime, upload_rate AS uploadrate, download_rate AS downloadrate,
+            max_login_number AS maxloginnumber, max_login_per_ip AS maxloginperip
+            FROM CS_FTP_USER WHERE user_name = '{userid}'
         </select-user>
-        <select-all-users>SELECT userid FROM CS_FTP_USER ORDER BY userid</select-all-users>
-        <is-admin>SELECT userid FROM CS_FTP_USER WHERE userid='{userid}' AND userid='admin'</is-admin>
-        <authenticate>SELECT userpassword from CS_FTP_USER WHERE userid='{userid}'</authenticate>
+        <select-all-users>SELECT user_name AS userid FROM CS_FTP_USER ORDER BY user_name</select-all-users>
+        <is-admin>SELECT user_name AS userid FROM CS_FTP_USER WHERE user_name='{userid}' AND user_name='admin'</is-admin>
+        <authenticate>SELECT user_password AS userpassword from CS_FTP_USER WHERE user_name='{userid}'</authenticate>
     </db-user-manager>
 
 </server>

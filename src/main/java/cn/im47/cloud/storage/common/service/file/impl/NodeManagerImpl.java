@@ -55,10 +55,10 @@ public class NodeManagerImpl implements NodeManager {
         String jsonString = spyMemcachedClient.get(key);
 
         if (StringUtils.isBlank(jsonString)) {
-            nodeList = nodeMapper.getChild(appKey, 0L);
+            nodeList = nodeMapper.getChildren(appKey, 0L);
             int size = nodeList.size();
             for (Node node : nodeList) {
-                List<Node> temp = nodeMapper.getChild(appKey, node.getId());
+                List<Node> temp = nodeMapper.getChildren(appKey, node.getId());
                 if (null != temp) {
                     node.setNodeList(temp);
                 }
@@ -71,12 +71,30 @@ public class NodeManagerImpl implements NodeManager {
         return nodeList;
     }
 
+    /**
+     * 递归获得孩子
+     *
+     * @param appKey
+     * @param node
+     * @return
+     */
+    private void addNode(String appKey, Node node) {
+        List<Node> nodeList = nodeMapper.getChildren(appKey, node.getId());
+        for (Node n : nodeList) {
+            if (null == n) {
+                return;
+            }
+
+
+        }
+    }
+
     @Override
     @Transactional(readOnly = false)
     public int save(String appKey, Node object) {
         long parentId = object.getParent().getId();
         long parentLen = 0;
-        List<Node> nodeList = nodeMapper.getChild(appKey, parentId);
+        List<Node> nodeList = nodeMapper.getChildren(appKey, parentId);
         // TODO
         /*if (nodeList.size() > 0) {
             object.setLeftSibling(nodeList.get(nodeList.size() - 1).getId());
@@ -155,15 +173,26 @@ public class NodeManagerImpl implements NodeManager {
     public List<Node> getChildren(String appKey, Long id) {
         List<Node> nodeList = Lists.newArrayList();
 
-        nodeList = nodeMapper.getChild(appKey, id);
+        nodeList = nodeMapper.getChildren(appKey, id);
         int size = nodeList.size();
         for (Node node : nodeList) {
-            List<Node> temp = nodeMapper.getChild(appKey, node.getId());
+            List<Node> temp = nodeMapper.getChildren(appKey, node.getId());
             if (null != temp) {
                 node.setNodeList(temp);
             }
         }
         return nodeList;
+    }
+
+    @Override
+    public Node getByPath(String path) {
+        String[] paths = path.split("/");
+        return null;
+    }
+
+    @Override
+    public Node getBuName(String nodeName) {
+        return null;
     }
 
     @Autowired
