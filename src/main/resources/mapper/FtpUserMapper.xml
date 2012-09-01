@@ -85,9 +85,9 @@
     </update>
 
     <!-- 标记删除 -->
-    <update id="delete">
+    <update id="deleteByTask">
         DELETE CS_FTP_USER
-        WHERE id=#{id}
+        WHERE deleted=1
     </update>
 
     <!-- 查询用户 -->
@@ -134,5 +134,12 @@
             LIMIT ${offset}, ${limit}
         </if>
     </select>
+
+    <!-- 检测用户名是否可用 -->
+    <select id="isUsedName" parameterType="String" resultType="int">
+        SELECT count(id)
+        FROM CS_FTP_USER
+        WHERE user_name=#{name}
+	</select>
 
 </mapper>

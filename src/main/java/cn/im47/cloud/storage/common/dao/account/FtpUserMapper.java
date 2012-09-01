@@ -11,4 +11,19 @@ import cn.im47.cloud.storage.common.entity.account.FtpUser;
  */
 public interface FtpUserMapper extends GenericDao<FtpUser, Long> {
 
+    /**
+     * 起任务删除标记用户
+     *
+     * @return
+     */
+    int deleteByTask();
+
+    /**
+     * 检验用户名是否可用
+     *
+     * @param name
+     * @return
+     */
+    int isUsedName(String name);
+
 }
