@@ -27,6 +27,18 @@ public class FtpUserController {
     private FtpUserManager ftpUserManager;
 
     /**
+     * 根据id获得ftp用户
+     *
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "get/{id}")
+    public String get(@PathVariable("id") Long id) {
+        ftpUserManager.get(id);
+        return "account/user";
+    }
+
+    /**
      * 显示所有ftp用户
      *
      * @param model
