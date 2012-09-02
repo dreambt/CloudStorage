@@ -3,6 +3,7 @@ package cn.im47.cloud.storage.common.web.file;
 import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -43,7 +44,7 @@ public class NodeController {
      *
      * @return
      */
-    @RequestMapping(value = "getTree", method = RequestMethod.GET)
+    @RequestMapping(value = "getTree", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Node> getTree() {
         return nodeManager.getTree(APP_KEY);
@@ -55,7 +56,7 @@ public class NodeController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "get/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "get/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Node get(@PathVariable("id") Long id) {
         return nodeManager.get(APP_KEY, id);
@@ -67,7 +68,7 @@ public class NodeController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "getChildren/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "getChildren/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<Node> getChildren(@PathVariable("id") Long id) {
         return nodeManager.getChildren(APP_KEY, id);

@@ -5,6 +5,7 @@ import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,10 +30,9 @@ public class UploadedFileController {
 
     private static final String APP_KEY = "";
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(Model model) {
-        model.addAttribute("files", uploadedFileManager.getByNode(APP_KEY, 0L));
-        return "file/list";
+    @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
+    public String list() {
+        return "redirect:/file/list/0";
     }
 
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
@@ -59,7 +59,7 @@ public class UploadedFileController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/getByNode/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/getByNode/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<UploadedFile> getByNode(@PathVariable("id") Long id) {
         return uploadedFileManager.getByNode(APP_KEY, id);
@@ -87,7 +87,6 @@ public class UploadedFileController {
      */
     @RequestMapping(value = "/save")
     public String save(Model model, @RequestParam(value = "file", required = false) MultipartFile file, UploadedFile uploadedFile) {
-
         if (uploadedFileManager.save(APP_KEY, uploadedFile) > 0) {
             model.addAttribute("info", "上传文件成功");
         } else {

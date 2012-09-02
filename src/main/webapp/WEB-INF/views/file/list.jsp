@@ -1,16 +1,14 @@
 <%--
-  Created by IntelliJ IDEA.
   User: zhangnan
   Date: 12-8-26
   Time: 下午4:32
-  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <title>文件管理</title>
     <%--目录树--%>
@@ -107,7 +105,7 @@
                         <i class="icon-trash icon-white"></i>
                         <span>删除</span>
                     </button>
-                    <input type="checkbox" class="toggle">全选</input>
+                    <input type="checkbox" class="toggle"/> 全选
                 </div>
                 <!-- The global progress information -->
                 <div id="gp_information" class="span5 fileupload-progress fade" style="display: none">
@@ -238,11 +236,11 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(function() {
         $("#browser").treeview();
-            //        checkbox全选与取消
+
+        //        checkbox全选与取消
         $("#checkedAll").click(function(){
             if($(this).attr("checked")==undefined){
                 $("input[name='subBox']").each(function(){
@@ -286,7 +284,8 @@
                 }
             });
         });
-        <%--文件上传fileupload--%>
+
+        <!-- 文件上传fileupload -->
         $("#choosefile").change(function(){
             $("#gp_information").show();
             var filePath=$("#choosefile").val();
@@ -294,9 +293,7 @@
             var realName =pre.substr(0,10);
             var upload="<tr class='template-upload fade in'><td class='preview'><span class='fade' style='width: 6px'></span></td><td class='name'><span id='realName' title='"+pre+"'>" + realName + "</span></td><td class='size'><span id='size'></span></td><td><div class='progress progress-success progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='0'><div class='bar' style='width:0%;'></div></div></td><td class='start'><button class='btn btn-primary'><i class='icon-upload icon-white'></i><span>开始上传</span></button></td><td class='cancel'><button class='btn btn-warning'><i class='icon-ban-circle icon-white'></i><span>取消</span></button></td></tr>";
             $("#hasfile").append(upload);
-
         });
-
 
         $.ajax({
             url:"${ctx}/node/getChildren/0",
@@ -304,8 +301,7 @@
                 $("#browser").html("");
                 var browser="<li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'></span><ul><li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'>视频 1.1</span><ul><li class='collapsable hide'><span class='folder'>视频 1.11</span></li></ul></li></ul></li>";
                 $("#browser").append(browser);
-              // $("#browser").append($("<li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'></span><ul><li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'>视频 1.1</span><ul><li class='collapsable hide'><span class='folder'>视频 1.11</span></li></ul></li></ul></li>"));
-
+                // $("#browser").append($("<li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'></span><ul><li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'>视频 1.1</span><ul><li class='collapsable hide'><span class='folder'>视频 1.11</span></li></ul></li></ul></li>"));
             })
         });
     })

@@ -81,4 +81,5 @@ public class UploadedFileDetailController {
     public void setUploadedFileManager(UploadedFileManager uploadedFileManager) {
         this.uploadedFileManager = uploadedFileManager;
     }
+
 }

@@ -72,4 +72,5 @@ public class NodeDetailController {
     public void setNodeManager(NodeManager nodeManager) {
         this.nodeManager = nodeManager;
     }
+
 }
