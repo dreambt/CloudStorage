@@ -48,9 +48,9 @@ public class UploadedFileController {
      * @return
      */
     @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-    @ResponseBody
-    public UploadedFile get(@PathVariable("id") Long id) {
-        return uploadedFileManager.get(APP_KEY, id);
+    public String get(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("file", uploadedFileManager.get(APP_KEY, id));
+        return "file/video";
     }
 
     /**
