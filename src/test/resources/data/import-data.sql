@@ -6,7 +6,7 @@ INSERT INTO `CS_NODE` (`id`, `name`, `type`, `left_sibling`, `parent_id`) VALUES
 (2, 'node 1.1', 'OTHER', 0, 1),
 (3, 'node 2', 'OTHER', 1, 0),
 (4, 'node 1.1.1', 'OTHER', 0, 2),
-(5, 'node 2.1', 'TXT', 0, 2),
+(5, 'node 2.1', 'TXT', 0, 3),
 (6, 'node 1.2', 'MOVIE', 2, 1),
 (7, 'node 1.3', 'PIC', 6, 1);
 
@@ -52,71 +52,71 @@ INSERT INTO `CS_FTP_USER` (`id`, `user_name`, `user_password`, `home_directory`,
 -- -----------------------------------------------------
 -- 用户组测试数据
 -- -----------------------------------------------------
-INSERT INTO `CT_GROUP`(`id`, `group_name`) VALUES (1,'后台管理员');
-INSERT INTO `CT_GROUP`(`id`, `group_name`) VALUES (2,'前台管理员');
-INSERT INTO `CT_GROUP`(`id`, `group_name`) VALUES (3,'自由撰稿人');
+INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (1,'后台管理员');
+INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (2,'前台管理员');
+INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (3,'自由撰稿人');
 
 
 -- -----------------------------------------------------
 -- 用户组权限测试数据
 -- -----------------------------------------------------
 -- 后台管理员
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (1,1,"user:create");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (2,1,"user:edit");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (3,1,"user:save");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (4,1,"user:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (1,1,"user:create");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (2,1,"user:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (3,1,"user:save");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (4,1,"user:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (6,1,"group:create");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (7,1,"group:edit");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (8,1,"group:save");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (9,1,"group:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (6,1,"group:create");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (7,1,"group:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (8,1,"group:save");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (9,1,"group:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (11,1,"article:create");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (12,1,"article:edit");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (13,1,"article:save");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (14,1,"article:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (11,1,"article:create");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (12,1,"article:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (13,1,"article:save");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (14,1,"article:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (16,1,"comment:save");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (17,1,"comment:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (16,1,"comment:save");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (17,1,"comment:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (21,1,"category:list");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (22,1,"link:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (21,1,"category:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (22,1,"link:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (26,1,"gallery:create");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (27,1,"gallery:edit");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (28,1,"gallery:save");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (30,1,"gallery:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (26,1,"gallery:create");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (27,1,"gallery:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (28,1,"gallery:save");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (30,1,"gallery:list");
 -- 前台管理员
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (51,2,"user:create");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (52,2,"user:edit");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (53,2,"user:save");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (54,2,"user:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (51,2,"user:create");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (52,2,"user:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (53,2,"user:save");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (54,2,"user:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (56,2,"article:create");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (57,2,"article:edit");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (58,2,"article:save");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (59,2,"article:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (56,2,"article:create");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (57,2,"article:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (58,2,"article:save");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (59,2,"article:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (61,2,"comment:save");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (62,2,"comment:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (61,2,"comment:save");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (62,2,"comment:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (63,2,"link:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (63,2,"link:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (66,2,"gallery:create");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (67,2,"gallery:edit");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (68,2,"gallery:save");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (69,2,"gallery:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (66,2,"gallery:create");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (67,2,"gallery:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (68,2,"gallery:save");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (69,2,"gallery:list");
 
 -- 自由撰稿人
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (101,3,"user:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (101,3,"user:edit");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (106,3,"article:create");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (107,3,"article:edit");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (108,3,"article:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (106,3,"article:create");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (107,3,"article:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (108,3,"article:list");
 
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (111,3,"gallery:create");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (112,3,"gallery:edit");
-INSERT INTO `CT_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (113,3,"gallery:list");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (111,3,"gallery:create");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (112,3,"gallery:edit");
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (113,3,"gallery:list");
 
 
 -- -----------------------------------------------------

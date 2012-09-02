@@ -29,6 +29,12 @@ public class UploadedFileController {
 
     private static final String APP_KEY = "";
 
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list(Model model) {
+        model.addAttribute("files", uploadedFileManager.getByNode(APP_KEY, 0L));
+        return "file/list";
+    }
+
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
     public String list(Model model, @PathVariable("id") Long id) {
         model.addAttribute("files", uploadedFileManager.getByNode(APP_KEY, id));

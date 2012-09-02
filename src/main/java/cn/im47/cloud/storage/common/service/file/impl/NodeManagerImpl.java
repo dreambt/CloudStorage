@@ -6,6 +6,7 @@ import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
 import cn.im47.cloud.storage.utilities.memcached.MemcachedObjectType;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,8 +38,6 @@ public class NodeManagerImpl implements NodeManager {
 
     private NodeMapper nodeMapper;
 
-    private NodeAdjMapper nodeAdjMapper;
-
     private SpyMemcachedClient spyMemcachedClient;
 
     @Override
@@ -48,44 +47,29 @@ public class NodeManagerImpl implements NodeManager {
 
     @Override
     public List<Node> getTree(String appKey) {
-        List<Node> nodeList = Lists.newArrayList();
-
-        String key = MemcachedObjectType.NODE.getPrefix() + "user:" + appKey;
-        key = Encodes.encodeHex(Digests.sha1(key.getBytes()));
-        String jsonString = spyMemcachedClient.get(key);
-
-        if (StringUtils.isBlank(jsonString)) {
-            nodeList = nodeMapper.getChildren(appKey, 0L);
-            int size = nodeList.size();
-            for (Node node : nodeList) {
-                List<Node> temp = nodeMapper.getChildren(appKey, node.getId());
-                if (null != temp) {
-                    node.setNodeList(temp);
-                }
-            }
-            jsonString = jsonMapper.toJson(nodeList);
-            spyMemcachedClient.set(key, MemcachedObjectType.NODE.getExpiredTime(), jsonString);
-        } else {
-            nodeList = jsonMapper.fromJson(jsonString, jsonMapper.createCollectionType(List.class, Node.class));
+        List<Node> nodeList = nodeMapper.getChildren(appKey, 0L);
+        for(Node node: nodeList) {
+            this.toTree(appKey, node);
         }
         return nodeList;
     }
 
     /**
-     * 递归获得孩子
+     * 如果为叶子节点，就加入节点树
      *
      * @param appKey
      * @param node
      * @return
      */
-    private void addNode(String appKey, Node node) {
-        List<Node> nodeList = nodeMapper.getChildren(appKey, node.getId());
-        for (Node n : nodeList) {
-            if (null == n) {
-                return;
+    private void toTree(String appKey, Node node) {
+        List<Node> nodeList1 = nodeMapper.getChildren(appKey, node.getId());
+        for(Node node1: nodeList1) {
+            node.getNodeList().add(node1);
+            if(0 == nodeMapper.getChildren(appKey, node1.getId()).size() || null == nodeMapper.getChildren(appKey, node1.getId())) {
+                continue;
+            } else {
+                this.toTree(appKey, node1);
             }
-
-
         }
     }
 
@@ -198,11 +182,6 @@ public class NodeManagerImpl implements NodeManager {
     @Autowired
     public void setNodeMapper(NodeMapper nodeMapper) {
         this.nodeMapper = nodeMapper;
-    }
-
-    @Autowired
-    public void setNodeAdjMapper(NodeAdjMapper nodeAdjMapper) {
-        this.nodeAdjMapper = nodeAdjMapper;
     }
 
     @Autowired

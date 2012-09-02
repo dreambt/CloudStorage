@@ -58,7 +58,7 @@ public class Node extends IdEntity implements Serializable {
         this.parent = parent;
     }
 
-    public List<Node> getList() {
+    public List<Node> getNodeList() {
         return nodeList;
     }
 

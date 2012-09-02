@@ -32,9 +32,20 @@ public class NodeController {
      *
      * @return
      */
-    @RequestMapping(value = "getAll", method = RequestMethod.GET)
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public String list(Model model) {
+        model.addAttribute("nodes", nodeManager.getTree(APP_KEY));
+        return "node/list";
+    }
+
+    /**
+     * 获得所有节点,ajax
+     *
+     * @return
+     */
+    @RequestMapping(value = "getTree", method = RequestMethod.GET)
     @ResponseBody
-    public List<Node> getAll() {
+    public List<Node> getTree() {
         return nodeManager.getTree(APP_KEY);
     }
 

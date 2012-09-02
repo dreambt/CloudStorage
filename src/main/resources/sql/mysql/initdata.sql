@@ -6,7 +6,7 @@ INSERT INTO `CS_NODE` (`id`, `name`, `type`, `left_sibling`, `parent_id`) VALUES
 (2, 'node 1.1', 'OTHER', 0, 1),
 (3, 'node 2', 'OTHER', 1, 0),
 (4, 'node 1.1.1', 'OTHER', 0, 2),
-(5, 'node 2.1', 'TXT', 0, 2),
+(5, 'node 2.1', 'TXT', 0, 3),
 (6, 'node 1.2', 'MOVIE', 2, 1),
 (7, 'node 1.3', 'PIC', 6, 1);
 
