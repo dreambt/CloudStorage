@@ -46,7 +46,6 @@ public class FtpUserManagerImpl implements FtpUserManager {
 
     @Transactional(readOnly = false)
     public int save(FtpUser ftpUser) {
-
         logger.debug("== Save ftp user={}.", ftpUser.toString());
         return ftpUserMapper.save(ftpUser);
     }
@@ -109,7 +108,6 @@ public class FtpUserManagerImpl implements FtpUserManager {
 
     @Transactional(readOnly = false)
     public void repass(FtpUser ftpUser) {
-
         logger.debug("== Reset user's password by id={}, name={}.", ftpUser.getId(), ftpUser.getUserName());
         this.update(ftpUser);
     }

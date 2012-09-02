@@ -45,14 +45,14 @@
     <!-- 定义aspectj -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-    <!-- hibernate validator -->
+    <!-- JSR303 Validator定义 -->
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
     <!-- production环境 -->
     <beans profile="production">
-        <context:property-placeholder ignore-resource-not-found="true"
+        <context:property-placeholder ignore-unresolvable="true"
                                       location="classpath*:/application.properties,
-                                      classpath*:/application.local.properties,
+                                      file:e:/application.server.properties,
                                       file:/opt/CS/application.server.properties"/>
 
         <!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
@@ -78,8 +78,7 @@
     <beans profile="development">
         <context:property-placeholder ignore-resource-not-found="true"
                                       location="classpath*:/application.properties,
-          			  classpath*:/application.development.properties,
-          			  classpath*:/application.development-local.properties"/>
+          			  classpath*:/application.development.properties"/>
 
         <!-- 数据源配置,使用应用内的DBCP数据库连接池 -->
         <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
@@ -98,23 +97,6 @@
             <property name="username" value="${quartz.jdbc.username}"/>
             <property name="password" value="${quartz.jdbc.password}"/>
         </bean>
-    </beans>
-
-    <!-- unit test环境 -->
-    <beans profile="test">
-        <context:property-placeholder ignore-resource-not-found="true"
-                                      location="classpath*:/application.properties,
-          			  classpath*:/application.test.properties"/>
-
-        <!-- 嵌入式内存中数据库 -->
-        <jdbc:embedded-database id="dataSource" type="H2">
-            <jdbc:script location="classpath:sql/h2/schema.sql"/>
-            <jdbc:script location="classpath:data/import-data.sql"/>
-        </jdbc:embedded-database>
-
-        <jdbc:embedded-database id="quartzDataSource" type="H2">
-            <jdbc:script location="classpath:sql/h2/quartz.sql"/>
-        </jdbc:embedded-database>
     </beans>
 
     <!-- functional test环境 -->
@@ -145,9 +127,22 @@
         <jdbc:initialize-database data-source="dataSource" ignore-failures="ALL">
             <jdbc:script location="classpath:sql/h2/schema.sql"/>
         </jdbc:initialize-database>
+    </beans>
 
-        <jdbc:initialize-database data-source="quartzDataSource" ignore-failures="ALL">
+    <!-- unit test环境 -->
+    <beans profile="test">
+        <context:property-placeholder ignore-resource-not-found="true"
+                                      location="classpath*:/application.properties,
+          			  classpath*:/application.test.properties"/>
+
+        <!-- 嵌入式内存中数据库 -->
+        <jdbc:embedded-database id="dataSource" type="H2">
+            <jdbc:script location="classpath:sql/h2/schema.sql"/>
+            <jdbc:script location="classpath:data/import-data.sql"/>
+        </jdbc:embedded-database>
+
+        <jdbc:embedded-database id="quartzDataSource" type="H2">
             <jdbc:script location="classpath:sql/h2/quartz.sql"/>
-        </jdbc:initialize-database>
+        </jdbc:embedded-database>
     </beans>
 </beans>

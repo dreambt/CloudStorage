@@ -230,7 +230,7 @@ public class UserManagerImpl implements UserManager {
         }
     }
 
-    public Long count() {
+    public long count() {
         logger.debug("== Find the quantity of user.");
         return userMapper.count();
     }

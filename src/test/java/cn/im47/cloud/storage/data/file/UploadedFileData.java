@@ -1,5 +1,6 @@
 package cn.im47.cloud.storage.data.file;
 
+import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 
 import java.util.Date;
@@ -15,6 +16,7 @@ public class UploadedFileData {
 
     public static UploadedFile getFileData() {
         UploadedFile uploadedFile = new UploadedFile();
+        uploadedFile.setNode(NodeData.getNodeData());
         uploadedFile.setCustomName("eee.jpg");
         uploadedFile.setVirtualName("asdfasdfasfewavx");
         uploadedFile.setRealName("ea.jpg");

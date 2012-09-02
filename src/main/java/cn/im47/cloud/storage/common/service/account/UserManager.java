@@ -77,7 +77,7 @@ public interface UserManager extends GenericManager<User, Long> {
      *
      * @return
      */
-    Long count();
+    long count();
 
     /**
      * 修改密码

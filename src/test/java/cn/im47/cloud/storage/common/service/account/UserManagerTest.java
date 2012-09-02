@@ -3,13 +3,17 @@ package cn.im47.cloud.storage.common.service.account;
 import cn.im47.cloud.storage.common.entity.account.User;
 import cn.im47.cloud.storage.data.account.UserData;
 import com.google.common.collect.Maps;
-import junit.framework.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springside.modules.test.spring.SpringTransactionalTestCase;
 
 import java.util.Map;
+
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 /**
  * 用户 业务逻辑 测试类
@@ -25,12 +29,12 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 
     @Test
     public void testGet() throws Exception {
-        Assert.assertEquals("董鹏飞", userManager.get(2L).getUsername());
+        assertEquals("董鹏飞", userManager.get(2L).getUsername());
     }
 
     @Test
     public void testCount() throws Exception {
-        Assert.assertEquals(2, userManager.count().intValue());
+        assertEquals(3, userManager.count());
     }
 
     @Test
@@ -40,14 +44,14 @@ public class UserManagerTest extends SpringTransactionalTestCase {
 
         //新建 查询 测试
         userManager.save(user);
-        Assert.assertEquals("default.jpg", userManager.get(3L).getPhotoURL());
+        assertEquals("default.jpg", userManager.get(3L).getPhotoURL());
         //更新 测试
         user.setEmail("a@a.com");
         userManager.update(user);
-        Assert.assertEquals("a@a.com", user.getEmail());
+        assertEquals("a@a.com", user.getEmail());
 
         //删除 测试
-        Assert.assertEquals(1, userManager.delete(3L));
+        assertEquals(1, userManager.delete(3L));
     }
 
     @Test
@@ -59,7 +63,7 @@ public class UserManagerTest extends SpringTransactionalTestCase {
         parameters.put("Direction", "ASC");
         parameters.put("offset", 0);
         parameters.put("limit", 10);
-        Assert.assertEquals(1, userManager.search(parameters).size());
+        assertEquals(1, userManager.search(parameters).size());
     }
 
     @Test
@@ -67,7 +71,7 @@ public class UserManagerTest extends SpringTransactionalTestCase {
         String[] ids = {"1", "2"};
         userManager.batchAudit(ids);
         User user = userManager.get(1L);
-        Assert.assertTrue(user.isStatus());
+        assertFalse(user.isStatus());
     }
 
     @Test
@@ -75,30 +79,30 @@ public class UserManagerTest extends SpringTransactionalTestCase {
         String[] ids = {"1", "2"};
         userManager.batchDelete(ids);
         User user = userManager.get(1L);
-        Assert.assertTrue(user.isDeleted());
+        assertTrue(user.isDeleted());
     }
 
     @Test
     public void testGetUserByEmail() throws Exception {
-        Assert.assertEquals("董鹏飞", userManager.getUserByEmail("826323891@qq.com").getUsername());
+        assertEquals("董鹏飞", userManager.getUserByEmail("826323891@qq.com").getUsername());
     }
 
     @Test
     public void testIsSupervisor() throws Exception {
         User user = userManager.get(1L);
-        Assert.assertTrue(userManager.isSupervisor(user));
+        assertTrue(userManager.isSupervisor(user));
     }
 
     @Test
     public void testIsUsedEmail() throws Exception {
-        Assert.assertTrue(userManager.isUsedEmail("826323891@qq.com"));
+        assertTrue(userManager.isUsedEmail("826323891@qq.com"));
     }
 
     @Test
     public void testRepass() throws Exception {
         userManager.repass(userManager.get(2L));
         // TODO
-        Assert.assertNotSame("691b14d79bf0fa2215f155235df5e670b64394cc7efbd59d9741d34f", userManager.get(1L).getPassword());
+        assertNotSame("691b14d79bf0fa2215f155235df5e670b64394cc7efbd59d9741d34f", userManager.get(1L).getPassword());
     }
 
 }

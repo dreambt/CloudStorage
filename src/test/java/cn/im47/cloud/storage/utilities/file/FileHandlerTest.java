@@ -18,10 +18,11 @@ public class FileHandlerTest {
 
     @Test
     public void testMoveFile() {
-        File frmFile = new File("D:/TDDOWNLOAD/CLANNAD-中文版_Setup.exe");
-        File toFile = new File("C:/b.exe");
+        File frmFile = new File("d:/1.txt");
+        File toFile = new File("d:/2.txt");
         FileHandler.moveFile(frmFile, toFile);
         String str = FileHandler.getMD5(frmFile);
         System.out.println(str);
     }
+
 }

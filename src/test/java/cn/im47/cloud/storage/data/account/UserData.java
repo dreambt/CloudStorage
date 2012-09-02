@@ -29,7 +29,7 @@ public class UserData {
         String username = RandomData.randomName(UserSuffix);
 
         User user = new User();
-        user.setId(3L);
+        user.setId(9999999L);
         user.setEmail(username + "@sdufe.edu.cn");
         user.setUsername(username);
         user.setPlainPassword(DEFAULT_PASSWORD);

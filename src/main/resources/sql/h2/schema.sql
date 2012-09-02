@@ -70,7 +70,6 @@ CREATE TABLE IF NOT EXISTS `CS_FILE` (
 -- 表的结构 `CS_FTP_USER`
 --
 DROP TABLE IF EXISTS `CS_FTP_USER`;
-
 CREATE TABLE IF NOT EXISTS `CS_FTP_USER` (
   `id` int(11) default NULL,
   `user_name` varchar(64) default NULL,
@@ -90,20 +89,20 @@ CREATE TABLE IF NOT EXISTS `CS_FTP_USER` (
 );
 
 -- -----------------------------------------------------
--- 用户组 `CT_GROUP`
+-- 用户组 `CS_GROUP`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `CT_GROUP` ;
-CREATE  TABLE IF NOT EXISTS `CT_GROUP` (
+DROP TABLE IF EXISTS `CS_GROUP` ;
+CREATE  TABLE IF NOT EXISTS `CS_GROUP` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT ,
   `group_name` VARCHAR(40) NOT NULL ,
   PRIMARY KEY (`id`)
 );
 
 -- -----------------------------------------------------
--- 用户组权限 `CT_GROUP_PERMISSION`
+-- 用户组权限 `CS_GROUP_PERMISSION`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `CT_GROUP_PERMISSION` ;
-CREATE  TABLE IF NOT EXISTS `CT_GROUP_PERMISSION` (
+DROP TABLE IF EXISTS `CS_GROUP_PERMISSION` ;
+CREATE  TABLE IF NOT EXISTS `CS_GROUP_PERMISSION` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT ,
   `group_id` int(11) unsigned NOT NULL ,
   `permission` VARCHAR(20) NOT NULL ,

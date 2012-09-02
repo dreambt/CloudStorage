@@ -15,23 +15,23 @@
     <!-- 获取用户组 -->
     <select id="get" parameterType="Long" resultMap="groupDetailMap">
         SELECT G.id, group_name, permission
-        FROM CT_GROUP as G
-        LEFT OUTER JOIN CT_GROUP_PERMISSION as P ON G.id=P.group_id
-        WHERE G.id=#{groupId}
+        FROM CS_GROUP as G
+        LEFT OUTER JOIN CS_GROUP_PERMISSION as P ON G.id=P.group_id
+        WHERE G.id=#{id}
         LIMIT 99
 	</select>
 
     <!--获取用户组数量 -->
     <select id="count" resultType="Long">
         SELECT count(id)
-        FROM CT_GROUP
+        FROM CS_GROUP
         LIMIT 1
 	</select>
 
     <!-- 查询用户 -->
     <select id="search" parameterType="map" resultType="ArrayList">
         SELECT *
-        FROM CT_GROUP
+        FROM CS_GROUP
         <where>
             <if test="id != null">
                 id=#{id}

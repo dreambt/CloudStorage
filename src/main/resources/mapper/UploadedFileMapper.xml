@@ -6,19 +6,18 @@
 
     <resultMap id="fileDetailMap" type="UploadedFile">
         <id property="id" column="id"/>
-        <result property="customName" column="custom_name"></result>
-        <result property="virtualName" column="virtual_name"></result>
-        <result property="realName" column="real_name"></result>
-        <result property="md5" column="md5"></result>
-        <result property="CRC" column="CRC"></result>
-        <result property="shared" column="shared"></result>
-        <result property="status" column="status"></result>
+        <result property="customName" column="custom_name"/>
+        <result property="virtualName" column="virtual_name"/>
+        <result property="realName" column="real_name"/>
+        <result property="md5" column="md5"/>
+        <result property="CRC" column="CRC"/>
+        <result property="shared" column="shared"/>
+        <result property="status" column="status"/>
         <result property="lastModifiedDate" column="last_modified_date"/>
         <result property="createdDate" column="created_date"/>
-        <result property="deleted" column="deleted"></result>
+        <result property="deleted" column="deleted"/>
         <association property="node" column="node_id" javaType="Node"
                     resultMap="cn.im47.cloud.storage.common.dao.file.NodeMapper.nodeDetailMap">
-
         </association>
     </resultMap>
 
@@ -47,10 +46,10 @@
 
     <insert id="save" parameterType="UploadedFile">
 		INSERT INTO ${appKey}CS_FILE
-		(id, custom_name, virtual_name, real_name, size, md5, CRC, shared, status, deleted, last_modified_date, created_date)
+		(id, node_id, custom_name, virtual_name, real_name, size, md5, CRC, shared, status, deleted, last_modified_date, created_date)
 		VALUES
-		(null, #{object.customName}, #{object.virtualName}, #{object.realName}, #{object.size}, #{object.md5}, #{object.CRC},
-		 #{object.shared}, #{object.status}, #{object.deleted}, #{object.lastModifiedDate},null)
+		(null, #{object.node.id}, #{object.customName}, #{object.virtualName}, #{object.realName}, #{object.size}, #{object.md5}, #{object.CRC},
+		 #{object.shared}, #{object.status}, #{object.deleted}, #{object.lastModifiedDate}, null)
 	</insert>
 
     <delete id="delete">

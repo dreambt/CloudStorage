@@ -87,10 +87,10 @@ CREATE TABLE IF NOT EXISTS `CS_FTP_USER` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------------------
--- 用户组 `CT_GROUP`
+-- 用户组 `CS_GROUP`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `CT_GROUP` ;
-CREATE  TABLE IF NOT EXISTS `CT_GROUP` (
+DROP TABLE IF EXISTS `CS_GROUP` ;
+CREATE  TABLE IF NOT EXISTS `CS_GROUP` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT ,
   `group_name` VARCHAR(40) NOT NULL ,
   PRIMARY KEY (`id`) )
@@ -98,10 +98,10 @@ ENGINE = InnoDB
 DEFAULT CHARSET=UTF8 COLLATE=utf8_general_ci;
 
 -- -----------------------------------------------------
--- 用户组权限 `CT_GROUP_PERMISSION`
+-- 用户组权限 `CS_GROUP_PERMISSION`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `CT_GROUP_PERMISSION` ;
-CREATE  TABLE IF NOT EXISTS `CT_GROUP_PERMISSION` (
+DROP TABLE IF EXISTS `CS_GROUP_PERMISSION` ;
+CREATE  TABLE IF NOT EXISTS `CS_GROUP_PERMISSION` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT ,
   `group_id` int(11) unsigned NOT NULL ,
   `permission` VARCHAR(20) NOT NULL ,

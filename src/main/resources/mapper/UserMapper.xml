@@ -31,8 +31,8 @@
         email_status, avatar_status, photo_url, time_offset, last_ip, last_time, last_act_time, created_date, last_modified_date,
         group_name as group_group_name, permission as group_permission
         FROM CS_USER AS U
-        LEFT OUTER JOIN CT_GROUP AS G ON G.id = U.group_id
-        LEFT OUTER JOIN CT_GROUP_PERMISSION AS P ON P.group_id = G.id
+        LEFT OUTER JOIN CS_GROUP AS G ON G.id = U.group_id
+        LEFT OUTER JOIN CS_GROUP_PERMISSION AS P ON P.group_id = G.id
         WHERE U.id =#{id}
     </select>
 
@@ -111,7 +111,7 @@
         WHERE id=#{id}
     </update>
 
-    <!-- 更新用户 -->
+    <!-- 删除用户 -->
     <delete id="deleteByTask">
         DELETE FROM CS_USER
         WHERE deleted=1
@@ -124,8 +124,8 @@
         last_modified_date,
         group_name as group_group_name, permission as group_permission
         FROM CS_USER AS U
-        LEFT OUTER JOIN CT_GROUP AS G ON G.id = U.group_id
-        LEFT OUTER JOIN CT_GROUP_PERMISSION AS P ON P.group_id = G.id
+        LEFT OUTER JOIN CS_GROUP AS G ON G.id = U.group_id
+        LEFT OUTER JOIN CS_GROUP_PERMISSION AS P ON P.group_id = G.id
         <where>
             1=1
             <if test="email != null and email !=''">
@@ -184,8 +184,8 @@
         SELECT U.id, U.group_id, email, username, PASSWORD , salt, STATUS , deleted,
         group_name as group_group_name, permission as group_permission
         FROM CS_USER AS U
-        LEFT OUTER JOIN CT_GROUP AS G ON G.id = U.group_id
-        LEFT OUTER JOIN CT_GROUP_PERMISSION AS P ON P.group_id = U.group_id
+        LEFT OUTER JOIN CS_GROUP AS G ON G.id = U.group_id
+        LEFT OUTER JOIN CS_GROUP_PERMISSION AS P ON P.group_id = U.group_id
         WHERE email =#{email}
     </select>
 

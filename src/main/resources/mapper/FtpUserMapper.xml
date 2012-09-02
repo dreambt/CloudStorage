@@ -85,10 +85,10 @@
     </update>
 
     <!-- 标记删除 -->
-    <update id="deleteByTask">
-        DELETE CS_FTP_USER
+    <delete id="deleteByTask">
+        DELETE FROM CS_FTP_USER
         WHERE deleted=1
-    </update>
+    </delete>
 
     <!-- 查询用户 -->
     <select id="search" parameterType="map" resultMap="ftpUserDetailMap">

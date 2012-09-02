@@ -44,7 +44,7 @@ public class UserMapperTest extends SpringTransactionalTestCase {
 
     @Test
     public void testCount() throws Exception {
-        assertEquals(2, userMapper.count().intValue());
+        assertEquals(3, userMapper.count().intValue());
     }
 
     @Test
@@ -71,11 +71,12 @@ public class UserMapperTest extends SpringTransactionalTestCase {
 
     @Test
     public void testGetDeletedUserId() throws Exception {
-        assertEquals(0, userMapper.getDeletedUserId().size());
+        assertEquals(1, userMapper.getDeletedUserId().size());
     }
 
     @Test
     public void testDeleteByTask() throws Exception {
-        assertEquals(0, userMapper.deleteByTask());
+        assertEquals(1, userMapper.deleteByTask());
     }
+
 }

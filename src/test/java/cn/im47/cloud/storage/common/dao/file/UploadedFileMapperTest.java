@@ -53,16 +53,17 @@ public class UploadedFileMapperTest extends SpringTransactionalTestCase {
     public void testSearch() throws Exception {
         Map<String, Object> parameters = Maps.newHashMap();
         //TODO 使用customName = AAA.jpg无法查出结果
-        parameters.put("size", 11);
+        parameters.put("size", 10);
         parameters.put("Sort", "id");
         parameters.put("Direction", "ASC");
         parameters.put("offset", 0);
         parameters.put("limit", 10);
-        assertEquals(2, uploadedFileMapper.search(APP_KEY, parameters).size());
+        assertEquals(1, uploadedFileMapper.search(APP_KEY, parameters).size());
     }
 
     @Autowired
     public void setFtpUserMapper(UploadedFileMapper uploadedFileMapper) {
         this.uploadedFileMapper = uploadedFileMapper;
     }
+
 }

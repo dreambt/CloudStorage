@@ -37,8 +37,8 @@ public class FtpUserMapperTest extends SpringTransactionalTestCase {
         ftpUserMapper.update(ftpUser);
         assertEquals(0, ftpUser.getDownloadRate());
 
-        //删除 测试
-        assertEquals(1, ftpUserMapper.delete(3L));
+        //删除物理测试
+        assertEquals(1, ftpUserMapper.deleteByTask());
     }
 
     @Test
