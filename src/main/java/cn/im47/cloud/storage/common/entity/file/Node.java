@@ -21,9 +21,9 @@ public class Node extends IdEntity implements Serializable {
 
     private String name;                 // 结点名称
     private FileTypeEnum type;           // 结点类型
-    private Node leftSibling;          // 左兄弟编号
+    private Long leftSibling;          // 左兄弟编号
+    private Long parentId;              // 父节点编号
 
-    private Node parent;              // 父节点编号
     private List<Node> nodeList = Lists.newArrayList();
 
     public String getName() {
@@ -42,20 +42,20 @@ public class Node extends IdEntity implements Serializable {
         this.type = type;
     }
 
-    public Node getLeftSibling() {
+    public Long getLeftSibling() {
         return leftSibling;
     }
 
-    public void setLeftSibling(Node leftSibling) {
+    public void setLeftSibling(Long leftSibling) {
         this.leftSibling = leftSibling;
     }
 
-    public Node getParent() {
-        return parent;
+    public Long getParentId() {
+        return parentId;
     }
 
-    public void setParent(Node parent) {
-        this.parent = parent;
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 
     public List<Node> getNodeList() {

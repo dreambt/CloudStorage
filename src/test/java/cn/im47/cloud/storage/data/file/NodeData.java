@@ -18,15 +18,8 @@ public class NodeData {
         node.setId(8L);
         node.setName("node 2.2");
         node.setType(FileTypeEnum.TXT);
-
-        Node left = new Node();
-        left.setId(0L);
-        node.setLeftSibling(left);
-
-        Node parent = new Node();
-        parent.setId(3L);
-        node.setParent(parent);
-
+        node.setLeftSibling(0L);
+        node.setParentId(3L);
         node.setNodeList(null);
         return node;
     }

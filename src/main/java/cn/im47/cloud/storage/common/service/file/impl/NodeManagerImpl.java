@@ -1,13 +1,10 @@
 package cn.im47.cloud.storage.common.service.file.impl;
 
-import cn.im47.cloud.storage.common.dao.file.NodeAdjMapper;
 import cn.im47.cloud.storage.common.dao.file.NodeMapper;
 import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
 import cn.im47.cloud.storage.utilities.memcached.MemcachedObjectType;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +12,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.cache.memcached.SpyMemcachedClient;
 import org.springside.modules.mapper.JsonMapper;
-import org.springside.modules.security.utils.Digests;
-import org.springside.modules.utils.Encodes;
 
 import java.util.List;
 import java.util.Map;
@@ -48,7 +43,7 @@ public class NodeManagerImpl implements NodeManager {
     @Override
     public List<Node> getTree(String appKey) {
         List<Node> nodeList = nodeMapper.getChildren(appKey, 0L);
-        for(Node node: nodeList) {
+        for (Node node : nodeList) {
             this.toTree(appKey, node);
         }
         return nodeList;
@@ -63,9 +58,9 @@ public class NodeManagerImpl implements NodeManager {
      */
     private void toTree(String appKey, Node node) {
         List<Node> nodeList1 = nodeMapper.getChildren(appKey, node.getId());
-        for(Node node1: nodeList1) {
+        for (Node node1 : nodeList1) {
             node.getNodeList().add(node1);
-            if(0 == nodeMapper.getChildren(appKey, node1.getId()).size() || null == nodeMapper.getChildren(appKey, node1.getId())) {
+            if (0 == nodeMapper.getChildren(appKey, node1.getId()).size() || null == nodeMapper.getChildren(appKey, node1.getId())) {
                 continue;
             } else {
                 this.toTree(appKey, node1);
@@ -76,7 +71,7 @@ public class NodeManagerImpl implements NodeManager {
     @Override
     @Transactional(readOnly = false)
     public int save(String appKey, Node object) {
-        long parentId = object.getParent().getId();
+        long parentId = object.getParentId();
         long parentLen = 0;
         List<Node> nodeList = nodeMapper.getChildren(appKey, parentId);
         // TODO
@@ -147,10 +142,9 @@ public class NodeManagerImpl implements NodeManager {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    /**/
     @Override
     public Node getParent(String appKey, Long id) {
-        return nodeMapper.get(appKey, id).getParent();
+        return nodeMapper.get(appKey, nodeMapper.get(appKey, id).getParentId());
     }
 
     @Override

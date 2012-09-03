@@ -9,12 +9,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
     <!-- 自动扫描且只扫描@Controller -->
-    <context:component-scan base-package="cn.im47.cloud.storage.common.web" use-default-filters="false">
+    <context:component-scan base-package="cn.im47.cloud.storage.common" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
+    <!-- TODO 貌似可以删除了 -->
     <mvc:annotation-driven>
-        <!-- TODO 暂时解决Spring 输出 JSON 乱码问题 -->
+        <!-- 暂时解决Spring 输出 JSON 乱码问题 -->
         <mvc:message-converters>
             <bean class="cn.im47.commons.utilities.patch.MappingJacksonHttpMessageConverter"/>
         </mvc:message-converters>
@@ -57,6 +58,7 @@
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
           p:maxUploadSize="1000000"/>
 
+    <!-- TODO 貌似可以删除了 -->
     <!-- http://stackoverflow.com/questions/6479712/why-is-jackson-wrapping-my-objects-with-an-extra-layer-named-after-the-class -->
     <bean class="cn.im47.commons.utilities.patch.MappingJacksonJsonView"
           p:extractValueFromSingleKeyModel="true"/>

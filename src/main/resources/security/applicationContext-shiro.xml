@@ -27,6 +27,7 @@
                 /login = authc
                 /logout = logout
                 /static/** = anon
+                /api/** = anon
                 /account/** = user
                 <!-- 用户管理 -->
                 /account/user/create = perms["user:create"]

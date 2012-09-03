@@ -1,12 +1,10 @@
 package cn.im47.cloud.storage.common.web.account;
 
 import cn.im47.cloud.storage.common.entity.account.FtpUser;
-import cn.im47.cloud.storage.common.entity.account.User;
 import cn.im47.cloud.storage.common.service.account.FtpUserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -70,7 +68,7 @@ public class FtpUserController {
      */
     @RequestMapping(value = "save")
     public String save(FtpUser ftpUser, RedirectAttributes redirectAttributes) {
-        if(ftpUserManager.save(ftpUser) > 0) {
+        if (ftpUserManager.save(ftpUser) > 0) {
             redirectAttributes.addFlashAttribute("info", "添加ftp用户成功.");
         } else {
             redirectAttributes.addFlashAttribute("error", "添加ftp用户失败");

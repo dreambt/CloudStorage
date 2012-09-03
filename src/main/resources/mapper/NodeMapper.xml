@@ -8,12 +8,8 @@
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="type" column="type"/>
-        <association property="leftSibling" column="left_sibling" javaType="Node"
-                    resultMap="cn.im47.cloud.storage.common.dao.file.NodeMapper.nodeDetailMap" >
-        </association>
-        <association property="parent" column="parent_id" javaType="Node"
-                    resultMap="cn.im47.cloud.storage.common.dao.file.NodeMapper.nodeDetailMap" >
-        </association>
+        <result property="leftSibling" column="left_sibling"/>
+        <result property="parentId" column="parent_id"/>
     </resultMap>
 
     <sql id="nodeColumns">N.id, N.name, N.type, N.left_sibling, N.parent_id</sql>

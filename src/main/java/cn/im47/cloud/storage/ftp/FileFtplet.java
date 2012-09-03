@@ -4,18 +4,12 @@ import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
 import cn.im47.cloud.storage.utilities.file.FileHandler;
 import org.apache.ftpserver.ftplet.*;
-import org.apache.ftpserver.usermanager.impl.BaseUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springside.modules.security.utils.Digests;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * ftp 文件事件通知类

@@ -15,9 +15,9 @@ import java.util.List;
  */
 public interface NodeMapper extends GenericAppDao<Node, Long> {
 
-    List<Node> getChildren(@Param("appKey") String appKey, @Param("id") Long id);
+    List<Node> getChildren(@Param("appKey") String appKey, @Param("id") long id);
 
-    Node getRightSibling(@Param("appKey") String appKey, @Param("id") Long id);
+    Node getRightSibling(@Param("appKey") String appKey, @Param("id") long id);
 
     Node getByName(@Param("appKey") String appKey, @Param("nodeName") String nodeName);
 }

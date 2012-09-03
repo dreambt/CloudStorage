@@ -2,16 +2,14 @@ package cn.im47.cloud.storage.common.web.file;
 
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 /**
  * 文件控制器
@@ -23,8 +21,6 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/file")
 public class UploadedFileController {
-
-    private static final Logger logger = LoggerFactory.getLogger(UploadedFileController.class);
 
     private UploadedFileManager uploadedFileManager;
 
@@ -51,18 +47,6 @@ public class UploadedFileController {
     public String get(Model model, @PathVariable("id") Long id) {
         model.addAttribute("file", uploadedFileManager.get(APP_KEY, id));
         return "file/video";
-    }
-
-    /**
-     * 获得分类编号为id 的所有文件， ajax返回
-     *
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "/getByNode/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public List<UploadedFile> getByNode(@PathVariable("id") Long id) {
-        return uploadedFileManager.getByNode(APP_KEY, id);
     }
 
     /**

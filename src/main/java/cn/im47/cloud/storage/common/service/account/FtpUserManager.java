@@ -1,7 +1,6 @@
 package cn.im47.cloud.storage.common.service.account;
 
 import cn.im47.cloud.storage.common.entity.account.FtpUser;
-import cn.im47.cloud.storage.common.entity.account.User;
 import cn.im47.cloud.storage.common.service.GenericManager;
 
 /**

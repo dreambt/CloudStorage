@@ -2,22 +2,13 @@ package cn.im47.cloud.storage.common.service.account.impl;
 
 import cn.im47.cloud.storage.common.dao.account.FtpUserMapper;
 import cn.im47.cloud.storage.common.entity.account.FtpUser;
-import cn.im47.cloud.storage.common.entity.account.User;
-import cn.im47.cloud.storage.common.service.ServiceException;
 import cn.im47.cloud.storage.common.service.account.FtpUserManager;
-import cn.im47.cloud.storage.jms.NotifyMessageProducer;
-import cn.im47.cloud.storage.security.ShiroDbRealm;
 import cn.im47.cloud.storage.utilities.security.MessageDigest;
-import cn.im47.commons.utilities.RandomString;
-import org.apache.commons.lang.StringUtils;
-import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import org.springside.modules.security.utils.Digests;
-import org.springside.modules.utils.Encodes;
 
 import java.util.List;
 import java.util.Map;
