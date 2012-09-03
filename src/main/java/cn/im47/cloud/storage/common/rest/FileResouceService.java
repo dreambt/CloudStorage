@@ -2,13 +2,11 @@ package cn.im47.cloud.storage.common.rest;
 
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
+import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,10 +32,10 @@ public class FileResouceService {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/getByNode/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/list/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<UploadedFile> getByNode(@PathVariable("id") Long id) {
-        return fileManager.getByNode(APP_KEY, id);
+    public List<UploadedFile> listByNode(@PathVariable("id") Long id, @RequestParam("offset") int offset, @RequestParam("limit") int limit) {
+        return fileManager.getByNode(APP_KEY, id, offset, limit);
     }
 
 }

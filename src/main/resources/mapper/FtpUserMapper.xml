@@ -84,7 +84,7 @@
         WHERE id=#{id}
     </update>
 
-    <!-- 标记删除 -->
+    <!-- 删除已标记的用户 -->
     <delete id="deleteByTask">
         DELETE FROM CS_FTP_USER
         WHERE deleted=1

@@ -15,6 +15,6 @@ import java.util.List;
  */
 public interface UploadedFileMapper extends GenericAppDao<UploadedFile, Long> {
 
-    List<UploadedFile> getByNode(@Param("appKey") String appKey, @Param("id") Long id);
+    List<UploadedFile> getByNode(@Param("appKey") String appKey, @Param("id") Long id, @Param("offset") int offset, @Param("limit") int limit);
 
 }

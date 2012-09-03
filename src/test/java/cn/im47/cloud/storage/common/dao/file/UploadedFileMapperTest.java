@@ -45,7 +45,7 @@ public class UploadedFileMapperTest extends SpringTransactionalTestCase {
 
     @Test
     public void testGetByNode() throws Exception {
-        List<UploadedFile> uploadedFiles = uploadedFileMapper.getByNode(APP_KEY, 2L);
+        List<UploadedFile> uploadedFiles = uploadedFileMapper.getByNode(APP_KEY, 2L, 0, 10);
         assertEquals(2, uploadedFiles.size());
     }
 

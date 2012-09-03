@@ -164,7 +164,7 @@
                             <th>更多操作</th>
                         </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="file-list">
                         <tr>
                             <th><label class="checkbox"><input type="checkbox" name="subBox" value=""></label> </th>
                             <td>1</td>
@@ -294,6 +294,91 @@
             var upload="<tr class='template-upload fade in'><td class='preview'><span class='fade' style='width: 6px'></span></td><td class='name'><span id='realName' title='"+pre+"'>" + realName + "</span></td><td class='size'><span id='size'></span></td><td><div class='progress progress-success progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='0'><div class='bar' style='width:0%;'></div></div></td><td class='start'><button class='btn btn-primary'><i class='icon-upload icon-white'></i><span>开始上传</span></button></td><td class='cancel'><button class='btn btn-warning'><i class='icon-ban-circle icon-white'></i><span>取消</span></button></td></tr>";
             $("#hasfile").append(upload);
         });
+
+
+        var articles = $("#file-list");
+        //pager.find("span:first").css('background-color', '#e4e4e4').css('color', '#ff4e00').css('cursor', 'default');
+        PageClick = function (pageIndex, total, spanInterval) {
+            //索引从1开始
+            //将当前页索引转为int类型
+            var intPageIndex = parseInt(pageIndex);
+            var limit = 5;//每页显示文章数量
+
+            $.ajax({
+                url: "${ctx}/api/file/list/${nodeId}?offset=" + (intPageIndex - 1) * limit + "&limit=" + limit,
+
+                timeout:3000,
+                success:function (data) {
+                    articles.html("");
+
+                    //加载文章
+                    $.each(data, function (index, content) {
+                        articles.append($("<tr><th><label class='checkbox'><input type='checkbox' name='subBox' value=''></label> </th><td>3</td><td>Larry</td><td>the Bird</td><td>@twitter</td> <th>大小</th><th><a href='#'><i class='icon-tags' title='修改'></i></a></th><th><a href='#'><i class='icon-remove' title='删除'></i></a></th><th><a href='#'><i class='icon-hand-right' title='分享'></i></a> <a href='#'><i class='icon-star' title='重点标记'></i></a> <a href='#'><i class='icon-download-alt' title='下载'></i></a></th></tr>"));
+                    });
+
+                    //将总记录数结果 得到 总页码数
+                    var pageS = total;
+                    if (pageS % limit == 0) pageS = pageS / limit;
+                    else pageS = parseInt(total / limit) + 1;
+
+                    //设置分页的格式  这里可以根据需求完成自己想要的结果
+                    var interval = parseInt(spanInterval); //设置间隔
+                    var start = Math.max(1, intPageIndex - interval); //设置起始页
+                    var end = Math.min(intPageIndex + interval, pageS);//设置末页
+
+                    if (intPageIndex < interval + 1) {
+                        end = (2 * interval + 1) > pageS ? pageS : (2 * interval + 1);
+                    }
+
+                    if ((intPageIndex + interval) > pageS) {
+                        start = (pageS - 2 * interval) < 1 ? 1 : (pageS - 2 * interval);
+                    }
+
+                    articles.append($("<div class='pagination pagination-right'><ul id='pagination'></ul></div>"));
+                    var pager = $("#pagination");
+
+                    //上一页
+                    var prior = $("<li><a>上一页</a></li>").click(function() {
+                        if(intPageIndex - 1 >= 0) {
+                            intPageIndex = intPageIndex - 1;
+                        }
+                        PageClick(intPageIndex, total, spanInterval);
+                    });
+                    pager.append(prior);
+                    //生成页码
+                    for (var j = start; j < end + 1; j++) {
+                        if (j == intPageIndex) {
+                            var spanSelectd = $("<li class='active'><a>" + j + "</a></li>");
+                            pager.append(spanSelectd);
+                        } else {
+                            var a = $("<li><a>" + j + "</a></li>").click(function () {
+                                PageClick($(this).text(), total, spanInterval);
+                            });
+                            pager.append(a);
+                        } //else
+                    } //for
+
+                    //下一页
+                    var next = $("<li><a>下一页</a></li>").click(function() {
+                        if(intPageIndex + 1 <= end) {
+                            intPageIndex = intPageIndex + 1;
+                        }
+                        PageClick(intPageIndex, total, spanInterval);
+                    });
+                    pager.append(next);
+                }
+            });
+        };
+        /*TODO
+        $("#pager li:eq(1)").addClass("active");
+        $(".pagination ul li").click(function() {
+            PageClick($(this).text(), ${total}, 5);
+        });
+        $("#next").click(function() {
+            PageClick(2, ${total}, 5);
+        });
+        */
+        <!-- 分页结束 -->
 
         $.ajax({
             url:"${ctx}/node/getChildren/0",

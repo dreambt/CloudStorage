@@ -24,21 +24,25 @@ public class UploadedFileController {
 
     private UploadedFileManager uploadedFileManager;
 
+    private static final int PAGE_SIZE = 5;
+
     private static final String APP_KEY = "";
 
-    @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
-    public String list() {
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String listDefault(Model model) {
+        model.addAttribute("files", uploadedFileManager.getByNode(APP_KEY, 0L, 0, PAGE_SIZE));
         return "redirect:/file/list/0";
     }
 
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
-    public String list(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("files", uploadedFileManager.getByNode(APP_KEY, id));
+    public String listByNode(Model model, @PathVariable("id") Long id) {
+        model.addAttribute("nodeId", id);
+        model.addAttribute("files", uploadedFileManager.getByNode(APP_KEY, id, 0, PAGE_SIZE));
         return "file/list";
     }
 
     /**
-     * 获得编号为id 的文件, ajax返回
+     * 获得分类编号为id 的所有文件
      *
      * @param id
      * @return
@@ -49,6 +53,7 @@ public class UploadedFileController {
         return "file/video";
     }
 
+    /**
     /**
      * 跳转到上传页面
      *
@@ -93,7 +98,7 @@ public class UploadedFileController {
         } else {
             model.addAttribute("error", "删除文件失败");
         }
-        return "";
+        return "redirect:/file/list/" + uploadedFileManager.get(APP_KEY, id).getNode().getId();
     }
 
     @Autowired

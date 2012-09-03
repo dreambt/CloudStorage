@@ -27,8 +27,8 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
-    public List<UploadedFile> getByNode(String appKey, Long id) {
-        return uploadedFileMapper.getByNode(appKey, id);
+    public List<UploadedFile> getByNode(String appKey, Long id, int offset, int limit) {
+        return uploadedFileMapper.getByNode(appKey, id, offset, limit);
     }
 
     @Override

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface UploadedFileManager extends GenericAppManager<UploadedFile, Long> {
 
-    public List<UploadedFile> getByNode(String appKey, Long id);
+    public List<UploadedFile> getByNode(String appKey, Long id, int offset, int limit);
 
     public int updateBool(String appKey, Long id, String column);
 

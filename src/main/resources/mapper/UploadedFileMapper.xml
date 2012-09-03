@@ -37,6 +37,10 @@
         <include refid="fileColumns"/>
         FROM ${appKey}CS_FILE AS F
         WHERE node_id =#{id}
+        ORDER BY F.id DESC
+        <if test="limit != null and limit>0">
+            LIMIT ${offset}, ${limit}
+        </if>
     </select>
 
     <select id="count" resultType="Long">
