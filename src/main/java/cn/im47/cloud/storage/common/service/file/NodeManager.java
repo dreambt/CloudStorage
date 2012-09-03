@@ -43,17 +43,19 @@ public interface NodeManager extends GenericAppManager<Node, Long> {
     /**
      * 通过路径获得节点
      *
+     * @param appKey
      * @param path
      * @return
      */
-    Node getByPath(String path);
+    Node getByPath(String appKey, String path);
 
     /**
      * 通过节点名称获得节点
      *
+     * @param appKey
      * @param nodeName
      * @return
      */
-    Node getBuName(String nodeName);
+    Node getByName(String appKey, String nodeName);
 
 }

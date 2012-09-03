@@ -152,14 +152,15 @@ public class NodeManagerImpl implements NodeManager {
     }
 
     @Override
-    public Node getByPath(String path) {
+    public Node getByPath(String appKey, String path) {
         String[] paths = path.split("/");
-        return null;
+        String nodeName = paths[paths.length-1];
+        return this.getByName(appKey, nodeName);
     }
 
     @Override
-    public Node getBuName(String nodeName) {
-        return null;
+    public Node getByName(String appKey, String nodeName) {
+        return nodeMapper.getByName(appKey, nodeName);
     }
 
     @Autowired
