@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * 用户组管理类
  * <p/>
@@ -51,16 +48,6 @@ public class GroupManagerImpl implements GroupManager {
     @Override
     public int delete(Long id) {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public List<Group> search(Map<String, Object> parameters) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public List<Group> search(Map<String, Object> parameters, int offset, int limit) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     /**

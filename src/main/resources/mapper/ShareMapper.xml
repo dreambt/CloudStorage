@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.im47.cloud.storage.common.dao.share.ShareMapper">
+
+    <resultMap id="shareDetailMap" type="Share">
+        <id property="id" column="id"/>
+        <result property="shareKey" column="share_key"/>
+        <result property="shareSecret" column="share_secret"/>
+        <result property="fileKey" column="file_key"/>
+        <result property="lastModifiedDate" column="last_modified_date" typeHandler="org.apache.ibatis.type.LocalDateTimeTypeHandler"/>
+        <result property="createdDate" column="created_date" typeHandler="org.apache.ibatis.type.LocalDateTimeTypeHandler"/>
+        <result property="expiredDate" column="expired_date" typeHandler="org.apache.ibatis.type.LocalDateTimeTypeHandler"/>
+    </resultMap>
+
+    <sql id="shareColumns">S.id, S.share_key, S.share_secret, S.app_key, S.file_key, S.lastModifiedDate, S.createdDate, S.expiredDate</sql>
+
+    <select id="get" parameterType="Long" resultMap="shareDetailMap">
+        SELECT <include refid="shareColumns"/>
+        FROM ${appKey}CS_SHARE AS S
+        WHERE share_key =${shareKey} and share_secret=#{shareSecret}
+        LIMIT 1
+    </select>
+
+    <insert id="save" parameterType="Share" useGeneratedKeys="true" keyProperty="object.id">
+		INSERT INTO ${appKey}CS_SHARE(share_key, share_secret, file_key, created_date, expired_date)
+		VALUES (#{object.shareKey}, #{object.shareSecret}, #{object.fileKey}, null, #{object.expiredDate})
+	</insert>
+
+    <delete id="delete">
+		DELETE FROM ${appKey}CS_SHARE
+		WHERE id=#{id}
+	</delete>
+
+</mapper>

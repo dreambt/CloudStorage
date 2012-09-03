@@ -1,6 +1,6 @@
 package cn.im47.cloud.storage.common.entity.account;
 
-import cn.im47.cloud.storage.common.entity.PersistableEntity;
+import cn.im47.commons.entity.PersistableEntity;
 
 /**
  * ftp 账号信息

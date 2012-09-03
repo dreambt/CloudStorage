@@ -11,12 +11,9 @@ public enum MemcachedObjectType {
 
     NODE("node:", 60 * 1 * 1),
     FILE("file:", 60 * 1 * 1),
-    ARTICLE("article:", 60 * 24 * 7),
-    ARCHIVE("archive:", 60 * 24 * 7),
-    COMMENT("comment:", 60 * 24 * 1),
-    CATEGORY("category:", 60 * 24 * 7),
-    LINK("link:", 60 * 24 * 7),
-    IMAGE("image:", 60 * 24 * 1);
+    USER("user:", 60 * 1 * 1),
+    FTPUSER("ftpuser:", 60 * 1 * 1),
+    SHARE("share:", 60 * 1 * 1);
 
     private String prefix;
     private int expiredTime;

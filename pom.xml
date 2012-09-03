@@ -106,7 +106,7 @@
         <dependency>
             <groupId>cn.im47.commons</groupId>
             <artifactId>commons</artifactId>
-            <version>0.0.2</version>
+            <version>0.0.3</version>
         </dependency>
 
         <!-- SPRINGSIDE begin -->

@@ -1,9 +1,7 @@
 package cn.im47.cloud.storage.data.file;
 
-import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
-
-import java.util.Date;
+import org.joda.time.LocalDateTime;
 
 /**
  * FtpUser相关实体测试数据生成.
@@ -18,7 +16,7 @@ public class UploadedFileData {
         UploadedFile uploadedFile = new UploadedFile();
         uploadedFile.setNode(NodeData.getNodeData());
         uploadedFile.setCustomName("eee.jpg");
-        uploadedFile.setVirtualName("asdfasdfasfewavx");
+        uploadedFile.setFileKey("asdfasdfasfewavx");
         uploadedFile.setRealName("ea.jpg");
         uploadedFile.setSize(100);
         uploadedFile.setMd5("asdfawevasdfwe");
@@ -26,8 +24,8 @@ public class UploadedFileData {
         uploadedFile.setShared(true);
         uploadedFile.setStatus(true);
         uploadedFile.setDeleted(false);
-        uploadedFile.setLastModifiedDate(new Date());
-        uploadedFile.setCreatedDate(new Date());
+        uploadedFile.setLastModifiedDate(new LocalDateTime());
+        uploadedFile.setCreatedDate(new LocalDateTime());
         return uploadedFile;
     }
 

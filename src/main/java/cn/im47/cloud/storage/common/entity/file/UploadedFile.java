@@ -1,6 +1,6 @@
 package cn.im47.cloud.storage.common.entity.file;
 
-import cn.im47.cloud.storage.common.entity.PersistableEntity;
+import cn.im47.commons.entity.PersistableEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -18,9 +18,9 @@ public class UploadedFile extends PersistableEntity implements Serializable {
     private static final long serialVersionUID = -38331060124340964L;
 
     private Node node;
-    private String customName;
-    private String virtualName;
-    private String realName;
+    private String fileKey;    // 物理硬盘上实际存储的文件名
+    private String customName;     // 用户自定义文件名（用于前端显示）
+    private String realName;       // 上传时的文件名（用于下载）
     private int size;
     private String md5;
     private String CRC;
@@ -53,12 +53,12 @@ public class UploadedFile extends PersistableEntity implements Serializable {
         this.customName = customName;
     }
 
-    public String getVirtualName() {
-        return virtualName;
+    public String getFileKey() {
+        return fileKey;
     }
 
-    public void setVirtualName(String virtualName) {
-        this.virtualName = virtualName;
+    public void setFileKey(String fileKey) {
+        this.fileKey = fileKey;
     }
 
     public String getRealName() {

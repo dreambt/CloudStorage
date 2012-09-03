@@ -51,8 +51,8 @@ DROP TABLE IF EXISTS `CS_FILE`;
 CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `node_id` int(11) NOT NULL,
+  `file_key` varchar(50) NOT NULL,
   `custom_name` varchar(50) NOT NULL,
-  `virtual_name` varchar(50) NOT NULL,
   `real_name` varchar(50) NOT NULL,
   `size` int(11) NOT NULL,
   `md5` varchar(32) NOT NULL,
@@ -135,7 +135,20 @@ CREATE  TABLE IF NOT EXISTS `CS_USER` (
 );
 
 
-
+--
+-- 文件分享 `CS_SHARE`
+--
+DROP TABLE IF EXISTS `CS_SHARE` ;
+CREATE  TABLE IF NOT EXISTS `CS_SHARE` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `share_key` int(11) UNSIGNED NOT NULL,
+  `share_secret` VARCHAR(40) NOT NULL,
+  `file_key` VARCHAR(40) NOT NULL,
+  `last_modified_date` TIMESTAMP DEFAULT NULL,
+  `created_date` TIMESTAMP DEFAULT NULL,
+  `expired_date` TIMESTAMP DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
 
 
 

@@ -49,8 +49,8 @@ DROP TABLE IF EXISTS `CS_FILE`;
 CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `node_id` int(11) NOT NULL,
+  `file_key` varchar(50) NOT NULL,
   `custom_name` varchar(50) NOT NULL,
-  `virtual_name` varchar(50) NOT NULL,
   `real_name` varchar(50) NOT NULL,
   `size` int(11) NOT NULL,
   `md5` varchar(32) NOT NULL,
@@ -137,7 +137,22 @@ DEFAULT CHARSET=UTF8 COLLATE=utf8_general_ci
 COMMENT = '用户表';
 
 
-
+--
+-- 文件分享 `CS_SHARE`
+--
+DROP TABLE IF EXISTS `CS_SHARE` ;
+CREATE  TABLE IF NOT EXISTS `CS_SHARE` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '分享id' ,
+  `share_key` int(11) UNSIGNED NOT NULL COMMENT '分享key' ,
+  `share_secret` VARCHAR(40) NOT NULL COMMENT '分享secre' ,
+  `file_key` VARCHAR(40) NOT NULL COMMENT '文件key' ,
+  `last_modified_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '最后修改时间' ,
+  `created_date` TIMESTAMP NOT NULL DEFAULT 0 COMMENT '创建时间' ,
+  `expired_date` TIMESTAMP NOT NULL DEFAULT 0 COMMENT '失效时间' ,
+  PRIMARY KEY (`id`)
+)ENGINE = InnoDB
+DEFAULT CHARSET=UTF8 COLLATE=utf8_general_ci
+COMMENT = '文件分享表';
 
 
 

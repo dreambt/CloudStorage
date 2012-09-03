@@ -1,6 +1,6 @@
 package cn.im47.cloud.storage.common.entity.account;
 
-import cn.im47.cloud.storage.common.entity.PersistableEntity;
+import cn.im47.commons.entity.PersistableEntity;
 import cn.im47.commons.utilities.encoder.IPEncodes;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
@@ -36,6 +36,8 @@ public class User extends PersistableEntity {
     private List<Group> groupList = Lists.newArrayList();
     private Long lastIP;
     private String lastLoginIP;
+
+
     private Date lastTime;
     private Date lastActTime;
 

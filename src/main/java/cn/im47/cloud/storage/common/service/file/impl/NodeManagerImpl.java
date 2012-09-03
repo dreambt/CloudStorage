@@ -14,7 +14,6 @@ import org.springside.modules.cache.memcached.SpyMemcachedClient;
 import org.springside.modules.mapper.JsonMapper;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * 文件存储节点 Manager 实现类
@@ -130,16 +129,6 @@ public class NodeManagerImpl implements NodeManager {
         spyMemcachedClient.delete(key);
 
         return 1;
-    }
-
-    @Override
-    public List<Node> search(String appKey, Map<String, Object> parameters) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public List<Node> search(String appKey, Map<String, Object> parameters, int offset, int limit) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override

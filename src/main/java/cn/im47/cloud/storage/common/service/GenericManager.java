@@ -1,8 +1,6 @@
 package cn.im47.cloud.storage.common.service;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Generic Manager (Data Access Object) with common methods to CRUD POJOs.
@@ -54,19 +52,4 @@ public interface GenericManager<T, PK extends Serializable> {
      */
     int delete(PK id);
 
-    /**
-     * Generic method used to get all objects of a particular type. This
-     * is the same as lookup up all rows in a table.
-     *
-     * @return List of populated objects
-     */
-    List<T> search(Map<String, Object> parameters);
-
-    /**
-     * Generic method used to get all objects of a particular type. This
-     * is the same as lookup up all rows in a table.
-     *
-     * @return List of populated objects
-     */
-    List<T> search(Map<String, Object> parameters, int offset, int limit);
 }

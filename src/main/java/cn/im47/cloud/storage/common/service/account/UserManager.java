@@ -3,6 +3,9 @@ package cn.im47.cloud.storage.common.service.account;
 import cn.im47.cloud.storage.common.entity.account.User;
 import cn.im47.cloud.storage.common.service.GenericManager;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 用户 业务逻辑 接口
  * User: pengfei.dongpf(pengfei.dong@gmail.com)
@@ -97,5 +100,21 @@ public interface UserManager extends GenericManager<User, Long> {
      * @return
      */
     boolean checkPassword(User user, String password);
+
+    /**
+     * Generic method used to get all objects of a particular type. This
+     * is the same as lookup up all rows in a table.
+     *
+     * @return List of populated objects
+     */
+    List<User> search(Map<String, Object> parameters);
+
+    /**
+     * Generic method used to get all objects of a particular type. This
+     * is the same as lookup up all rows in a table.
+     *
+     * @return List of populated objects
+     */
+    List<User> search(Map<String, Object> parameters, int offset, int limit);
 
 }

@@ -117,11 +117,13 @@ public class UserManagerImpl implements UserManager {
         return this.update(id, "deleted");
     }
 
+    @Override
     public List<User> search(Map<String, Object> parameters) {
         logger.debug("== Find users by parameters={}.", parameters.toString());
         return userMapper.search(parameters);
     }
 
+    @Override
     public List<User> search(Map<String, Object> parameters, int offset, int limit) {
         logger.debug("== Find limited users by parameters={}.", parameters.toString());
         parameters.put("offset", offset);
