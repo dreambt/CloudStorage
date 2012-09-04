@@ -21,7 +21,7 @@ public class FileHandlerTest {
         File frmFile = new File("d:/1.txt");
         File toFile = new File("d:/2.txt");
         FileHandler.moveFile(frmFile, toFile);
-        String str = FileHandler.getMD5(frmFile);
+        String str = FileHandler.MD5(frmFile);
         System.out.println(str);
     }
 

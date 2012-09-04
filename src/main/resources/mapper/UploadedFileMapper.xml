@@ -21,7 +21,7 @@
         </association>
     </resultMap>
 
-    <sql id="fileColumns">F.id, F.custom_name, F.virtual_name, F.real_name, F.size, F.md5, F.CRC, F.shared, F.status,
+    <sql id="fileColumns">F.id, F.custom_name, F.file_key, F.real_name, F.size, F.md5, F.CRC, F.shared, F.status,
         F.last_modified_date, F.created_date, F.deleted</sql>
 
     <select id="get" parameterType="Long" resultMap="fileDetailMap">
@@ -58,7 +58,7 @@
 
     <insert id="save" parameterType="UploadedFile">
 		INSERT INTO ${appKey}CS_FILE
-		(id, node_id, custom_name, virtual_name, real_name, size, md5, CRC, shared, status, deleted, last_modified_date, created_date)
+		(id, node_id, custom_name, file_key, real_name, size, md5, CRC, shared, status, deleted, last_modified_date, created_date)
 		VALUES
 		(null, #{object.node.id}, #{object.customName}, #{object.fileKey}, #{object.realName}, #{object.size}, #{object.md5}, #{object.CRC},
 		 #{object.shared}, #{object.status}, #{object.deleted}, #{object.lastModifiedDate}, null)
@@ -76,7 +76,7 @@
                 custom_name=#{object.customName},
             </if>
             <if test="object.fileKey != null and object.fileKey !=''">
-                virtual_name=#{object.fileKey},
+                file_key=#{object.fileKey},
             </if>
             <if test="object.realName != null and object.realName !=''">
                 real_name=#{object.realName},
@@ -110,7 +110,7 @@
                 and custom_name=#{parameters.customName}
             </if>
             <if test="parameters.fileKey != null and parameters.fileKey !=''">
-                and virtual_name=#{parameters.fileKey}
+                and file_key=#{parameters.fileKey}
             </if>
             <if test="parameters.realName != null and parameters.realName !=''">
                 and real_name=#{parameters.realName}

@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
+import java.util.zip.CRC32;
+import java.util.zip.CheckedInputStream;
 
 /**
  * 文件处理类
@@ -58,7 +60,7 @@ public class FileHandler {
      * @param file
      * @return
      */
-    public static String getMD5(File file) {
+    public static String MD5(File file) {
         FileInputStream fis = null;
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -111,5 +113,37 @@ public class FileHandler {
         }
 
         return md5StrBuff.toString();
+    }
+
+    /**
+     * 对文件进行CRC32
+     *
+     * @param file
+     * @return
+     */
+    public static String CRC32(File file) {
+        String checksum = "";
+        try {
+
+            CheckedInputStream cis = null;
+            long fileSize = 0;
+            try {
+                // Computer CRC32 checksum
+                cis = new CheckedInputStream(new FileInputStream(file), new CRC32());
+            } catch (FileNotFoundException e) {
+                logger.error("File not found!");
+                logger.error(e.getMessage());
+            }
+
+            byte[] buf = new byte[128];
+            while (cis.read(buf) >= 0) {
+            }
+
+            checksum = Long.toHexString(cis.getChecksum().getValue());
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
+
+        return checksum;
     }
 }
