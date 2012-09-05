@@ -34,50 +34,28 @@
     </div>
     <div class="row">
         <div class="span2 columns">
-            <div class="well" style="padding: 8px 0;">
+            <div class="well" id="parent" style="padding: 8px 0;">
                 <%--目录树--%>
                 <ul id="browser" class="filetree treeview">
-                    <%--<li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span class="folder">视频</span>--%>
-                        <%--<ul>--%>
-                            <%--<li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span class="folder">视频 1.1</span>--%>
-                                <%--<ul>--%>
-                                    <%--<li class="collapsable hide"><span class="folder">视频 1.11</span></li>--%>
-                                <%--</ul>--%>
-                            <%--</li>--%>
-                        <%--</ul>--%>
-                    <%--</li>--%>
-                    <%--<li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span class="folder">图片</span>--%>
-                        <%--<ul>--%>
-                            <%--<li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span class="folder">图片 2.1</span>--%>
-                                <%--<ul>--%>
-                                    <%--<li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span class="folder">图片 2.1.1</span>--%>
-                                        <%--<ul>--%>
-                                            <%--<li class="collapsable hide"><span class="folder">图片文件</span></li>--%>
-                                        <%--</ul>--%>
-                                    <%--</li>--%>
-                                    <%--<li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span class="folder">图片 2.1.2</span>--%>
-                                        <%--<ul>--%>
-                                             <%--<li class="collapsable hide"><span class="folder">图片文件</span></li>--%>
-                                        <%--</ul>--%>
-                                    <%--</li>--%>
-                                <%--</ul>--%>
-                            <%--</li>--%>
-                            <%--<li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span class="folder">图片 2.2</span>--%>
-                                <%--<ul>--%>
-                                    <%--<li class="collapsable hide"><span class="folder">图片文件</span></li>--%>
-                                <%--</ul>--%>
-                            <%--</li>--%>
-                        <%--</ul>--%>
-                    <%--</li>--%>
-                    <%--<li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span class="folder">文档</span>--%>
-                        <%--<ul style="display: none; ">--%>
-                            <%--<li class="last"><div class="hitarea closed-hitarea expandable-hitarea"></div><span class="folder">文档 3.1</span>--%>
-                                <%--<ul style="display: none; ">--%>
-                                    <%--<li class="last hide"><span class="folder">文档文件</span></li>--%>
-                                <%--</ul>--%>
-                            <%--</li>--%>
-                        <%--</ul>--%>
-                    <%--</li>--%>
+                    <c:forEach items="${nodes}" var="node" begin="0" step="1">
+                        <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span id="${node.id}" class="folder <c:if test="${empty node.nodeList}">leafnode</c:if>">${node.name}</span>
+                        <c:if test="${not empty node.nodeList}">
+                        <ul class="filetree treeview">
+                            <c:forEach items="${node.nodeList}" var="node2" begin="0" step="1">
+                                <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span id="${node2.id}" class="folder <c:if test="${empty node2.nodeList}">leafnode</c:if>" style="cursor: pointer">${node2.name}</span>
+                                    <c:if test="${not empty node2.nodeList}">
+                                        <ul class="filetree treeview">
+                                            <c:forEach items="${node2.nodeList}" var="node3" begin="0" step="1">
+                                                <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span id="${node3.id}" class="folder <c:if test="${empty node3.nodeList}">leafnode</c:if>" style="cursor: pointer">${node3.name}</span></li>
+                                            </c:forEach>
+                                        </ul>
+                                    </c:if>
+                                </li>
+                            </c:forEach>
+                        </ul>
+                        </c:if>
+                        </li>
+                    </c:forEach>
                 </ul>
             </div>
         </div>
@@ -88,11 +66,11 @@
             <div class="row fileupload-buttonbar">
                 <div class="span9">
                     <!-- The fileinput-button span is used to style the file input field as button -->
-                                <span class="btn btn-success fileinput-button">
-                                    <i class="icon-plus icon-white"></i>
-                                    <span>选择文件...</span>
-                                    <input type="file" name="files[]" multiple="" id="choosefile"/>
-                                </span>
+                        <span class="btn btn-success fileinput-button">
+                            <i class="icon-plus icon-white"></i>
+                            <span>选择文件...</span>
+                            <input type="file" name="files[]" multiple="" id="choosefile"/>
+                        </span>
                     <button type="submit" class="btn btn-primary start">
                         <i class="icon-upload icon-white"></i>
                         <span>开始上传</span>
@@ -121,33 +99,10 @@
             <div class="fileupload-loading"></div>
             <!-- The table listing the files available for upload/download -->
             <table role="presentation" class="table table-striped">
-                <tbody id="hasfile" class="files" data-toggle="modal-gallery" data-target="#modal-gallery">
-                <%--<tr class="template-upload fade in">--%>
-                    <%--<td class="preview"><span class="fade" style="width: 6px"></span></td>--%>
-                    <%--<td class="name"><span id="realName"></span></td>--%>
-                    <%--<td class="size"><span id="size"></span></td>--%>
-
-                    <%--<td>--%>
-                        <%--<div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>--%>
-                    <%--</td>--%>
-                    <%--<td class="start">--%>
-                        <%--<button class="btn btn-primary">--%>
-                            <%--<i class="icon-upload icon-white"></i>--%>
-                            <%--<span>开始上传</span>--%>
-                        <%--</button>--%>
-                    <%--</td>--%>
-
-                    <%--<td class="cancel">--%>
-                        <%--<button class="btn btn-warning">--%>
-                            <%--<i class="icon-ban-circle icon-white"></i>--%>
-                            <%--<span>取消</span>--%>
-                        <%--</button>--%>
-                    <%--</td>--%>
-                <%--</tr>--%>
-                </tbody>
+                <tbody id="hasfile" class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
             </table>
             <%--</form>--%>
-                <div class="bs-docs-example">
+                <div class="bs-docs-example hide">
                       <%--//文件信息列表--%>
                     <table class="table table-striped">
                         <thead>
@@ -164,72 +119,29 @@
                             <th>更多操作</th>
                         </tr>
                         </thead>
-                        <tbody id="file-list">
-                        <tr>
-                            <th><label class="checkbox"><input type="checkbox" name="subBox" value=""></label> </th>
-                            <td>1</td>
-                            <td><a data-toggle="modal" href="${ctx}/file/get/1" class="video">视频</a></td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <th>大小</th>
-                            <th>时长</th>
-                            <th><a href="#"><i class="icon-tags" title="修改"></i></a></th>
-                            <th><a href="#"><i class="icon-remove" title="删除"></i></a></th>
-                            <th><a href="#"><i class="icon-hand-right" title="分享"></i></a> <a href="#"><i class="icon-star" title="重点标记"></i></a> <a href="#"><i class="icon-download-alt" title="下载"></i></a></th>
-                        </tr>
-                        <tr>
-                            <th><label class="checkbox"><input type="checkbox" name="subBox" value=""></label> </th>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                            <th>大小</th>
-                            <th>时长</th>
-                            <th><a href="#"><i class="icon-tags" title="修改"></i></a></th>
-                            <th><a href="#"><i class="icon-remove" title="删除"></i></a></th>
-                            <th><a href="#"><i class="icon-hand-right" title="分享"></i></a> <a href="#"><i class="icon-star" title="重点标记"></i></a> <a href="#"><i class="icon-download-alt" title="下载"></i></a></th>
-                        </tr>
-                        <tr>
-                            <th><label class="checkbox"><input type="checkbox" name="subBox" value=""></label> </th>
-                            <td>3</td>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                            <th>大小</th>
-                            <th>时长</th>
-                            <th><a href="#"><i class="icon-tags" title="修改"></i></a></th>
-                            <th><a href="#"><i class="icon-remove" title="删除"></i></a></th>
-                            <th><a href="#"><i class="icon-hand-right" title="分享"></i></a> <a href="#"><i class="icon-star" title="重点标记"></i></a> <a href="#"><i class="icon-download-alt" title="下载"></i></a></th>
-                        </tr>
-                        </tbody>
+                        <tbody id="file-list"></tbody>
                         <p class="bs-docs-example">
-                            <button type="button" class="btn btn-mini">批量下载</button>
+                            <button type="button" class="btn btn-mini">下载</button>
                         </p>
                     </table>
                 </div>
-
-                <%--图片显示列表--%>
-                <div class="row-fluid">
-                    <ul id="album" class="thumbnails">
-                        <li class="span3 thumbnail">
-                            <a id="fancybox-manual" href="javascript:;"><img src="${ctx}/static/images/psb.jpg" alt=""></a>
-                        </li>
-                        <li class="span3 thumbnail">
-                            <a href="javascript:;"><img src="${ctx}/static/images/psb1.jpg" alt=""></a>
-                        </li>
-                        <li class="span3 thumbnail">
-                            <a href="javascript:;"><img src="${ctx}/static/images/psb2.jpg" alt=""></a>
-                        </li>
-                        <li class="span3 thumbnail">
-                            <a href="javascript:;"><img src="${ctx}/static/images/psb3.jpg" alt=""></a>
-                        </li>
-                    </ul>
-                </div>
-                <%--图片分页--%>
+                <%--分页--%>
                 <div class="pagination pagination-right">
-                    <ul id="pagination">
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
+                    <ul id="pager">
+                        <li id="prior"><a>上一页</a></li>
+                        <c:choose>
+                            <c:when test="${total <= 50}">
+                                <c:forEach begin="1" end="${pageCount>1?pageCount:1}" step="1" varStatus="var">
+                                    <li><a>${var.index}</a></li>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise>
+                                <c:forEach begin="1" end="5" step="1" varStatus="var">
+                                    <li><a>${var.index}</a></li>
+                                </c:forEach>
+                            </c:otherwise>
+                        </c:choose>
+                        <li id="next"><a>下一页</a></li>
                     </ul>
                 </div>
             </div>
@@ -238,64 +150,26 @@
 </div>
 <script type="text/javascript">
     $(function() {
+        /*目录树*/
         $("#browser").treeview();
-
-        //        checkbox全选与取消
-        $("#checkedAll").click(function(){
-            if($(this).attr("checked")==undefined){
-                $("input[name='subBox']").each(function(){
-                    $(this).attr("checked",false);
-                });
-            }
-            else{
-                $("input[name='subBox']").each(function(){
-                    $(this).attr("checked",true);
-                });
-            }
-        });
-        // 图片展示控制  *********************
-
-        $(".fancybox").fancybox();
-        /*
-         *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
-         */
-
-        $(".thumbnail").click(function() {
-            $.fancybox.open([
-                {
-                    href : '${ctx}/static/images/psb.jpg',
-                    title : 'My title'
-                }, {
-                    href : '${ctx}/static/images/psb1.jpg',
-                    title : '1st title'
-                }, {
-                    href : '${ctx}/static/images/psb2.jpg',
-                    title : '2nd title'
-                }, {
-                    href : '${ctx}/static/images/psb3.jpg',
-                    title:'3td title'
-                }
-            ], {
-                helpers : {
-                    thumbs : {
-                        width: 75,
-                        height: 50
-                    }
+        $(".leafnode").click(function(){
+            $(this).addClass("rightlist");
+            $(".rightlist").css("color","#f00");
+            $(".bs-docs-example").show();
+            var nodeId = $(this).attr("id");
+            alert(nodeId);
+            $.ajax({
+                url:"${ctx}/api/file/list/" + nodeId + "?offset=0&limit=5",
+                success:function(data){
+                    $("#file-list").html("");
+                    $.each(data,function(nodeId,item){
+                        var row="<tr><th><label class='checkbox'><input type='checkbox' name='subBox' value=''></label></th><td>2</td><td>Jacob</td><td>Thornton</td><td>@fat</td><th>大小</th><th>时长</th><th><a href='#'><i class='icon-tags' title='修改'></i></a></th><th><a href='#'><i class='icon-remove' title='删除'></i></a></th><th><a href='#'><i class='icon-hand-right' title='分享'></i></a> <a href='#'><i class='icon-star' title='重点标记'></i></a> <a href='#'><i class='icon-download-alt' title='下载'></i></a></th></tr>";
+                        $("#file-list").append(row);
+                    });
                 }
             });
         });
-
-        <!-- 文件上传fileupload -->
-        $("#choosefile").change(function(){
-            $("#gp_information").show();
-            var filePath=$("#choosefile").val();
-            var pre = filePath.substr(filePath.lastIndexOf('\\')+1);
-            var realName =pre.substr(0,10);
-            var upload="<tr class='template-upload fade in'><td class='preview'><span class='fade' style='width: 6px'></span></td><td class='name'><span id='realName' title='"+pre+"'>" + realName + "</span></td><td class='size'><span id='size'></span></td><td><div class='progress progress-success progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='0'><div class='bar' style='width:0%;'></div></div></td><td class='start'><button class='btn btn-primary'><i class='icon-upload icon-white'></i><span>开始上传</span></button></td><td class='cancel'><button class='btn btn-warning'><i class='icon-ban-circle icon-white'></i><span>取消</span></button></td></tr>";
-            $("#hasfile").append(upload);
-        });
-
-
+         //分页
         var articles = $("#file-list");
         //pager.find("span:first").css('background-color', '#e4e4e4').css('color', '#ff4e00').css('cursor', 'default');
         PageClick = function (pageIndex, total, spanInterval) {
@@ -305,7 +179,7 @@
             var limit = 5;//每页显示文章数量
 
             $.ajax({
-                url: "${ctx}/api/file/list/${nodeId}?offset=" + (intPageIndex - 1) * limit + "&limit=" + limit,
+                url: "${ctx}/api/file/list/"+pageIndex+"?offset=" + (intPageIndex - 1) * limit + "&limit=" + limit,
 
                 timeout:3000,
                 success:function (data) {
@@ -313,7 +187,7 @@
 
                     //加载文章
                     $.each(data, function (index, content) {
-                        articles.append($("<tr><th><label class='checkbox'><input type='checkbox' name='subBox' value=''></label> </th><td>3</td><td>Larry</td><td>the Bird</td><td>@twitter</td> <th>大小</th><th><a href='#'><i class='icon-tags' title='修改'></i></a></th><th><a href='#'><i class='icon-remove' title='删除'></i></a></th><th><a href='#'><i class='icon-hand-right' title='分享'></i></a> <a href='#'><i class='icon-star' title='重点标记'></i></a> <a href='#'><i class='icon-download-alt' title='下载'></i></a></th></tr>"));
+                        articles.append($("<tr><th><label class='checkbox'><input type='checkbox' name='subBox' value=''></label> </th><td>2</td><td>Jacob</td><td>Thornton</td><td>@fat</td> <th>大小</th><th>时长</th><th><a href='#'><i class='icon-tags' title='修改'></i></a></th><th><a href='#'><i class='icon-remove' title='删除'></i></a></th><th><a href='#'><i class='icon-hand-right' title='分享'></i></a> <a href='#'><i class='icon-star' title='重点标记'></i></a> <a href='#'><i class='icon-download-alt' title='下载'></i></a></th></tr>"));
                     });
 
                     //将总记录数结果 得到 总页码数
@@ -369,25 +243,73 @@
                 }
             });
         };
-        /*TODO
-        $("#pager li:eq(1)").addClass("active");
+        /*$("#pager li:eq(1)").addClass("active");
         $(".pagination ul li").click(function() {
             PageClick($(this).text(), ${total}, 5);
         });
         $("#next").click(function() {
             PageClick(2, ${total}, 5);
-        });
-        */
+        });*/
         <!-- 分页结束 -->
 
-        $.ajax({
-            url:"${ctx}/node/getChildren/0",
-            success:(function(data){
-                $("#browser").html("");
-                var browser="<li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'></span><ul><li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'>视频 1.1</span><ul><li class='collapsable hide'><span class='folder'>视频 1.11</span></li></ul></li></ul></li>";
-                $("#browser").append(browser);
-                // $("#browser").append($("<li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'></span><ul><li class='closed expandable'><div class='hitarea closed-hitarea expandable-hitarea'></div><span class='folder'>视频 1.1</span><ul><li class='collapsable hide'><span class='folder'>视频 1.11</span></li></ul></li></ul></li>"));
-            })
+        /*checkbox全选与取消*/
+        $("#checkedAll").click(function(){
+            if($(this).attr("checked")==undefined){
+                $("input[name='subBox']").each(function(){
+                    $(this).attr("checked",false);
+                });
+            }
+            else{
+                $("input[name='subBox']").each(function(){
+                    $(this).attr("checked",true);
+                });
+            }
+        });
+        /*图片展示控制 */
+        $(".fancybox").fancybox();
+        /*
+         *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
+         */
+        $(".thumbnail").click(function() {
+            $.fancybox.open([
+                {
+                    href : '${ctx}/static/images/psb.jpg',
+                    title : 'My title'
+                }, {
+                    href : '${ctx}/static/images/psb1.jpg',
+                    title : '1st title'
+                }, {
+                    href : '${ctx}/static/images/psb2.jpg',
+                    title : '2nd title'
+                }, {
+                    href : '${ctx}/static/images/psb3.jpg',
+                    title:'3td title'
+                }
+            ], {
+                helpers : {
+                    thumbs : {
+                        width: 75,
+                        height: 50
+                    }
+                }
+            });
+        });
+
+        <!-- 文件上传fileupload -->
+        $("#choosefile").change(function(){
+            $("#gp_information").show();
+            var filePath=$("#choosefile").val();
+            var pre = filePath.substr(filePath.lastIndexOf('\\')+1);
+            var realName =pre.substr(0,10);
+
+            if(node.type==null) {
+                var upload="<tr class='template-upload fade in'><td class='preview'><span class='fade' style='width: 6px'></span></td><td class='name'><span id='realName' title='"+pre+"'>" + realName + "</span></td><td class='size'><span id='size'></span></td><td><div class='progress progress-success progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='0'><div class='bar' style='width:0%;'></div></div></td><td class='start'><button class='btn btn-primary'><i class='icon-upload icon-white'></i><span>开始上传</span></button></td><td class='cancel'><button class='btn btn-warning'><i class='icon-ban-circle icon-white'></i><span>取消</span></button></td></tr>";
+                $("#hasfile").append(upload);
+            }else{
+                newAlert("block","请选择正确分类");
+            }
+
+
         });
     })
 </script>
