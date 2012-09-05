@@ -4,6 +4,7 @@
         <pattern>/static/*</pattern>
 	    <pattern>/api/*</pattern>
 	    <pattern>/share/*</pattern>
+        <pattern>/file/create</pattern>
     </excludes>
 
     <decorator name="default" page="default.jsp">

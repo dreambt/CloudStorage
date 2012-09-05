@@ -1,7 +1,6 @@
 package cn.im47.cloud.storage.common.web.file;
 
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
-import cn.im47.cloud.storage.common.service.file.NodeManager;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
@@ -27,7 +27,6 @@ import java.io.*;
 public class UploadedFileController {
 
     private UploadedFileManager uploadedFileManager;
-    private NodeManager nodeManager;
 
     private static final int PAGE_SIZE = 5;
 
@@ -35,32 +34,20 @@ public class UploadedFileController {
 
     private static final String FILE_PATH = "D:/";
 
-	/**
-     * 跳转到默认分类，顶级
-     *
-     * @return
-     */
     @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
     public String listDefault() {
         return "redirect:/file/list/0";
     }
 
-    /**
-     * 获得分类编号为id 的所有文件
-     *
-     * @param id
-     * @return
-     */
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET)
     public String listByNode(Model model, @PathVariable("id") Long id) {
         model.addAttribute("nodeId", id);
-        model.addAttribute("nodes", nodeManager.getTree(APP_KEY));
         model.addAttribute("files", uploadedFileManager.getByNode(APP_KEY, id, 0, PAGE_SIZE));
         return "file/list";
     }
 
     /**
-     * 获得编号为id 的所有文件
+     * 获得分类编号为id 的所有文件
      *
      * @param id
      * @return
@@ -104,7 +91,7 @@ public class UploadedFileController {
     @RequestMapping(value = "/create")
     public String create(Model model) {
         model.addAttribute("file", new UploadedFile());
-        return "file/edit";
+        return "file/test";
     }
 
     /**
@@ -115,14 +102,14 @@ public class UploadedFileController {
      * @param uploadedFile
      * @return
      */
-    @RequestMapping(value = "/save")
-    public String save(Model model, @RequestParam(value = "file", required = false) MultipartFile file, UploadedFile uploadedFile) {
-        if (uploadedFileManager.save(APP_KEY, uploadedFile) > 0) {
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String save(Model model, @RequestParam(value = "file", required = false) MultipartFile file, UploadedFile uploadedFile, HttpServletRequest request) {
+        if (uploadedFileManager.save(APP_KEY, uploadedFile,file) > 0) {
             model.addAttribute("info", "上传文件成功");
         } else {
             model.addAttribute("error", "上传文件失败");
         }
-        return "redirect:/file/getByNode";
+        return "redirect:/file/list";
     }
 
     /**
@@ -147,9 +134,5 @@ public class UploadedFileController {
         this.uploadedFileManager = uploadedFileManager;
     }
 
-    @Autowired
-    public void setNodeManager(NodeManager nodeManager) {
-        this.nodeManager = nodeManager;
-    }
 
 }

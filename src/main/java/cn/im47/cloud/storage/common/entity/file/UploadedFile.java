@@ -25,7 +25,7 @@ public class UploadedFile extends PersistableEntity implements Serializable {
     private String md5;
     private String CRC;
     private boolean shared;
-    private boolean status;
+    private boolean status;        // 是否可下载
     private boolean deleted;
 
     public UploadedFile() {

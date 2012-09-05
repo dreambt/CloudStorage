@@ -4,9 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springside.modules.security.utils.Digests;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * 用途
@@ -17,7 +15,7 @@ import java.io.InputStream;
 public class FileHandlerTest {
 
     @Test
-    public void testMoveFile() {
+    public void testMoveFile() throws FileNotFoundException {
         File frmFile = new File("d:/1.txt");
         File toFile = new File("d:/2.txt");
         FileHandler.moveFile(frmFile, toFile);
