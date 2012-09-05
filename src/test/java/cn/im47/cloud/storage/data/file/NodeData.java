@@ -1,6 +1,6 @@
 package cn.im47.cloud.storage.data.file;
 
-import cn.im47.cloud.storage.common.entity.file.FileTypeEnum;
+import cn.im47.cloud.storage.common.entity.file.NodeTypeEnum;
 import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.entity.file.NodeAdjacencies;
 
@@ -17,7 +17,7 @@ public class NodeData {
         Node node = new Node();
         node.setId(8L);
         node.setName("node 2.2");
-        node.setType(FileTypeEnum.TXT);
+        node.setType(NodeTypeEnum.TXT);
         node.setLeftSibling(0L);
         node.setParentId(3L);
         node.setNodeList(null);

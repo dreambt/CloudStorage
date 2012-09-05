@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+
 /**
  * 文件控制器
  * <p/>
@@ -27,6 +30,8 @@ public class UploadedFileController {
     private static final int PAGE_SIZE = 5;
 
     private static final String APP_KEY = "";
+
+    private static final String FILE_PATH = "D:/";
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String listDefault(Model model) {
@@ -51,6 +56,30 @@ public class UploadedFileController {
     public String get(Model model, @PathVariable("id") Long id) {
         model.addAttribute("file", uploadedFileManager.get(APP_KEY, id));
         return "file/video";
+    }
+
+    @RequestMapping("download/{fileName}")
+    public void download(@PathVariable("fileName") String fileName, HttpServletResponse response){
+        response.setCharacterEncoding("utf-8");
+        response.setContentType("multipart/form-data");
+
+        response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
+        try {
+            File file=new File(fileName);
+            System.out.println(file.getAbsolutePath());
+            InputStream inputStream=new FileInputStream(FILE_PATH + file);
+            OutputStream os=response.getOutputStream();
+            byte[] b=new byte[1024];
+            int length;
+            while((length=inputStream.read(b))>0){
+                os.write(b,0,length);
+            }
+            inputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

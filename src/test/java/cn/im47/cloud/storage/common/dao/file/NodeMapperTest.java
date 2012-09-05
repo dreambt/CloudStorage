@@ -1,6 +1,6 @@
 package cn.im47.cloud.storage.common.dao.file;
 
-import cn.im47.cloud.storage.common.entity.file.FileTypeEnum;
+import cn.im47.cloud.storage.common.entity.file.NodeTypeEnum;
 import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.data.file.NodeData;
 import com.google.common.collect.Maps;
@@ -36,9 +36,9 @@ public class NodeMapperTest extends SpringTransactionalTestCase {
         assertEquals("node 2.2", nodeMapper.get(APP_KEY, 8L).getName());
 
         //更新 测试
-        node.setType(FileTypeEnum.PIC);
+        node.setType(NodeTypeEnum.PIC);
         nodeMapper.update(APP_KEY, node);
-        assertEquals(FileTypeEnum.PIC, node.getType());
+        assertEquals(NodeTypeEnum.PIC, node.getType());
 
         //删除 测试
         assertEquals(1, nodeMapper.delete(APP_KEY, 8L));

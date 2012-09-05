@@ -20,7 +20,7 @@ public class Node extends IdEntity implements Serializable {
     private static final long serialVersionUID = -38331060124340966L;
 
     private String name;                 // 结点名称
-    private FileTypeEnum type;           // 结点类型
+    private NodeTypeEnum type;           // 结点类型
     private Long leftSibling;          // 左兄弟编号
     private Long parentId;              // 父节点编号
 
@@ -34,11 +34,11 @@ public class Node extends IdEntity implements Serializable {
         this.name = name;
     }
 
-    public FileTypeEnum getType() {
+    public NodeTypeEnum getType() {
         return type;
     }
 
-    public void setType(FileTypeEnum type) {
+    public void setType(NodeTypeEnum type) {
         this.type = type;
     }
 
