@@ -11,11 +11,6 @@
 <body>
 <div class="page page-ex">
     <h1>关于我们</h1>
-    <p>我们都热爱尝试新鲜事物，我们同样喜欢记录我们阅读的知识并用之建立我们的知识库。
-        然而，我们在网络上寻找、阅读、存储、检索和共享如此庞大的信息流让我们崩溃。因为，它们随机的分散在世界的每一个角落。</p>
-    <p>我们的诞生正式因为这个令人崩溃的想法，我们希望通过我们的努力可以使你的工作更加条例，生活更有序。</p>
-    <hr />
-    <h2>关于团队</h2>
     <p>我们相信做产品和做人是一样的，都要不断的完善并听取大家的意见.<br/>
         如果您有什么好的想法，可以发Email到 <a href="mailto:baitao.jibt@gmail.com">baitao.jibt[at]gmail.com</a> .</p>
     <div class="row-fluid team">
@@ -26,6 +21,12 @@
         <p class="span6 thumbnail">
             <a class="fancybox-effects" href="${ctx}/static/images/headPic/dongpengfei-big.jpg" title="董鹏飞"><img src="${ctx}/static/images/headPic/dongpengfei.jpg" width="120px" height="120px"/></a>
             <strong>董鹏飞 <br/>QQ: 826323891 <br/><a href="mailto:pengfei.dongpf@gmail.com" class="light" target="_blank">pengfei.dongpf[at]gmail.com</a></strong>
+        </p>
+    </div>
+    <div class="row-fluid team">
+        <p class="span6 thumbnail">
+            <a class="fancybox-effects" href="${ctx}/static/images/headPic/zhangnan-big.jpg" title="张楠"><img src="${ctx}/static/images/headPic/zhangnan.png" width="120px" height="120px"/></a>
+            <strong>张楠 <br/>QQ: 491673282 <br/><a href="mailto:491673282@qq.com" class="light" target="_blank">491673282[at]qq.com</a></strong>
         </p>
     </div>
 </div>

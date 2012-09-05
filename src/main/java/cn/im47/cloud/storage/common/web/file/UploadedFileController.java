@@ -40,9 +40,8 @@ public class UploadedFileController {
      *
      * @return
      */
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String listDefault(Model model) {
-        model.addAttribute("files", uploadedFileManager.getByNode(APP_KEY, 0L, 0, PAGE_SIZE));
+    @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
+    public String listDefault() {
         return "redirect:/file/list/0";
     }
 
@@ -96,7 +95,6 @@ public class UploadedFileController {
         }
     }
 
-    /**
     /**
      * 跳转到上传页面
      *
@@ -153,4 +151,5 @@ public class UploadedFileController {
     public void setNodeManager(NodeManager nodeManager) {
         this.nodeManager = nodeManager;
     }
+
 }

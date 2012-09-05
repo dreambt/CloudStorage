@@ -13,7 +13,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title><sitemesh:title/> - 云服务代理</title>
+    <title><sitemesh:title/></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -23,9 +23,9 @@
     <meta http-equiv="Expires" content="0" />
 
     <link href="${ctx}/static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+    <link href="${ctx}/static/bootstrap/css/bootstrap-responsive.min.css" type="text/css" rel="stylesheet"/>
     <link href="${ctx}/static/style/main.css" type="text/css" rel="stylesheet"/>
     <script src="${ctx}/static/js/jquery.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/storage.js" type="text/javascript"></script>
     <sitemesh:head/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->

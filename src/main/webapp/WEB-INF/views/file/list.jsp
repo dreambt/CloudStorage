@@ -11,42 +11,32 @@
 <html lang="zh-CN">
 <head>
     <title>文件管理</title>
-    <%--目录树--%>
     <link rel="stylesheet" href="${ctx}/static/js/filetree/jquery.treeview.css"/>
-    <script src="${ctx}/static/js/filetree/jquery.treeview.js" type="text/javascript"></script>
-    <script src="${ctx}/static/js/filetree/jquery.treeview.edit.js" type="text/javascript"></script>
-    <%--文件上传--%>
     <link rel="stylesheet" href="${ctx}/static/js/fileupload/jquery.fileupload-ui.css"/>
-    <%--图片展示--%>
-    <link rel="stylesheet" type="text/css" href="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-thumbs.css">
-    <link rel="stylesheet" type="text/css" href="${ctx}/static/js/fancyBox/jquery.fancybox.css">
-    <script type="text/javascript" src="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-thumbs.js"></script>
-    <script type="text/javascript" src="${ctx}/static/js/fancyBox/jquery.mousewheel-3.0.6.pack.js"></script>
-    <script type="text/javascript" src="${ctx}/static/js/fancyBox/jquery.fancybox.js"></script>
+    <link rel="stylesheet" href="${ctx}/static/js/fancyBox/jquery.fancybox.css?v=2.0.5" type="text/css" media="screen" />
+    <link rel="stylesheet" href="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-buttons.css?v=2.0.5" type="text/css" media="screen" />
+    <link rel="stylesheet" href="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-thumbs.css?v=2.0.5" type="text/css" media="screen" />
 </head>
 <body>
 <div class="page">
     <div class="page-header">
-        <h2>
-            文件管理
-            <small>欢迎进入文件管理</small>
-        </h2>
+        <h2>文件管理 <small>欢迎进入文件管理</small></h2>
     </div>
     <div class="row">
-        <div class="span2 columns">
-            <div class="well" id="parent" style="padding: 8px 0;">
-                <%--目录树--%>
+        <!-- 目录树 -->
+        <div class="span3">
+            <div class="well" id="parent">
                 <ul id="browser" class="filetree treeview">
                     <c:forEach items="${nodes}" var="node" begin="0" step="1">
-                        <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span id="${node.id}" class="folder <c:if test="${empty node.nodeList}">leafnode</c:if>">${node.name}</span>
+                        <li class="closed"><span id="${node.id}" class="folder<c:if test="${empty node.nodeList}"> leafnode</c:if>">${node.name}</span>
                         <c:if test="${not empty node.nodeList}">
-                        <ul class="filetree treeview">
+                        <ul>
                             <c:forEach items="${node.nodeList}" var="node2" begin="0" step="1">
-                                <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span id="${node2.id}" class="folder <c:if test="${empty node2.nodeList}">leafnode</c:if>" style="cursor: pointer">${node2.name}</span>
+                                <li class="expandable"><span id="${node2.id}" class="folder<c:if test="${empty node2.nodeList}"> leafnode</c:if>">${node2.name}</span>
                                     <c:if test="${not empty node2.nodeList}">
-                                        <ul class="filetree treeview">
+                                        <ul>
                                             <c:forEach items="${node2.nodeList}" var="node3" begin="0" step="1">
-                                                <li class="closed expandable"><div class="hitarea closed-hitarea expandable-hitarea"></div><span id="${node3.id}" class="folder <c:if test="${empty node3.nodeList}">leafnode</c:if>" style="cursor: pointer">${node3.name}</span></li>
+                                                <li class="closed expandable"><span id="${node3.id}" class="folder<c:if test="${empty node3.nodeList}"> leafnode</c:if>">${node3.name}</span></li>
                                             </c:forEach>
                                         </ul>
                                     </c:if>
@@ -59,9 +49,44 @@
                 </ul>
             </div>
         </div>
-        <div class="span9 columns">
-            <div class="hero-unit">
-            <%--文件上传--%>
+
+        <!-- 文件列表 -->
+        <div class="span9">
+            <div class="well">
+                <div id="file-list" class="hide">
+                    <!-- 文件列表 -->
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th><label class="checkbox"><input id="checkedAll" type="checkbox" value=""></label></th>
+                            <th>文件名</th>
+                            <th>类型</th>
+                            <th>大小</th>
+                            <th>日期</th>
+                            <th>MD5</th>
+                            <th>常用操作</th>
+                            <th>管理操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="file-items"></tbody>
+                    </table>
+                </div>
+
+                <!-- 分页 -->
+                <div class="pagination pagination-right">
+                    <ul id="pagination">
+                    </ul>
+                </div>
+
+
+
+
+
+
+
+
+
+
             <%--<form id="fileupload" action="file/save" method="post" enctype="multipart/form-data" style="height: 40px;">--%>
             <div class="row fileupload-buttonbar">
                 <div class="span9">
@@ -102,92 +127,44 @@
                 <tbody id="hasfile" class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
             </table>
             <%--</form>--%>
-                <div class="bs-docs-example hide">
-                      <%--//文件信息列表--%>
-                    <table class="table table-striped">
-                        <thead>
-                        <tr>
-                            <th><label class="checkbox"><input id="checkedAll" type="checkbox" value=""></label></th>
-                            <th>#</th>
-                            <th>名称</th>
-                            <th>日期</th>
-                            <th>类型</th>
-                            <th>大小</th>
-                            <th>时长</th>
-                            <th>修改</th>
-                            <th>删除</th>
-                            <th>更多操作</th>
-                        </tr>
-                        </thead>
-                        <tbody id="file-list"></tbody>
-                        <p class="bs-docs-example">
-                            <button type="button" class="btn btn-mini">下载</button>
-                        </p>
-                    </table>
-                </div>
-                <%--分页--%>
-                <div class="pagination pagination-right">
-                    <ul id="pager">
-                        <li id="prior"><a>上一页</a></li>
-                        <c:choose>
-                            <c:when test="${total <= 50}">
-                                <c:forEach begin="1" end="${pageCount>1?pageCount:1}" step="1" varStatus="var">
-                                    <li><a>${var.index}</a></li>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise>
-                                <c:forEach begin="1" end="5" step="1" varStatus="var">
-                                    <li><a>${var.index}</a></li>
-                                </c:forEach>
-                            </c:otherwise>
-                        </c:choose>
-                        <li id="next"><a>下一页</a></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
 </div>
+<script src="${ctx}/static/js/filetree/jquery.treeview.js" type="text/javascript"></script>
+<script type="text/javascript" src="${ctx}/static/js/fancyBox/jquery.mousewheel-3.0.6.pack.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/fancyBox/jquery.fancybox.pack.js?v=2.0.5"></script>
+<script type="text/javascript" src="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-buttons.js?v=2.0.5"></script>
+<script type="text/javascript" src="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-thumbs.js?v=2.0.5"></script>
+<script type="text/javascript" src="${ctx}/static/js/main.js?v=0.0.1"></script>
 <script type="text/javascript">
     $(function() {
-        /*目录树*/
-        $("#browser").treeview();
-        $(".leafnode").click(function(){
-            $(this).addClass("rightlist");
-            $(".rightlist").css("color","#f00");
-            $(".bs-docs-example").show();
-            var nodeId = $(this).attr("id");
-            alert(nodeId);
-            $.ajax({
-                url:"${ctx}/api/file/list/" + nodeId + "?offset=0&limit=5",
-                success:function(data){
-                    $("#file-list").html("");
-                    $.each(data,function(nodeId,item){
-                        var row="<tr><th><label class='checkbox'><input type='checkbox' name='subBox' value=''></label></th><td>2</td><td>Jacob</td><td>Thornton</td><td>@fat</td><th>大小</th><th>时长</th><th><a href='#'><i class='icon-tags' title='修改'></i></a></th><th><a href='#'><i class='icon-remove' title='删除'></i></a></th><th><a href='#'><i class='icon-hand-right' title='分享'></i></a> <a href='#'><i class='icon-star' title='重点标记'></i></a> <a href='#'><i class='icon-download-alt' title='下载'></i></a></th></tr>";
-                        $("#file-list").append(row);
-                    });
-                }
-            });
-        });
-         //分页
-        var articles = $("#file-list");
-        //pager.find("span:first").css('background-color', '#e4e4e4').css('color', '#ff4e00').css('cursor', 'default');
-        PageClick = function (pageIndex, total, spanInterval) {
+        //分页
+        var files = $("#file-items");
+        var pager = $("#pagination");
+        PageClick = function (nodeId, pageIndex, total, spanInterval) {
             //索引从1开始
             //将当前页索引转为int类型
             var intPageIndex = parseInt(pageIndex);
             var limit = 5;//每页显示文章数量
 
             $.ajax({
-                url: "${ctx}/api/file/list/"+pageIndex+"?offset=" + (intPageIndex - 1) * limit + "&limit=" + limit,
-
+                url: "${ctx}/api/file/list/"+nodeId+"?offset=" + (intPageIndex - 1) * limit + "&limit=" + limit,
                 timeout:3000,
                 success:function (data) {
-                    articles.html("");
-
-                    //加载文章
-                    $.each(data, function (index, content) {
-                        articles.append($("<tr><th><label class='checkbox'><input type='checkbox' name='subBox' value=''></label> </th><td>2</td><td>Jacob</td><td>Thornton</td><td>@fat</td> <th>大小</th><th>时长</th><th><a href='#'><i class='icon-tags' title='修改'></i></a></th><th><a href='#'><i class='icon-remove' title='删除'></i></a></th><th><a href='#'><i class='icon-hand-right' title='分享'></i></a> <a href='#'><i class='icon-star' title='重点标记'></i></a> <a href='#'><i class='icon-download-alt' title='下载'></i></a></th></tr>"));
+                    //加载文件
+                    files.html("");
+                    $.each(data, function (index, item) {
+                        var row="<tr><td><label class='checkbox'><input type='checkbox' name='subBox' value=''></label></td><td><a href='${ctx}/file/get/"+item.id+"'>"+item.customName+"</a></td><td>不支持</td><td>不支持</td><td>"+ChangeDateFormat(item.createdDate)+"</td><td>"+item.md5+"</td><td><a href='#'><i class='icon-star' title='收藏'></i></a> | ";
+                        if (item.status)
+                            row += "<a href='${ctx}/file/get/"+item.id+"'><i class='icon-download' title='下载'></i></a> | ";
+                        if (item.shared)
+                            row += "<a href='${ctx}/share/create/"+item.id+"'><i class='icon-share' title='分享'></i></a> | ";
+                        row = row.substr(0, row.length-3);
+                        row += "</td>";
+                        // TODO 判断管理员身份
+                        row += "<td><a href='${ctx}/file/edit/"+item.id+"'><i class='icon-pencil' title='修改'></i></a> | <a href='#'><i class='icon-eye-close' title='禁止下载'></i></a> | <a href='${ctx}/file/delete/"+item.id+"'><i class='icon-remove' title='删除'></i></a></td></tr>";
+                        files.append(row);
                     });
 
                     //将总记录数结果 得到 总页码数
@@ -208,68 +185,31 @@
                         start = (pageS - 2 * interval) < 1 ? 1 : (pageS - 2 * interval);
                     }
 
-                    articles.append($("<div class='pagination pagination-right'><ul id='pagination'></ul></div>"));
-                    var pager = $("#pagination");
-
-                    //上一页
-                    var prior = $("<li><a>上一页</a></li>").click(function() {
-                        if(intPageIndex - 1 >= 0) {
-                            intPageIndex = intPageIndex - 1;
-                        }
-                        PageClick(intPageIndex, total, spanInterval);
-                    });
-                    pager.append(prior);
                     //生成页码
+                    pager.html("");
                     for (var j = start; j < end + 1; j++) {
                         if (j == intPageIndex) {
-                            var spanSelectd = $("<li class='active'><a>" + j + "</a></li>");
-                            pager.append(spanSelectd);
+                            pager.append("<li class='active'><a href='#'>" + j + "</a></li>");
                         } else {
-                            var a = $("<li><a>" + j + "</a></li>").click(function () {
-                                PageClick($(this).text(), total, spanInterval);
+                            var a = $("<li><a href='#'>" + j + "</a></li>").click(function () {
+                                PageClick(nodeId, $(this).text(), total, spanInterval);
                             });
                             pager.append(a);
                         } //else
                     } //for
-
-                    //下一页
-                    var next = $("<li><a>下一页</a></li>").click(function() {
-                        if(intPageIndex + 1 <= end) {
-                            intPageIndex = intPageIndex + 1;
-                        }
-                        PageClick(intPageIndex, total, spanInterval);
-                    });
-                    pager.append(next);
                 }
             });
         };
-        /*$("#pager li:eq(1)").addClass("active");
-        $(".pagination ul li").click(function() {
-            PageClick($(this).text(), ${total}, 5);
-        });
-        $("#next").click(function() {
-            PageClick(2, ${total}, 5);
-        });*/
-        <!-- 分页结束 -->
 
-        /*checkbox全选与取消*/
-        $("#checkedAll").click(function(){
-            if($(this).attr("checked")==undefined){
-                $("input[name='subBox']").each(function(){
-                    $(this).attr("checked",false);
-                });
-            }
-            else{
-                $("input[name='subBox']").each(function(){
-                    $(this).attr("checked",true);
-                });
-            }
+        // 目录树
+        $("#browser").treeview();
+        $(".leafnode").click(function(){
+            $("#file-list").show();
+            PageClick($(this).attr("id"), 1, 9, 5);
         });
-        /*图片展示控制 */
+
+        // 图片展示控制
         $(".fancybox").fancybox();
-        /*
-         *  Thumbnail helper. Disable animations, hide close button, arrows and slide to next gallery item if clicked
-         */
         $(".thumbnail").click(function() {
             $.fancybox.open([
                 {
@@ -295,7 +235,7 @@
             });
         });
 
-        <!-- 文件上传fileupload -->
+        // 文件上传fileupload
         $("#choosefile").change(function(){
             $("#gp_information").show();
             var filePath=$("#choosefile").val();
@@ -308,8 +248,6 @@
             }else{
                 newAlert("block","请选择正确分类");
             }
-
-
         });
     })
 </script>
