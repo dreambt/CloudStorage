@@ -11,6 +11,7 @@
         <result property="realName" column="real_name"/>
         <result property="md5" column="md5"/>
         <result property="CRC" column="CRC"/>
+        <result property="downloadCount" column="download_count"/>
         <result property="shared" column="shared"/>
         <result property="status" column="status"/>
         <result property="lastModifiedDate" column="last_modified_date"/>
@@ -21,7 +22,7 @@
         </association>
     </resultMap>
 
-    <sql id="fileColumns">F.id, F.custom_name, F.file_key, F.real_name, F.size, F.md5, F.CRC, F.shared, F.status,
+    <sql id="fileColumns">F.id, F.custom_name, F.file_key, F.real_name, F.size, F.md5, F.CRC, F.download_count, F.shared, F.status,
         F.last_modified_date, F.created_date, F.deleted</sql>
 
     <select id="get" parameterType="Long" resultMap="fileDetailMap">
@@ -58,7 +59,7 @@
 
     <insert id="save" parameterType="UploadedFile">
 		INSERT INTO ${appKey}CS_FILE
-		(id, node_id, custom_name, file_key, real_name, size, md5, CRC, shared, status, deleted, last_modified_date, created_date)
+		(id, node_id, custom_name, file_key, real_name, size, md5, CRC, download_count, shared, status, deleted, last_modified_date, created_date)
 		VALUES
 		(null, #{object.node.id}, #{object.customName}, #{object.fileKey}, #{object.realName}, #{object.size}, #{object.md5}, #{object.CRC},
 		 #{object.shared}, #{object.status}, #{object.deleted}, #{object.lastModifiedDate}, null)
@@ -93,6 +94,13 @@
             last_modified_date = null
         </set>
         WHERE id=#{object.id}
+    </update>
+
+    <!-- 更新下载次数 -->
+    <update id="updateDownload" parameterType="Long">
+        UPDATE ${appKey}CS_FILE
+        SET download_count = download_count + 1
+        WHERE id=#{id}
     </update>
 
     <update id="updateBool">

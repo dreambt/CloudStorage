@@ -114,6 +114,11 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
+    public int updateDownload(String appKey, Long id) {
+        return uploadedFileMapper.updateDownload(appKey, id);
+    }
+
+    @Override
     public int delete(String appKey, Long id) {
         return uploadedFileMapper.updateBool(appKey, id, "deleted");
     }

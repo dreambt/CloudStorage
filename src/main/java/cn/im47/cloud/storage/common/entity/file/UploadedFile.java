@@ -24,6 +24,7 @@ public class UploadedFile extends PersistableEntity implements Serializable {
     private int size;
     private String md5;
     private String CRC;
+    private int downloadCount;      //下载次数
     private boolean shared;
     private boolean status;        // 是否可下载
     private boolean deleted;
@@ -91,6 +92,14 @@ public class UploadedFile extends PersistableEntity implements Serializable {
 
     public void setCRC(String CRC) {
         this.CRC = CRC;
+    }
+
+    public int getDownloadCount() {
+        return downloadCount;
+    }
+
+    public void setDownloadCount(int downloadCount) {
+        this.downloadCount = downloadCount;
     }
 
     public boolean isShared() {

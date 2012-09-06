@@ -19,4 +19,6 @@ public interface UploadedFileMapper extends GenericAppDao<UploadedFile, Long> {
 
     UploadedFile getByFileKey(@Param("appKey") String appKey, @Param("fileKey") String fileKey);
 
+    int updateDownload(@Param("appKey") String appKey, @Param("id") Long id);
+
 }

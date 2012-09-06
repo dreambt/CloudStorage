@@ -26,6 +26,8 @@ public interface UploadedFileManager extends GenericAppManager<UploadedFile, Lon
 
     int updateBool(String appKey, Long id, String column);
 
+    int updateDownload(String appKey, Long id);
+
     /**
      * Generic method used to get all objects of a particular type. This
      * is the same as lookup up all rows in a table.

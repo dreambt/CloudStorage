@@ -61,6 +61,15 @@ public class UploadedFileMapperTest extends SpringTransactionalTestCase {
         assertEquals(1, uploadedFileMapper.search(APP_KEY, parameters).size());
     }
 
+    @Test
+    public void testUpdateDownload() throws Exception {
+        int before = uploadedFileMapper.get(APP_KEY, 1L).getDownloadCount();
+        uploadedFileMapper.updateDownload(APP_KEY, 1L);
+        int after = uploadedFileMapper.get(APP_KEY, 1L).getDownloadCount();
+        assertEquals(before, after - 1);
+
+    }
+
     @Autowired
     public void setFtpUserMapper(UploadedFileMapper uploadedFileMapper) {
         this.uploadedFileMapper = uploadedFileMapper;

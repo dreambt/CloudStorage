@@ -55,6 +55,7 @@ CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `size` int(11) NOT NULL,
   `md5` varchar(32) NOT NULL,
   `CRC` varchar(8) NOT NULL,
+  `download_count` int(8) NOT NULL,
   `shared` tinyint(1) NOT NULL DEFAULT 0,
   `status` tinyint(1) NOT NULL DEFAULT 0,
   `last_modified_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

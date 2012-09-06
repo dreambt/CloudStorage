@@ -4,6 +4,7 @@ import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
 import cn.im47.cloud.storage.utilities.file.FileHandler;
+import com.google.common.collect.Maps;
 import org.apache.commons.net.ntp.TimeStamp;
 import org.apache.ftpserver.ftplet.*;
 import org.slf4j.Logger;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ftp 文件事件通知类
@@ -127,6 +130,17 @@ public class FileFtplet extends DefaultFtplet {
     @Override
     public FtpletResult onDownloadStart(FtpSession session, FtpRequest request)
             throws FtpException, IOException {
+/*        String fileKey = request.getArgument();
+
+        Map<String, Object> parameters = Maps.newHashMap();
+        parameters.put("fileKey", fileKey);
+        parameters.put("Sort", "id");
+        parameters.put("Direction", "ASC");
+        parameters.put("offset", 0);
+        parameters.put("limit", 1);
+        List<UploadedFile> uploadedFiles = uploadedFileManager.search(APP_KEY, parameters);
+
+        uploadedFileManager.updateDownload(APP_KEY, uploadedFiles.get(0).getId());*/
         return null;
     }
 
