@@ -1,13 +1,12 @@
 package cn.im47.cloud.storage.common.web.file;
 
 import cn.im47.cloud.storage.common.entity.file.Node;
+import cn.im47.cloud.storage.common.entity.file.NodeTypeEnum;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 存储结点控制器
@@ -32,6 +31,8 @@ public class NodeController {
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("nodes", nodeManager.getTree(APP_KEY));
+        model.addAttribute("node", new Node());
+        model.addAttribute("types", NodeTypeEnum.values());
         return "node/list";
     }
 
@@ -63,7 +64,7 @@ public class NodeController {
         } else {
             model.addAttribute("error", "添加分类失败");
         }
-        return "redirect:/node/getChildren";
+        return "redirect:/node/list";
     }
 
     /**
@@ -80,7 +81,13 @@ public class NodeController {
         } else {
             model.addAttribute("error", "删除文件失败");
         }
-        return "node/getChildren";
+        return "node/list";
+    }
+
+    @RequestMapping(value = "isUsedNodeName", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean isUsedNodeName(@RequestParam("parentId") Long parentId, @RequestParam("nodeName") String nodeName) {
+        return nodeManager.isUsedNodeName(APP_KEY, parentId, nodeName);
     }
 
     @Autowired

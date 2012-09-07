@@ -22,6 +22,14 @@
         LIMIT 1
     </select>
 
+    <select id="isUsedNodeName" resultType="int">
+        SELECT
+        count(id)
+        FROM ${appKey}CS_NODE AS N
+        WHERE name=#{nodeName} and parent_id=#{parentId}
+        LIMIT 1
+    </select>
+
     <select id="getChildren" parameterType="Long" resultMap="nodeDetailMap">
         SELECT
         <include refid="nodeColumns"/>
@@ -50,7 +58,7 @@
 
     <insert id="save" parameterType="Node" useGeneratedKeys="true" keyProperty="object.id">
 		INSERT INTO ${appKey}CS_NODE(id, name, type, left_sibling, parent_id)
-		VALUES (null, #{object.name}, #{object.type}, #{object.leftSibling.id}, #{object.parent.id})
+		VALUES (null, #{object.name}, #{object.type}, #{object.leftSibling}, #{object.parentId})
 	</insert>
 
     <delete id="delete">

@@ -5,30 +5,38 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 
 /**
- * 文件类型Enum
+ * 节点类型Enum
  * User: baitao.jibt@gmail.com
  * Date: 12-4-25
  * Time: 上午10:47
  */
 public enum NodeTypeEnum {
 
-    PIC("图片"), MOVIE("电影"), TXT("文本"), OTHER("其他"), NONE("无");
+    PIC("PIC", "图片"), MOVIE("MOVIE", "视频"), TXT("TXT", "文本"), OTHER("OTHER", "其他"), NONE("NONE", "无");
 
     private String value;
-    private static final Map<String, NodeTypeEnum> lookup = Maps.newHashMap();
+    private String displayName;
+    private static Map<String, NodeTypeEnum> valueMap = Maps.newHashMap();
 
     static {
         for (NodeTypeEnum c : NodeTypeEnum.values())
-            lookup.put(c.toString(), c);
+            valueMap.put(c.value, c);
     }
 
-    NodeTypeEnum(String value) {
+    NodeTypeEnum(String value, String displayName) {
         this.value = value;
+        this.displayName = displayName;
     }
 
-    @Override
-    public String toString() {
+    public static NodeTypeEnum parse(String value) {
+        return valueMap.get(value);
+    }
+
+    public String getValue() {
         return value;
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
 }

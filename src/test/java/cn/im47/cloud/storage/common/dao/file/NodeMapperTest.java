@@ -73,6 +73,11 @@ public class NodeMapperTest extends SpringTransactionalTestCase {
         assertEquals(1, node.getId().intValue());
     }
 
+    @Test
+    public void testIsUsedNodeName() throws Exception {
+        assertEquals(1, nodeMapper.isUsedNodeName(APP_KEY, 1L, "node 1.1"));
+    }
+
     @Autowired
     public void setFtpUserMapper(NodeMapper nodeMapper) {
         this.nodeMapper = nodeMapper;

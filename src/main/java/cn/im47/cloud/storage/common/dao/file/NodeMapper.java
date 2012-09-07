@@ -20,4 +20,6 @@ public interface NodeMapper extends GenericAppDao<Node, Long> {
     Node getRightSibling(@Param("appKey") String appKey, @Param("id") long id);
 
     Node getByName(@Param("appKey") String appKey, @Param("nodeName") String nodeName);
+
+    int isUsedNodeName(@Param("appKey") String appKey, @Param("parentId") Long parentId,  @Param("nodeName") String nodeName);
 }

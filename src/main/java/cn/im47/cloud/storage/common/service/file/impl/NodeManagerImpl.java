@@ -5,6 +5,7 @@ import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
 import cn.im47.cloud.storage.utilities.memcached.MemcachedObjectType;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springside.modules.cache.memcached.SpyMemcachedClient;
 import org.springside.modules.mapper.JsonMapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 文件存储节点 Manager 实现类
@@ -37,6 +39,14 @@ public class NodeManagerImpl implements NodeManager {
     @Override
     public Node get(String appKey, Long id) {
         return nodeMapper.get(appKey, id);
+    }
+
+    @Override
+    public List<Node> getAll(String appKey) {
+        Map<String, Object> parameters = Maps.newHashMap();
+        parameters.put("Sort", "id");
+        parameters.put("Direction", "Desc");
+        return nodeMapper.search(appKey, parameters);
     }
 
     @Override
@@ -71,18 +81,15 @@ public class NodeManagerImpl implements NodeManager {
     @Transactional(readOnly = false)
     public int save(String appKey, Node object) {
         long parentId = object.getParentId();
-        long parentLen = 0;
         List<Node> nodeList = nodeMapper.getChildren(appKey, parentId);
-        // TODO
-        /*if (nodeList.size() > 0) {
+        if (nodeList.size() > 0) {
             object.setLeftSibling(nodeList.get(nodeList.size() - 1).getId());
         } else {
             object.setLeftSibling(0L);
-        }*/
+        }
 
         // 添加node
         int num = nodeMapper.save(appKey, object);
-        long id = object.getId();
 
         // 建立node关系 TODO
         /*nodeAdjMapper.save(appKey, id, id, parentLen);
@@ -158,9 +165,20 @@ public class NodeManagerImpl implements NodeManager {
         return this.getByName(appKey, nodeName);
     }
 
+
+
     @Override
     public Node getByName(String appKey, String nodeName) {
         return nodeMapper.getByName(appKey, nodeName);
+    }
+
+    @Override
+    public boolean isUsedNodeName(String appKey, Long parentId, String nodeName) {
+        if(nodeMapper.isUsedNodeName(appKey, parentId, nodeName)>0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Autowired
