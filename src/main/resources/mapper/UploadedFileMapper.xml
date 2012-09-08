@@ -61,7 +61,7 @@
 		INSERT INTO ${appKey}CS_FILE
 		(id, node_id, custom_name, file_key, real_name, size, md5, CRC, download_count, shared, status, deleted, last_modified_date, created_date)
 		VALUES
-		(null, #{object.node.id}, #{object.customName}, #{object.fileKey}, #{object.realName}, #{object.size}, #{object.md5}, #{object.CRC},
+		(null, #{object.node.id}, #{object.customName}, #{object.fileKey}, #{object.realName}, #{object.size}, #{object.md5}, #{object.CRC}, #{object.downloadCount},
 		 #{object.shared}, #{object.status}, #{object.deleted}, #{object.lastModifiedDate}, null)
 	</insert>
 

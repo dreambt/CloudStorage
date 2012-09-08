@@ -48,7 +48,7 @@
         SELECT
         <include refid="nodeColumns"/>
         FROM ${appKey}CS_NODE AS N
-        WHERE name = #{nodeName}
+        WHERE name = #{nodeName} AND parent_id=id
     </select>
 
     <select id="count" resultType="Long">

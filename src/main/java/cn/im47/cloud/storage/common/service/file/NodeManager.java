@@ -62,9 +62,10 @@ public interface NodeManager extends GenericAppManager<Node, Long> {
      *
      * @param appKey
      * @param nodeName
+     * @param id
      * @return
      */
-    Node getByName(String appKey, String nodeName);
+    Node getByName(String appKey, String nodeName, Long id);
 
     /**
      * 检测新节点名称是否已使用

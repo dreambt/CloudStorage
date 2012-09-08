@@ -1,5 +1,6 @@
 package cn.im47.cloud.storage.ftp;
 
+import cn.im47.cloud.storage.common.entity.file.Node;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
@@ -29,8 +30,6 @@ public class FileFtplet extends DefaultFtplet {
     private static final Logger logger = LoggerFactory.getLogger(DefaultFtplet.class);
 
     private static final String FILE_PATH = "D:/";
-
-    private static final String JAVA_PATH = "D:/sources/CloudStorage/";
 
     private static final String APP_KEY = "";
 
@@ -83,12 +82,13 @@ public class FileFtplet extends DefaultFtplet {
         /* 上传文件信息 */
         String realName = request.getArgument();
         String suffix = realName.substring(realName.lastIndexOf(".") + 1, realName.length());
+        String path = session.getFileSystemView().getWorkingDirectory().getAbsolutePath();
 
         /* 当前用户信息 */
         User user = session.getUser();
 
         /* 对文件md5 */
-        File fromFile = new File(JAVA_PATH + realName);
+        File fromFile = new File(user.getHomeDirectory() + realName);
         int fileSize = ((Long)fromFile.length()).intValue();
         String md5 = FileHandler.MD5(fromFile);
         String timeStamp = new TimeStamp(new Date()).toString();
@@ -103,7 +103,8 @@ public class FileFtplet extends DefaultFtplet {
         /*入数据库*/
         UploadedFile uploadedFile = new UploadedFile();
         // TODO 前台获得数据
-        uploadedFile.setNode(nodeManager.get(APP_KEY, 2L));     //TODO 节点
+        Node node = nodeManager.getByPath(APP_KEY, "/小学三年级/数学/视频");
+        uploadedFile.setNode(node);
         uploadedFile.setFileKey(fileKey + "." + suffix);
         uploadedFile.setCustomName(realName);   //TODO 自定义名称
         uploadedFile.setRealName(realName);

@@ -69,7 +69,7 @@ public class NodeMapperTest extends SpringTransactionalTestCase {
 
     @Test
     public void testGetByName() throws Exception {
-        Node node = nodeMapper.getByName(APP_KEY, "node 1");
+        Node node = nodeMapper.getByName(APP_KEY, "node 1", 1L);
         assertEquals(1, node.getId().intValue());
     }
 

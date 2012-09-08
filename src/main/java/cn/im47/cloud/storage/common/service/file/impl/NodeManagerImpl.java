@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.cache.memcached.SpyMemcachedClient;
 import org.springside.modules.mapper.JsonMapper;
 
+import java.text.BreakIterator;
 import java.util.List;
 import java.util.Map;
 
@@ -158,18 +159,42 @@ public class NodeManagerImpl implements NodeManager {
         return nodeList;
     }
 
+    //TODO 完成只有三级分类可发的情况
     @Override
     public Node getByPath(String appKey, String path) {
+        path = path.substring(1, path.length());
         String[] paths = path.split("/");
-        String nodeName = paths[paths.length-1];
-        return this.getByName(appKey, nodeName);
+
+        if(paths.length < 3) {
+            logger.error("请选择叶子节点");
+            return null;
+        }
+
+        List<Node> nodes = this.getTree(appKey);
+        for(Node node1: nodes) {
+            /* 一级节点比较 */
+            if(paths[0].equals(node1.getName())) {
+                for(Node node2: node1.getNodeList()) {
+                    /* 二级节点比较 */
+                    if(paths[1].equals(node2.getName())) {
+                        for(Node node3: node2.getNodeList()) {
+                            /* 三级节点比较 */
+                            if(paths[2].equals(node3.getName())) {
+                                return node3;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
 
 
     @Override
-    public Node getByName(String appKey, String nodeName) {
-        return nodeMapper.getByName(appKey, nodeName);
+    public Node getByName(String appKey, String nodeName, Long id) {
+        return nodeMapper.getByName(appKey, nodeName, id);
     }
 
     @Override
