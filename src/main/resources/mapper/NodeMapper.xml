@@ -10,9 +10,10 @@
         <result property="type" column="type"/>
         <result property="leftSibling" column="left_sibling"/>
         <result property="parentId" column="parent_id"/>
+        <result property="displayOrder" column="display_order" />
     </resultMap>
 
-    <sql id="nodeColumns">N.id, N.name, N.type, N.left_sibling, N.parent_id</sql>
+    <sql id="nodeColumns">N.id, N.name, N.type, N.left_sibling, N.parent_id, N.display_order</sql>
 
     <select id="get" parameterType="Long" resultMap="nodeDetailMap">
         SELECT
@@ -48,7 +49,7 @@
         SELECT
         <include refid="nodeColumns"/>
         FROM ${appKey}CS_NODE AS N
-        WHERE name = #{nodeName} AND parent_id=id
+        WHERE name = #{nodeName} AND parent_id=#{id}
     </select>
 
     <select id="count" resultType="Long">
@@ -57,8 +58,8 @@
 	</select>
 
     <insert id="save" parameterType="Node" useGeneratedKeys="true" keyProperty="object.id">
-		INSERT INTO ${appKey}CS_NODE(id, name, type, left_sibling, parent_id)
-		VALUES (null, #{object.name}, #{object.type}, #{object.leftSibling}, #{object.parentId})
+		INSERT INTO ${appKey}CS_NODE(id, name, type, left_sibling, parent_id, display_order)
+		VALUES (null, #{object.name}, #{object.type}, #{object.leftSibling}, #{object.parentId}, #{object.displayOrder})
 	</insert>
 
     <delete id="delete">
@@ -82,10 +83,13 @@
                 type=#{object.type},
             </if>
             <if test="object.leftSibling != null">
-                left_sibling=#{object.leftSibling.id},
+                left_sibling=#{object.leftSibling},
             </if>
-            <if test="object.parent.id != null">
-                parent_id=#{object.parent.id},
+            <if test="object.parentId != null">
+                parent_id=#{object.parentId},
+            </if>
+            <if test="object.displayOrder != null">
+                display_order=#{object.displayOrder},
             </if>
         </set>
         WHERE id=#{object.id}
@@ -103,7 +107,10 @@
                 and type=#{parameters.type}
             </if>
             <if test="parameters.leftSibling != null">
-                and left_sibling=#{parameters.leftSibling.id}
+                and left_sibling=#{parameters.leftSibling}
+            </if>
+            <if test="parameters.displayOrder != null">
+                and display_order=#{parameters.displayOrder}
             </if>
         </where>
         <if test="parameters.Sort != null and parameters.Sort!=''">

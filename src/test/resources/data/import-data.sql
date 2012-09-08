@@ -1,14 +1,14 @@
 -- -----------------------------------------------------
 -- 目录表测试数据
 -- -----------------------------------------------------
-INSERT INTO `CS_NODE` (`id`, `name`, `type`, `left_sibling`, `parent_id`) VALUES
-(1, 'node 1', 'OTHER', 0, 0),
-(2, 'node 1.1', 'OTHER', 0, 1),
-(3, 'node 2', 'OTHER', 1, 0),
-(4, 'node 1.1.1', 'OTHER', 0, 2),
-(5, 'node 2.1', 'TXT', 0, 3),
-(6, 'node 1.2', 'MOVIE', 2, 1),
-(7, 'node 1.3', 'PIC', 6, 1);
+INSERT INTO `CS_NODE` (`id`, `name`, `type`, `left_sibling`, `parent_id`, `display_order`) VALUES
+(1, 'node 1', 'OTHER', 0, 0, 1),
+(2, 'node 1.1', 'OTHER', 0, 1, 2),
+(3, 'node 2', 'OTHER', 1, 0, 3),
+(4, 'node 1.1.1', 'OTHER', 0, 2, 4),
+(5, 'node 2.1', 'TXT', 0, 3, 5),
+(6, 'node 1.2', 'MOVIE', 2, 1, 6),
+(7, 'node 1.3', 'PIC', 6, 1, 7);
 
 
 -- -----------------------------------------------------

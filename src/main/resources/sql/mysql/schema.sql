@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `CS_NODE` (
   `type` varchar(20) NOT NULL,
   `left_sibling` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
+  `display_order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 

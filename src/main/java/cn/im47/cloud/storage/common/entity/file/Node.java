@@ -23,6 +23,7 @@ public class Node extends IdEntity implements Serializable {
     private NodeTypeEnum type;           // 结点类型
     private Long leftSibling;          // 左兄弟编号
     private Long parentId;              // 父节点编号
+    private int displayOrder;           //显示次序
 
     private List<Node> nodeList = Lists.newArrayList();
 
@@ -56,6 +57,14 @@ public class Node extends IdEntity implements Serializable {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public int getDisplayOrder() {
+        return displayOrder;
+    }
+
+    public void setDisplayOrder(int displayOrder) {
+        this.displayOrder = displayOrder;
     }
 
     public List<Node> getNodeList() {

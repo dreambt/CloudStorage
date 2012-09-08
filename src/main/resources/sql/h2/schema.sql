@@ -27,6 +27,7 @@ CREATE TABLE IF NOT EXISTS `CS_NODE` (
   `type` varchar(20) DEFAULT NULL,
   `left_sibling` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
+  `display_order` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 );
 
