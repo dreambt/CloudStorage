@@ -63,7 +63,7 @@ public class FtpUserManagerImpl implements FtpUserManager {
     @Transactional(readOnly = false)
     public int delete(Long id) {
         logger.debug("== Delete ftp user by id={}", id);
-        return this.updateBool(id, "deleted");
+        return ftpUserMapper.delete(id);
     }
 
     public List<FtpUser> search(Map<String, Object> parameters) {
@@ -95,6 +95,12 @@ public class FtpUserManagerImpl implements FtpUserManager {
         } else {
             return false;
         }
+    }
+
+    @Transactional(readOnly = false)
+    public int start(Long id) {
+        logger.debug("== start ftp user by id={}", id);
+        return this.updateBool(id, "enable_flag");
     }
 
     @Transactional(readOnly = false)

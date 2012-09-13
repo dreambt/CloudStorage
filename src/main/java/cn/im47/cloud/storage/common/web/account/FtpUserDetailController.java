@@ -33,12 +33,13 @@ public class FtpUserDetailController {
      * @return
      */
     @RequestMapping(value = "edit/{id}")
-    public String updateForm(@ModelAttribute("ftpUser") FtpUser ftpUser, Model model) {
+    public String updateForm(@ModelAttribute("user") FtpUser ftpUser, Model model) {
         if (null == ftpUser) {
             model.addAttribute("info", "该ftp用户不存在，请刷新重试");
             return "redirect:/ftpUser/list";
         }
-        model.addAttribute("ftpUser", ftpUser);
+        model.addAttribute("user", ftpUser);
+        model.addAttribute("deal", "edit");
 
         return "account/user";
     }
@@ -55,14 +56,14 @@ public class FtpUserDetailController {
     public String save(@ModelAttribute("ftpUser") FtpUser ftpUser, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (null == ftpUser) {
             redirectAttributes.addFlashAttribute("info", "该ftp用户不存在，请刷新重试");
-            return "redirect:/account/user" + ftpUser.getId();
+            return "redirect:/ftpUser/list";
         }
         ftpUserManager.update(ftpUser);
         redirectAttributes.addFlashAttribute("info", "修改ftp用户成功");
-        return "redirect:/ftpUser/user" + ftpUser.getId();
+        return "redirect:/ftpUser/list";
     }
 
-    @ModelAttribute("ftpUser")
+    @ModelAttribute("user")
     public FtpUser getAccount(@PathVariable("id") Long id) {
         return ftpUserManager.get(id);
     }

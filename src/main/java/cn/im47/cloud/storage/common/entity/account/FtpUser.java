@@ -13,14 +13,14 @@ public class FtpUser extends PersistableEntity {
     private String userName;            //ftp用户名
     private String userPassword;
     private String homeDirectory;      //用户根路径
-    private boolean enableFlag;       //是否审核
+    private boolean enableFlag;       //是否可用
     private boolean writePermission; //写权限
     private int idleTime;
     private int uploadRate;            //上传速度
     private int downloadRate;         //下载速度
     private int maxLoginNumber;
     private int maxLoginPerIp;
-    private boolean deleted;
+    private boolean deleted;           //是否删除
 
     public String getUserName() {
         return userName;

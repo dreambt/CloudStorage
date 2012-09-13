@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 存储结点控制器
@@ -37,7 +38,7 @@ public class NodeController {
     }
 
     /**
-    /**
+     * /**
      * 跳转到添加分类页面
      *
      * @param model
@@ -58,7 +59,6 @@ public class NodeController {
      */
     @RequestMapping(value = "save")
     public String save(Model model, Node node) {
-
         if (nodeManager.save(APP_KEY, node) > 0) {
             model.addAttribute("info", "添加分类成功");
         } else {
@@ -70,18 +70,30 @@ public class NodeController {
     /**
      * 删除分类
      *
-     * @param model
+     * @param redirectAttributes
      * @param id
      * @return
      */
     @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
-    public String delete(Model model, @PathVariable("id") Long id) {
-        if (nodeManager.delete(APP_KEY, id) > 0) {
-            model.addAttribute("info", "删除文件成功");
+    public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        Node node = null;
+        if (null != nodeManager.get(APP_KEY, id)) {
+            node = nodeManager.get(APP_KEY, id);
+            node.setNodeList(nodeManager.getChildren(APP_KEY, id));
         } else {
-            model.addAttribute("error", "删除文件失败");
+            redirectAttributes.addFlashAttribute("error", "该节点不存在");
+            return "redirect:/node/list";
         }
-        return "node/list";
+        if (null != node.getNodeList() && 0 != node.getNodeList().size()) {
+            redirectAttributes.addFlashAttribute("error", "该节点有子节点，不能删除");
+        } else {
+            if (nodeManager.delete(APP_KEY, id) > 0) {
+                redirectAttributes.addFlashAttribute("info", "删除文件成功");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "删除文件失败");
+            }
+        }
+        return "redirect:/node/list";
     }
 
     @RequestMapping(value = "isUsedNodeName", method = RequestMethod.GET)

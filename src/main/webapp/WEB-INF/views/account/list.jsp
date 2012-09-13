@@ -5,7 +5,12 @@
   Time: 下午1:01.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
     <title>用户管理</title>
 </head>
@@ -26,41 +31,39 @@
                     <thead>
                     <tr>
                         <th><label class="checkbox"><input id="checkedAll" type="checkbox" value=""></label></th>
-                        <th>#</th>
                         <th>FTP账号</th>
                         <th>用户根路径</th>
                         <th>上传速度</th>
                         <th>下载速度</th>
-                        <th>操作</th>
+                        <th>是否启用</th>
+                        <th>写权限</th>
+                        <th>是否删除</th>
+                        <th>更多操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
-                        <td>1</td>
-                        <td class="userName"><a href="#" title="点击查看green的详细信息">green</a></td>
-                        <td>ggg</td>
-                        <td>6666</td>
-                        <td>555</td>
-                        <td>
-                            <a href="#"><i class="icon-ok-sign" title="已审核"></i></a>
-                            <a data-toggle="modal" href="#Tips" class="deleteSingleUser"><i class="icon-trash" title="删除"></i></a>
-                            <a href="#"><i class="icon-edit" title="写权限"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
-                        <td>1</td>
-                        <td class="userName"><a href="#" title="点击查看green的详细信息">green</a></td>
-                        <td>ggg</td>
-                        <td>6666</td>
-                        <td>555</td>
-                        <td>
-                            <a href="#"><i class="icon-question-sign" title="未审核"></i></a>
-                            <a data-toggle="modal" href="#Tips" class="deleteSingleUser"><i class="icon-repeat" title="找回"></i></a>
-                            <a href="#"><i class="icon-ban-circle" title="无写权限"></i></a>
-                        </td>
-                    </tr>
+                    <c:forEach items="${users}" var="user" begin="0" step="1">
+                        <tr>
+                            <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
+                            <td class="userName click"><a href="${ctx}/ftpUser/get/${user.id}"title="点击查看详细信息">${user.userName}</a></td>
+                            <td>${user.homeDirectory}</td>
+                            <td>${user.uploadRate}</td>
+                            <td>${user.downloadRate}</td>
+                            <td>
+                                <a href="${ctx}/ftpUser/start/${user.id}"><c:choose><c:when test="${user.enableFlag}">启用</c:when><c:otherwise>停用</c:otherwise></c:choose></a>
+                            </td>
+                            <td>
+                                <a href="${ctx}/ftpUser/allowWrite/${user.id}"><c:choose><c:when test="${user.writePermission}">有</c:when><c:otherwise>无</c:otherwise></c:choose></a>
+                            </td>
+                            <td>
+                                <a href="${ctx}/ftpUser/delete/${user.id}"><c:choose><c:when test="${user.deleted}">删除</c:when><c:otherwise>找回</c:otherwise></c:choose></a>
+                            </td>
+                            <td>
+                                <a href="${ctx}/ftpUser/edit/${user.id}"><i class="icon-asterisk click" title="修改"></i></a>
+                                <a href="${ctx}/ftpUser/create" class="btn btn-link start"><i class="icon-th-list" title="添加用户"></i></a>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
@@ -69,10 +72,6 @@
     <!--操作按钮-->
     <div class="row fileupload-buttonbar">
         <div class="span9">
-            <a data-toggle="modal" href="#Tips" class="btn btn-warning cancel"id="auditAllUser">
-                <i class="icon-ok-sign icon-white"></i>
-                <span>批量审核</span>
-            </a>
             <a data-toggle="modal" href="#Tips" class="btn btn-danger delete" id="deleteAllUser">
                 <i class="icon-trash icon-white"></i>
                 <span>批量删除</span>
@@ -91,7 +90,29 @@
         <button class="btn" data-dismiss="modal">取消</button>
     </div>
 </div>
-
-
+<%--<script type="text/javascript">
+    $(function(){
+        $(".click").click(function(){
+            $.ajax({
+                url:"${ctx}/api/ftpUser/get/"+${user.id},
+                success:function(data){
+                    alert(data);
+                    $('#userNmae').val(data.userName);
+                    $('#userPassword').val(data.userPassword);
+                    $('#homeDirectory').val(data.homeDirectory);
+                    $('#writePermission').val(data.writePermission);
+                    $('#enableFlag').val(data.enableFlag);
+                    $('#idleTime').val(data.idleTime);
+                    $('#uploadRate').val(data.uploadRate);
+                    $('#downloadRate').val(data.downloadRate);
+                    $('#maxLoginNumber').val(data.maxLoginNumber);
+                    $('#maxLoginPerIp').val(data.maxLoginPerIp);
+                    $('#createdDate').val(data.createdDate);
+                    $('#lastModifiedDate').val(data.lastModifiedDate);
+                }
+            });
+        });
+    });
+</script>--%>
 </body>
 </html>

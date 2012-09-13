@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -27,24 +28,6 @@ public class NodeDetailController {
     private static final String APP_KEY = "";
 
     /**
-     * 跳转到分类修改界面
-     *
-     * @param node
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "edit/{id}")
-    public String updateForm(@ModelAttribute("node") Node node, Model model) {
-        if (null == node) {
-            model.addAttribute("info", "该分类不存在，请刷新重试");
-            return "redirect:/file/list";
-        }
-        model.addAttribute("node", node);
-
-        return "account/userForm";
-    }
-
-    /**
      * 修改分类信息
      *
      * @param node
@@ -60,7 +43,7 @@ public class NodeDetailController {
 
         nodeManager.update(APP_KEY, node);
         redirectAttributes.addFlashAttribute("info", "修改分类成功");
-        return "redirect:/file/userinfo";
+        return "redirect:/node/list";
     }
 
     @ModelAttribute("node")

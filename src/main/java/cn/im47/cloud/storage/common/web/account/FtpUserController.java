@@ -2,6 +2,7 @@ package cn.im47.cloud.storage.common.web.account;
 
 import cn.im47.cloud.storage.common.entity.account.FtpUser;
 import cn.im47.cloud.storage.common.service.account.FtpUserManager;
+import com.google.common.collect.Maps;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
  * 用户管理控制器
@@ -31,8 +33,9 @@ public class FtpUserController {
      * @return
      */
     @RequestMapping(value = "get/{id}")
-    public String get(@PathVariable("id") Long id) {
-        ftpUserManager.get(id);
+    public String get(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("user", ftpUserManager.get(id));
+        model.addAttribute("deal", "show");
         return "account/user";
     }
 
@@ -44,6 +47,12 @@ public class FtpUserController {
      */
     @RequestMapping(value = "list")
     public String list(Model model) {
+        Map<String, Object> parameters = Maps.newHashMap();
+        parameters.put("offset", 0);
+        parameters.put("limit", 10);
+        parameters.put("Sort", "id");
+        parameters.put("Direction", "desc");
+        model.addAttribute("users", ftpUserManager.search(parameters));
         return "account/list";
     }
 
@@ -55,7 +64,8 @@ public class FtpUserController {
      */
     @RequestMapping(value = "create")
     public String createForm(Model model) {
-        model.addAttribute("ftpUser", new FtpUser());
+        model.addAttribute("user", new FtpUser());
+        model.addAttribute("deal", "add");
         return "account/user";
     }
 
@@ -105,8 +115,51 @@ public class FtpUserController {
         }
     }
 
+    /**
+     * 根据id 启用/停用 ftp用户
+     *
+     * @param id
+     * @param redirectAttributes
+     * @return
+     */
+    @RequestMapping(value = "start/{id}")
+    public String start(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        if (null == ftpUserManager.get(id)) {
+            redirectAttributes.addFlashAttribute("error", "该FTP账户不存在");
+        } else {
+            if (ftpUserManager.start(id) > 0) {
+                redirectAttributes.addFlashAttribute("info", "操作成功");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "操作失败");
+            }
+        }
+        return "redirect:/ftpUser/list";
+    }
+
+    /**
+     * 根据id 操作 ftp用户 写权限
+     *
+     * @param id
+     * @param redirectAttributes
+     * @return
+     */
+    @RequestMapping(value = "allowWrite/{id}")
+    public String allowWrite(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        if (null == ftpUserManager.get(id)) {
+            redirectAttributes.addFlashAttribute("error", "该FTP账户不存在");
+        } else {
+            if (ftpUserManager.updateBool(id, "write_permission") > 0) {
+                redirectAttributes.addFlashAttribute("info", "操作成功");
+            } else {
+                redirectAttributes.addFlashAttribute("error", "操作失败");
+            }
+        }
+        return "redirect:/ftpUser/list";
+    }
+
     @Autowired
     public void setFtpUserManager(FtpUserManager ftpUserManager) {
         this.ftpUserManager = ftpUserManager;
     }
+
 }

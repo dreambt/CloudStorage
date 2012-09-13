@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `CS_FILE` (
 --
 DROP TABLE IF EXISTS `CS_FTP_USER`;
 CREATE TABLE IF NOT EXISTS `CS_FTP_USER` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(64) NOT NULL,
   `user_password` varchar(64) DEFAULT NULL,
   `home_directory` varchar(128) NOT NULL,

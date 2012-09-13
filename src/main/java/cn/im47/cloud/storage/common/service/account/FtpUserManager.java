@@ -38,6 +38,13 @@ public interface FtpUserManager extends GenericManager<FtpUser, Long> {
     void deleteInBatch(String[] ids);
 
     /**
+     * 启用或者停用 ftp用户
+     * @param id
+     * @return
+     */
+    int start(Long id);
+
+    /**
      * 重置密码
      *
      * @param ftpUser
