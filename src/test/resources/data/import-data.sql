@@ -60,9 +60,9 @@ INSERT INTO `CS_FTP_USER` (`id`, `user_name`, `user_password`, `home_directory`,
 -- -----------------------------------------------------
 -- 用户组测试数据
 -- -----------------------------------------------------
-INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (1,'后台管理员');
-INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (2,'前台管理员');
-INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (3,'自由撰稿人');
+INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (1,'系统管理员');
+INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (2,'应用管理员');
+INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (3,'普通用户');
 
 
 -- -----------------------------------------------------
@@ -70,35 +70,33 @@ INSERT INTO `CS_GROUP`(`id`, `group_name`) VALUES (3,'自由撰稿人');
 -- -----------------------------------------------------
 -- 系统管理员
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (1,1,'app:create');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (2,1,'app:delete');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (3,1,'app:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (2,1,'app:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (3,1,'app:save');
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (4,1,'app:list');
 
 -- 应用管理员
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (10,2,'user:create');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (11,2,'user:delete');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (12,2,'user:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (11,2,'user:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (12,2,'user:save');
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (13,2,'user:list');
 
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (16,2,'group:create');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (17,2,'group:delete');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (18,2,'group:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (17,2,'group:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (18,2,'group:save');
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (19,2,'group:list');
 
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (21,2,'file:create');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (22,2,'file:delete');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (23,2,'file:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (22,2,'file:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (23,2,'file:save');
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (24,2,'file:list');
 
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (26,2,'node:create');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (27,2,'node:delete');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (28,2,'node:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (27,2,'node:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (28,2,'node:save');
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (29,2,'node:list');
 
--- 用户
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (50,3,'user:create');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (51,3,'user:delete');
-INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (52,3,'user:update');
+-- 普通用户
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (51,3,'user:update');
 
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (59,3,'group:list');
 

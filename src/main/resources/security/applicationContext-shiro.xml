@@ -31,13 +31,22 @@
                 /account/** = user
                 <!-- 用户管理 -->
                 /account/user/create = perms["user:create"]
-                /account/user/edit/** = perms["user:edit"]
-                /account/user/save/** = perms["user:edit"]
+                /account/user/update/** = perms["user:update"]
                 /account/user/delete/** = perms["user:save"]
                 /account/user/audit/** = perms["user:save"]
                 /account/user/batchDelete/** = perms["user:save"]
                 /account/user/batchAudit/** = perms["user:save"]
                 /account/user/listAll = perms["user:list"]
+                <!-- 文件管理 -->
+                /file/create = perms["file:create"]
+                /file/update/** = perms["file:update"]
+                /file/delete/** = perms["file:save"]
+                /file/get/** = perms["file:list"]
+                <!-- 结点管理 -->
+                /node/create = perms["node:create"]
+                /node/update/** = perms["node:update"]
+                /node/delete/** = perms["node:save"]
+                /node/get/** = perms["node:list"]
             </value>
         </property>
     </bean>

@@ -92,8 +92,8 @@ public class UploadedFileController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/create")
-    public String create(Model model) {
+    @RequestMapping(value = "/create", method = RequestMethod.GET)
+    public String createForm(Model model) {
         model.addAttribute("file", new UploadedFile());
         return "file/test";
     }
@@ -106,8 +106,9 @@ public class UploadedFileController {
      * @param uploadedFile
      * @return
      */
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String save(Model model, @RequestParam(value = "file", required = false) MultipartFile file, UploadedFile uploadedFile, HttpServletRequest request) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public String create(Model model, @RequestParam(value = "file", required = false) MultipartFile file,
+                         UploadedFile uploadedFile, HttpServletRequest request) {
         if (uploadedFileManager.save(APP_KEY, uploadedFile,file) > 0) {
             model.addAttribute("info", "上传文件成功");
         } else {

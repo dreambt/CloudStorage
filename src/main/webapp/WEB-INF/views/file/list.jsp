@@ -87,10 +87,9 @@
 
 
 
-            <%--<form id="fileupload" action="file/save" method="post" enctype="multipart/form-data" style="height: 40px;">--%>
+            <form id="fileupload" action="${ctx}/file/create" method="post" enctype="multipart/form-data">
             <div class="row fileupload-buttonbar">
                 <div class="span9">
-                    <!-- The fileinput-button span is used to style the file input field as button -->
                         <span class="btn btn-success fileinput-button">
                             <i class="icon-plus icon-white"></i>
                             <span>选择文件...</span>
@@ -110,23 +109,18 @@
                     </button>
                     <input type="checkbox" class="toggle"/> 全选
                 </div>
-                <!-- The global progress information -->
                 <div id="gp_information" class="span5 fileupload-progress fade" style="display: none">
-                    <!-- The global progress bar -->
                     <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
                         <div class="bar" style="width: 0%; "></div>
                     </div>
-                    <!-- The extended global progress information -->
                     <div class="progress-extended">&nbsp;</div>
                 </div>
             </div>
-            <!-- The loading indicator is shown during file processing -->
             <div class="fileupload-loading"></div>
-            <!-- The table listing the files available for upload/download -->
             <table role="presentation" class="table table-striped">
                 <tbody id="hasfile" class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
             </table>
-            <%--</form>--%>
+            </form>
             </div>
         </div>
     </div>
@@ -141,7 +135,18 @@
     $(function() {
         $("#file-page").addClass("active");
 
+        // 文件上传fileupload
+        $("#choosefile").change(function(){
+            $("#gp_information").show();
+            var filePath=$("#choosefile").val();
+            var pre = filePath.substr(filePath.lastIndexOf('\\')+1);
+            var realName =pre.substr(0,10);
+            var upload="<tr class='template-upload fade in'><td class='preview'><span class='fade' style='width: 6px'></span></td><td class='name'><span id='realName' title='"+pre+"'>" + realName + "</span></td><td class='size'><span id='size'></span></td><td><div class='progress progress-success progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='0'><div class='bar' style='width:0%;'></div></div></td><td class='start'><button class='btn btn-primary'><i class='icon-upload icon-white'></i><span>开始上传</span></button></td><td class='cancel'><button class='btn btn-warning'><i class='icon-ban-circle icon-white'></i><span>取消</span></button></td></tr>";
+            $("#hasfile").append(upload);
+        });
+
         //分页
+        var nodeId;
         var files = $("#file-items");
         var pager = $("#pagination");
         PageClick = function (nodeId, pageIndex, total, spanInterval) {
@@ -241,22 +246,7 @@
                 }
             });
         });
-
-        // 文件上传fileupload
-        $("#choosefile").change(function(){
-            $("#gp_information").show();
-            var filePath=$("#choosefile").val();
-            var pre = filePath.substr(filePath.lastIndexOf('\\')+1);
-            var realName =pre.substr(0,10);
-
-            if(node.type==null) {
-                var upload="<tr class='template-upload fade in'><td class='preview'><span class='fade' style='width: 6px'></span></td><td class='name'><span id='realName' title='"+pre+"'>" + realName + "</span></td><td class='size'><span id='size'></span></td><td><div class='progress progress-success progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='0'><div class='bar' style='width:0%;'></div></div></td><td class='start'><button class='btn btn-primary'><i class='icon-upload icon-white'></i><span>开始上传</span></button></td><td class='cancel'><button class='btn btn-warning'><i class='icon-ban-circle icon-white'></i><span>取消</span></button></td></tr>";
-                $("#hasfile").append(upload);
-            }else{
-                newAlert("block","请选择正确分类");
-            }
-        });
-    })
+    });
 </script>
 </body>
 </html>
