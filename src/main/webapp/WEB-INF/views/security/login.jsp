@@ -8,6 +8,7 @@
 <html lang="zh-CN">
 <head>
     <title>登录</title>
+    <link rel="stylesheet" href="${ctx}/static/js/validation/validate.css"/>
 </head>
 <body>
 <div class="page page-ex">
@@ -63,7 +64,8 @@
     </div>
     </div>
 </div>
-<script src="${ctx}/static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/validation/jquery.validate.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/validation/messages_bs_cn.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function() {
         $("#login-page").addClass("active");

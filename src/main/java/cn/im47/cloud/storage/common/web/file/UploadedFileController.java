@@ -62,21 +62,21 @@ public class UploadedFileController {
         return "file/video";
     }
 
-    @RequestMapping("download/{fileName}")
-    public void download(@PathVariable("fileName") String fileName, HttpServletResponse response){
+    @RequestMapping("/download/{fileName}")
+    public void download(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");
         response.setContentType("multipart/form-data");
 
-        response.setHeader("Content-Disposition", "attachment;fileName="+fileName);
+        response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
         try {
-            File file=new File(fileName);
+            File file = new File(fileName);
             System.out.println(file.getAbsolutePath());
-            InputStream inputStream=new FileInputStream(FILE_PATH + file);
-            OutputStream os=response.getOutputStream();
-            byte[] b=new byte[1024];
+            InputStream inputStream = new FileInputStream(FILE_PATH + file);
+            OutputStream os = response.getOutputStream();
+            byte[] b = new byte[1024];
             int length;
-            while((length=inputStream.read(b))>0){
-                os.write(b,0,length);
+            while ((length = inputStream.read(b)) > 0) {
+                os.write(b, 0, length);
             }
             inputStream.close();
         } catch (FileNotFoundException e) {
@@ -95,7 +95,7 @@ public class UploadedFileController {
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String createForm(Model model) {
         model.addAttribute("file", new UploadedFile());
-        return "file/test";
+        return "redirect:/file/list";
     }
 
     /**
@@ -109,7 +109,7 @@ public class UploadedFileController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(Model model, @RequestParam(value = "file", required = false) MultipartFile file,
                          UploadedFile uploadedFile, HttpServletRequest request) {
-        if (uploadedFileManager.save(APP_KEY, uploadedFile,file) > 0) {
+        if (uploadedFileManager.save(APP_KEY, uploadedFile, file) > 0) {
             model.addAttribute("info", "上传文件成功");
         } else {
             model.addAttribute("error", "上传文件失败");

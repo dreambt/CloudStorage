@@ -49,7 +49,6 @@
                 </ul>
             </div>
         </div>
-
         <!-- 文件列表 -->
         <div class="span9">
             <div class="well">
@@ -71,71 +70,241 @@
                         <tbody id="file-items"></tbody>
                     </table>
                 </div>
-
                 <!-- 分页 -->
                 <div class="pagination pagination-right">
                     <ul id="pagination">
                     </ul>
                 </div>
-
-
-            <form id="fileupload" action="${ctx}/file/create" method="post" enctype="multipart/form-data">
-            <div class="row fileupload-buttonbar">
-                <div class="span9">
-                        <span class="btn btn-success fileinput-button">
-                            <i class="icon-plus icon-white"></i>
-                            <span>选择文件...</span>
-                            <input type="file" name="files[]" multiple="" id="choosefile"/>
-                        </span>
-                    <button type="submit" class="btn btn-primary start">
-                        <i class="icon-upload icon-white"></i>
-                        <span>开始上传</span>
-                    </button>
-                    <button type="reset" class="btn btn-warning cancel">
-                        <i class="icon-ban-circle icon-white"></i>
-                        <span>取消上传</span>
-                    </button>
-                    <button type="button" class="btn btn-danger delete">
-                        <i class="icon-trash icon-white"></i>
-                        <span>删除</span>
-                    </button>
-                    <input type="checkbox" class="toggle"/> 全选
-                </div>
-                <div id="gp_information" class="span5 fileupload-progress fade" style="display: none">
-                    <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                        <div class="bar" style="width: 0%; "></div>
+                <!-- 文件上传 -->
+                <form id="fileupload" action="${ctx}/file/create" method="post" enctype="multipart/form-data">
+                    <div class="btn-group">
+                    <span class="btn btn-success fileinput-button" style="margin-right:0px;">
+                    <span>选择文件...</span>
+                    <input type="file" name="files[]" multiple>
+                    </span>
+                        <button class="btn start">开始上传</button>
+                        <button class="btn cancel">取消上传</button>
+                        <button class="btn delete">取消</button>
                     </div>
-                    <div class="progress-extended">&nbsp;</div>
+
+
+                    <!-- The global progress information -->
+                    <div class="span5 fileupload-progress fade">
+                        <!-- The global progress bar -->
+                        <div id="progress" class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                            <div class="bar" style="width:0%;"></div>
+                        </div>
+                        <!-- The extended global progress information -->
+                        <div class="progress-extended">&nbsp;</div>
+                    </div>
+
+                    <!-- The loading indicator is shown during file processing -->
+                    <div class="fileupload-loading"></div>
+                    <br>
+                    <!-- The table listing the files available for upload/download -->
+                    <table role="presentation" class="table table-striped"><tbody class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody></table>
+                </form>
+                <!-- modal-gallery is the modal dialog used for the image gallery -->
+                <div id="modal-gallery" class="modal modal-gallery hide fade" data-filter=":odd">
+                    <div class="modal-header">
+                        <a class="close" data-dismiss="modal">&times;</a>
+                        <h3 class="modal-title"></h3>
+                    </div>
+                    <div class="modal-body"><div class="modal-image"></div></div>
+                    <div class="modal-footer">
+                        <a class="btn modal-download" target="_blank">
+                            <i class="icon-download"></i>
+                            <span>下载</span>
+                        </a>
+                        <a class="btn btn-success modal-play modal-slideshow" data-slideshow="5000">
+                            <i class="icon-play icon-white"></i>
+                            <span>Slideshow</span>
+                        </a>
+                        <a class="btn btn-info modal-prev">
+                            <i class="icon-arrow-left icon-white"></i>
+                            <span>上一个</span>
+                        </a>
+                        <a class="btn btn-primary modal-next">
+                            <span>下一个</span>
+                            <i class="icon-arrow-right icon-white"></i>
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="fileupload-loading"></div>
-            <table role="presentation" class="table table-striped">
-                <tbody id="hasfile" class="files" data-toggle="modal-gallery" data-target="#modal-gallery"></tbody>
-            </table>
-            </form>
+                <!-- The template to display files available for upload -->
+                <script id="template-upload" type="text/x-tmpl">
+                    {% for (var i=0, file; file=o.files[i]; i++) { %}
+                    <tr class="template-upload fade">
+                        <td class="preview"><span class="fade"></span></td>
+                        <td class="name"><span>{%=file.name%}</span></td>
+                        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                        {% if (file.error) { %}
+                        <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+                        {% } else if (o.files.valid && !i) { %}
+                        <td>
+                            <div class="progress progress-success progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="bar" style="width:0%;"></div></div>
+                        </td>
+                        <td class="start">{% if (!o.options.autoUpload) { %}
+                            <button class="btn btn-primary">
+                                <i class="icon-upload icon-white"></i>
+                                <span>{%=locale.fileupload.start%}</span>
+                            </button>
+                            {% } %}</td>
+                        {% } else { %}
+                        <td colspan="2"></td>
+                        {% } %}
+                        <td class="cancel">{% if (!i) { %}
+                            <button class="btn btn-warning">
+                                <i class="icon-ban-circle icon-white"></i>
+                                <span>{%=locale.fileupload.cancel%}</span>
+                            </button>
+                            {% } %}</td>
+                    </tr>
+                    {% } %}
+                </script>
+                <!-- The template to display files available for download -->
+                <script id="template-download" type="text/x-tmpl">
+                    {% for (var i=0, file; file=o.files[i]; i++) { %}
+                    <tr class="template-download fade">
+                        {% if (file.error) { %}
+                        <td></td>
+                        <td class="name"><span>{%=file.name%}</span></td>
+                        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                        <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span> {%=locale.fileupload.errors[file.error] || file.error%}</td>
+                        {% } else { %}
+                        <td class="preview">{% if (file.thumbnail_url) { %}
+                            <a href="{%=file.url%}" title="{%=file.name%}" rel="gallery" download="{%=file.name%}"><img src="{%=file.thumbnail_url%}"></a>
+                            {% } %}</td>
+                        <td class="name">
+                            <a href="{%=file.url%}" title="{%=file.name%}" rel="{%=file.thumbnail_url&&'gallery'%}" download="{%=file.name%}">{%=file.name%}</a>
+                        </td>
+                        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                        <td colspan="2"></td>
+                        {% } %}
+                        <td class="delete">
+                            <button class="btn btn-danger" data-type="{%=file.delete_type%}" data-url="{%=file.delete_url%}">
+                                <i class="icon-trash icon-white"></i>
+                                <span>{%=locale.fileupload.destroy%}</span>
+                            </button>
+                            <input type="checkbox" name="delete" value="1">
+                        </td>
+                    </tr>
+                    {% } %}
+                </script>
             </div>
         </div>
     </div>
 </div>
-<script src="${ctx}/static/js/filetree/jquery.treeview.js" type="text/javascript"></script>
+<script type="text/javascript" src="${ctx}/static/js/filetree/jquery.treeview.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/fancyBox/jquery.mousewheel-3.0.6.pack.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/fancyBox/jquery.fancybox.pack.js?v=2.1.0"></script>
 <script type="text/javascript" src="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-buttons.js?v=2.1.0"></script>
 <script type="text/javascript" src="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-thumbs.js?v=2.1.0"></script>
-<script type="text/javascript" src="${ctx}/static/js/main.js?v=0.0.1"></script>
+<script type="text/javascript" src="${ctx}/static/js/jquery-ui/jquery-ui-1.8.23.custom.min.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/fileupload/vendor/jquery.ui.widget.js?v=5.16.1"></script>
+<script type="text/javascript" src="${ctx}/static/js/fileupload/tmpl.min.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/fileupload/jquery.iframe-transport.js?v=5.16.1"></script>
+<script type="text/javascript" src="${ctx}/static/js/fileupload/jquery.fileupload.js?v=5.16.1"></script>
+<!-- image resizing functionality start -->
+<script type="text/javascript" src="${ctx}/static/js/fileupload/load-image.min.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/fileupload/canvas-to-blob.min.js"></script>
+<script type="text/javascript" src="${ctx}/static/js/fileupload/jquery.fileupload-fp.js?v=5.16.1"></script>
+<!-- image resizing functionality end -->
+<script type="text/javascript" src="${ctx}/static/js/fileupload/jquery.fileupload-ui.js?v=5.16.1"></script>
+<script type="text/javascript" src="${ctx}/static/js/fileupload/locale.js?v=5.16.1"></script>
+<!--[if gte IE 8]><script src="type="text/javascript" src="${ctx}/static/js/fileupload/cors/jquery.xdr-transport.js"></script><![endif]-->
+<script type="text/javascript" src="${ctx}/static/js/main.min.js?v=0.0.1"></script>
 <script type="text/javascript">
     $(function() {
         $("#file-page").addClass("active");
 
-        // 文件上传fileupload
-        $("#choosefile").change(function(){
-            $("#gp_information").show();
-            var filePath=$("#choosefile").val();
-            var pre = filePath.substr(filePath.lastIndexOf('\\')+1);
-            var realName =pre.substr(0,10);
-            var upload="<tr class='template-upload fade in'><td class='preview'><span class='fade' style='width: 6px'></span></td><td class='name'><span id='realName' title='"+pre+"'>" + realName + "</span></td><td class='size'><span id='size'></span></td><td><div class='progress progress-success progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='0'><div class='bar' style='width:0%;'></div></div></td><td class='start'><button class='btn btn-primary'><i class='icon-upload icon-white'></i><span>开始上传</span></button></td><td class='cancel'><button class='btn btn-warning'><i class='icon-ban-circle icon-white'></i><span>取消</span></button></td></tr>";
-            $("#hasfile").append(upload);
+        $("#fileupload").fileupload({
+            dataType: 'json',
+            maxFileSize: 500000000,//500MB
+            acceptFileTypes: /(\.|\/)(gif|jpe?g|png|mp4|avi|flv)$/i,
+            process: [
+                {
+                    action: 'load',
+                    fileTypes: /^image\/(gif|jpeg|png)$/,
+                    maxFileSize: 20000000 // 20MB
+                },
+                {
+                    action: 'resize',
+                    maxWidth: 1440,
+                    maxHeight: 900
+                },
+                {
+                    action: 'save'
+                }
+            ],
+            done: function (e, data) {
+                alert(data);
+                $.each(data.result, function (index, file) {
+                    $('<p/>').text(file.name).appendTo(document.body);
+                });
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                alert(progress);
+                $('#progress .bar').css(
+                        'width',
+                        progress + '%'
+                );
+            }
         });
+
+        // 文件上传fileupload
+        <%--$("#fileupload").fileupload('option', {--%>
+            <%--url: '${ctx}/file/create',--%>
+            <%--maxFileSize: 5000000,--%>
+            <%--acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,--%>
+            <%--process: [--%>
+                <%--{--%>
+                    <%--action: 'load',--%>
+                    <%--fileTypes: /^image\/(gif|jpeg|png)$/,--%>
+                    <%--maxFileSize: 20000000 // 20MB--%>
+                <%--},--%>
+                <%--{--%>
+                    <%--action: 'resize',--%>
+                    <%--maxWidth: 1440,--%>
+                    <%--maxHeight: 900--%>
+                <%--},--%>
+                <%--{--%>
+                    <%--action: 'save'--%>
+                <%--}--%>
+            <%--],--%>
+            <%--dataType: 'json',--%>
+            <%--add: function (e, data) {--%>
+                <%--data.context = $('<p/>').text('Uploading...').appendTo(document.body);--%>
+                <%--$(this).fileupload('process', data).done(function () {--%>
+                    <%--data.submit();--%>
+                <%--});--%>
+            <%--},--%>
+            <%--done: function (e, data) {--%>
+                <%--data.context.text('Upload finished.')--%>
+            <%--}--%>
+        <%--});--%>
+        <%--// Upload server status check for browsers with CORS support:--%>
+        <%--if ($.support.cors) {--%>
+            <%--$.ajax({--%>
+                <%--url: '${ctx}',--%>
+                <%--type: 'HEAD'--%>
+            <%--}).fail(function () {--%>
+                        <%--$('<span class="alert alert-error"/>')--%>
+                                <%--.text('Upload server currently unavailable - ' +--%>
+                                <%--new Date())--%>
+                                <%--.appendTo('#fileupload');--%>
+                    <%--});--%>
+        <%--}--%>
+
+
+//        $("#choosefile").change(function(){
+//            $("#gp_information").show();
+//            var filePath=$("#choosefile").val();
+//            var pre = filePath.substr(filePath.lastIndexOf('\\')+1);
+//            var realName =pre.substr(0,10);
+//            var upload="<tr class='template-upload fade in'><td class='preview'><span class='fade' style='width: 6px'></span></td><td class='name'><span id='realName' title='"+pre+"'>" + realName + "</span></td><td class='size'><span id='size'></span></td><td><div class='progress progress-success progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='0'><div class='bar' style='width:0%;'></div></div></td><td class='start'><button class='btn btn-primary'><i class='icon-upload icon-white'></i><span>开始上传</span></button></td><td class='cancel'><button class='btn btn-warning'><i class='icon-ban-circle icon-white'></i><span>取消</span></button></td></tr>";
+//            $("#hasfile").append(upload);
+//        });
 
         //分页
         var nodeId;

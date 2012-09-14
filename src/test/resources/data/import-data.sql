@@ -95,6 +95,11 @@ INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (27,2,'
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (28,2,'node:save');
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (29,2,'node:list');
 
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (31,2,'ftpUser:create');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (32,2,'ftpUser:update');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (33,2,'ftpUser:save');
+INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (34,2,'ftpUser:list');
+
 -- 普通用户
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (51,3,'user:update');
 

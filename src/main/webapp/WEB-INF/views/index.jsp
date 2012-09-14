@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>云服务代理</title>
+    <title>云存储</title>
 </head>
 <body data-spy="scroll" data-target=".subnav" data-offset="50">
 <div class="page page-ex">

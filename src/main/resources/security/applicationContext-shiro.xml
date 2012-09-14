@@ -29,6 +29,9 @@
                 /static/** = anon
                 /api/** = anon
                 /account/** = user
+                /ftpUser/** = user
+                /node/** = user
+                /file/** = user
                 <!-- 用户管理 -->
                 /account/user/create = perms["user:create"]
                 /account/user/update/** = perms["user:update"]
@@ -37,6 +40,11 @@
                 /account/user/batchDelete/** = perms["user:save"]
                 /account/user/batchAudit/** = perms["user:save"]
                 /account/user/listAll = perms["user:list"]
+                <!-- ftpUser管理 -->
+                /ftpUser/create = perms["ftpUser:create"]
+                /ftpUser/update/** = perms["ftpUser:update"]
+                /ftpUser/delete/** = perms["ftpUser:save"]
+                /ftpUser/get/** = perms["ftpUser:list"]
                 <!-- 文件管理 -->
                 /file/create = perms["file:create"]
                 /file/update/** = perms["file:update"]

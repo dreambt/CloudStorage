@@ -22,9 +22,11 @@
                 <a class="brand" href="${ctx}">云存储</a>
                 <ul class="nav">
                     <li id="index-page"><a href="${ctx}">首页</a></li>
+                    <shiro:user>
                     <li id="file-page"><a href="${ctx}/file/list">文件管理</a></li>
                     <li id="node-page"><a href="${ctx}/node/list">分类管理</a></li>
                     <li id="user-page"><a href="${ctx}/ftpUser/list">用户管理</a></li>
+                    </shiro:user>
                     <li id="about-page"><a href="${ctx}/about">关于我们</a></li>
                 </ul>
                 <form class="navbar-search pull-right" action="">

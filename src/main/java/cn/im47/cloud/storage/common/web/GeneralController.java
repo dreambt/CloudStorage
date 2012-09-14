@@ -3,6 +3,7 @@ package cn.im47.cloud.storage.common.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 通用控制器
@@ -26,6 +27,12 @@ public class GeneralController {
     @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String about() {
         return "about";
+    }
+
+    @RequestMapping(value = {""}, method = RequestMethod.HEAD)
+    @ResponseBody
+    public String status() {
+        return "OK";
     }
 
 }
