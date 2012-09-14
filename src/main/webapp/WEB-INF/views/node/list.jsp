@@ -176,6 +176,8 @@
 
 <script type="text/javascript">
     $(function(){
+        $("#node-page").addClass("active");
+
         // 弹窗
         $("#myModal").modal('hide');
 

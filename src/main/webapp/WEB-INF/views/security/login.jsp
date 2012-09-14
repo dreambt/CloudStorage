@@ -65,15 +65,7 @@
 </div>
 <script src="${ctx}/static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-    function growl_type (e) {
-        $.msgGrowl ({
-            type: $(this).attr ('rel')
-            , 'text': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.'
-            , lifetime: 5000
-        });
-    }
     $(function() {
-        // 导航栏高亮
         $("#login-page").addClass("active");
 
         $("#loginForm").validate();

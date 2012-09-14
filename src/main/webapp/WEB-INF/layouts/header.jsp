@@ -18,12 +18,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="${ctx}">网站名</a>
             <div class="nav-collapse">
+                <a class="brand" href="${ctx}">云存储</a>
                 <ul class="nav">
                     <li id="index-page"><a href="${ctx}">首页</a></li>
                     <li id="file-page"><a href="${ctx}/file/list">文件管理</a></li>
-                    <li id="sort-page"><a href="${ctx}/node/list">分类管理</a></li>
+                    <li id="node-page"><a href="${ctx}/node/list">分类管理</a></li>
                     <li id="user-page"><a href="${ctx}/ftpUser/list">用户管理</a></li>
                     <li id="about-page"><a href="${ctx}/about">关于我们</a></li>
                 </ul>

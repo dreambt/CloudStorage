@@ -88,8 +88,9 @@
         <button class="btn" data-dismiss="modal">取消</button>
     </div>
 </div>
-<%--<script type="text/javascript">
-    $(function(){
+<script type="text/javascript">
+    $("#user-page").addClass("active");
+<%--    $(function(){
         $(".click").click(function(){
             $.ajax({
                 url:"${ctx}/api/ftpUser/get/"+${user.id},
@@ -110,7 +111,7 @@
                 }
             });
         });
-    });
-</script>--%>
+    });--%>
+</script>
 </body>
 </html>

@@ -139,6 +139,8 @@
 <script type="text/javascript" src="${ctx}/static/js/main.js?v=0.0.1"></script>
 <script type="text/javascript">
     $(function() {
+        $("#file-page").addClass("active");
+
         //分页
         var files = $("#file-items");
         var pager = $("#pagination");
