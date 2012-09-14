@@ -14,9 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.Map;
 
 /**
- * 使用@ModelAttribute, 实现Struts2 Preparable二次绑定的效果。
- * 因为@ModelAttribute被默认执行, 而其他的action url中并没有${id}，所以需要独立出一个Controller.
- * <p/>
  * User: baitao.jibt (dreambt@gmail.com)
  * Date: 12-3-18
  * Time: 下午8:57
@@ -25,6 +22,7 @@ import java.util.Map;
 @RequestMapping(value = "/file")
 public class UploadedFileDetailController {
 
+    @Autowired
     private UploadedFileManager uploadedFileManager;
 
     private static final String APP_KEY = "";
@@ -75,11 +73,6 @@ public class UploadedFileDetailController {
     @ModelAttribute("file")
     public UploadedFile getUploadedFile(@PathVariable("id") Long id) {
         return uploadedFileManager.get(APP_KEY, id);
-    }
-
-    @Autowired
-    public void setUploadedFileManager(UploadedFileManager uploadedFileManager) {
-        this.uploadedFileManager = uploadedFileManager;
     }
 
 }

@@ -24,6 +24,7 @@
 
     <link href="${ctx}/static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="${ctx}/static/bootstrap/css/bootstrap-responsive.min.css" type="text/css" rel="stylesheet"/>
+    <link href="${ctx}/static/js/msgUI/msgGrowl.css" type="text/css" rel="stylesheet"/>
     <link href="${ctx}/static/style/main.css" type="text/css" rel="stylesheet"/>
     <script src="${ctx}/static/js/jquery.js" type="text/javascript"></script>
     <sitemesh:head/>
@@ -59,5 +60,6 @@
     </div>
 </c:if>
 <script src="${ctx}/static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${ctx}/static/js/msgUI/msgGrowl.js" type="text/javascript"></script>
 </body>
 </html>

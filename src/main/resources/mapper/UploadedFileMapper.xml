@@ -52,6 +52,12 @@
         </if>
     </select>
 
+    <select id="countByNode" resultType="Long">
+        SELECT COUNT(id)
+        FROM ${appKey}CS_FILE AS F
+        WHERE node_id =#{id}
+    </select>
+
     <select id="count" resultType="Long">
 		SELECT COUNT(id)
 		FROM ${appKey}CS_FILE

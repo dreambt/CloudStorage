@@ -22,11 +22,9 @@
             <small>欢迎进入用户管理</small>
         </h2>
     </div>
-
     <div class="row">
-        <div class="span10 hero-unit">
-            <div class="bs-docs-example">
-                <%--//用户列表--%>
+        <div class="span12">
+            <div class="well">
                 <table class="table table-striped">
                     <thead>
                     <tr>

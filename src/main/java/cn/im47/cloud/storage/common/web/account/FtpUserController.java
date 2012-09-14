@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 用户管理控制器
  * <p/>
- * User: baitao.jibt (dreambt@gmail.com), pengfei.dong@gmail.com
+ * User: baitao.jibt@gmail.com, pengfei.dong@gmail.com
  * Date: 12-3-29
  * Time: 下午17:26
  */
@@ -24,6 +24,7 @@ import java.util.Map;
 @RequestMapping(value = "/ftpUser")
 public class FtpUserController {
 
+    @Autowired
     private FtpUserManager ftpUserManager;
 
     /**
@@ -155,11 +156,6 @@ public class FtpUserController {
             }
         }
         return "redirect:/ftpUser/list";
-    }
-
-    @Autowired
-    public void setFtpUserManager(FtpUserManager ftpUserManager) {
-        this.ftpUserManager = ftpUserManager;
     }
 
 }

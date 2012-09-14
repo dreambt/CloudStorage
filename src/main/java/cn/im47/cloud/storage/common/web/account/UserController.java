@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * 用户管理控制器
  * <p/>
- * User: baitao.jibt (dreambt@gmail.com), pengfei.dong@gmail.com
+ * User: baitao.jibt@gmail.com, pengfei.dong@gmail.com
  * Date: 12-3-29
  * Time: 下午17:26
  */
@@ -30,15 +30,8 @@ import java.util.Map;
 @RequestMapping(value = "/user")
 public class UserController {
 
+    @Autowired
     private UserManager userManager;
-    private GroupManager groupManager;
-
-    private GroupListEditor groupListEditor;
-
-    @InitBinder
-    public void initBinder(WebDataBinder b) {
-        b.registerCustomEditor(List.class, "groupList", groupListEditor);
-    }
 
     /**
      * 显示所有用户
@@ -150,22 +143,6 @@ public class UserController {
             redirectAttributes.addFlashAttribute("info", "批量删除用户成功.");
             return "redirect:/account/userList";
         }
-    }
-
-
-    @Autowired
-    public void setUserManager(@Qualifier("userManagerImpl") UserManager userManager) {
-        this.userManager = userManager;
-    }
-
-    @Autowired
-    public void setGroupManager(@Qualifier("groupManagerImpl") GroupManager groupManager) {
-        this.groupManager = groupManager;
-    }
-
-    @Autowired
-    public void setGroupListEditor(@Qualifier("groupListEditor") GroupListEditor groupListEditor) {
-        this.groupListEditor = groupListEditor;
     }
 
 }

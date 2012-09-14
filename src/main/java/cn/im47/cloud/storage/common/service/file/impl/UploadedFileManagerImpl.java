@@ -55,6 +55,11 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
+    public long countByNode(String appKey, Long id){
+       return uploadedFileMapper.countByNode(appKey,id);
+    }
+
+    @Override
     public int save(String appKey, UploadedFile object) {
         return uploadedFileMapper.save(appKey, object);
     }
@@ -114,7 +119,7 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
-    public int updateDownload(String appKey, Long id) {
+    public long updateDownload(String appKey, Long id) {
         return uploadedFileMapper.updateDownload(appKey, id);
     }
 
@@ -146,4 +151,5 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     public void setNodeMapper(NodeMapper nodeMapper) {
         this.nodeMapper = nodeMapper;
     }
+
 }

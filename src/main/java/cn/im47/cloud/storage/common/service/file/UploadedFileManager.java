@@ -20,13 +20,29 @@ public interface UploadedFileManager extends GenericAppManager<UploadedFile, Lon
 
     UploadedFile get(String appKey, String fileKey);
 
+    /**
+     * 返回结点id下文件列表
+     *
+     * @param appKey
+     * @param id
+     * @return
+     */
     List<UploadedFile> getByNode(String appKey, Long id, int offset, int limit);
+
+    /**
+     * 返回结点id下文件数量
+     *
+     * @param appKey
+     * @param id
+     * @return
+     */
+    long countByNode(String appKey, Long id);
 
     int save(String appKey, UploadedFile uploadedFile, MultipartFile file);
 
     int updateBool(String appKey, Long id, String column);
 
-    int updateDownload(String appKey, Long id);
+    long updateDownload(String appKey, Long id);
 
     /**
      * Generic method used to get all objects of a particular type. This

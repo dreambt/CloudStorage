@@ -35,6 +35,19 @@
                         <li id="login-page"><a href="${ctx}/login">登录</a></li>
                         <li id="reg-page"><a href="${ctx}/reg">注册</a></li>
                     </shiro:guest>
+                    <shiro:user>
+                        <li><a href="${ctx}/account">您好,<shiro:principal property="name"/></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">账户管理 <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="${ctx}/account">账户设置</a></li>
+                                <li><a href="#">立即充值</a></li>
+                                <li><a href="#">消费记录</a></li>
+                                <li class="divider"></li>
+                                <li><a href="${ctx}/logout">退出登录</a></li>
+                            </ul>
+                        </li>
+                    </shiro:user>
                 </ul>
             </div>
         </div>

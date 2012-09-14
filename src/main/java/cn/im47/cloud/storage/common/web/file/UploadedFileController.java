@@ -27,14 +27,14 @@ import java.io.*;
 @RequestMapping(value = "/file")
 public class UploadedFileController {
 
+    @Autowired
     private UploadedFileManager uploadedFileManager;
 
+    @Autowired
     private NodeManager nodeManager;
 
     private static final int PAGE_SIZE = 5;
-
     private static final String APP_KEY = "";
-
     private static final String FILE_PATH = "D:/";
 
     @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
@@ -133,13 +133,4 @@ public class UploadedFileController {
         return "redirect:/file/list/" + uploadedFileManager.get(APP_KEY, id).getNode().getId();
     }
 
-    @Autowired
-    public void setUploadedFileManager(UploadedFileManager uploadedFileManager) {
-        this.uploadedFileManager = uploadedFileManager;
-    }
-
-    @Autowired
-    public void setNodeManager(NodeManager nodeManager) {
-        this.nodeManager = nodeManager;
-    }
 }

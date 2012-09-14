@@ -17,8 +17,10 @@ public interface UploadedFileMapper extends GenericAppDao<UploadedFile, Long> {
 
     List<UploadedFile> getByNode(@Param("appKey") String appKey, @Param("id") Long id, @Param("offset") int offset, @Param("limit") int limit);
 
+    long countByNode(@Param("appKey") String appKey, @Param("id") Long id);
+
     UploadedFile getByFileKey(@Param("appKey") String appKey, @Param("fileKey") String fileKey);
 
-    int updateDownload(@Param("appKey") String appKey, @Param("id") Long id);
+    long updateDownload(@Param("appKey") String appKey, @Param("id") Long id);
 
 }

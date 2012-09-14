@@ -146,12 +146,12 @@
             //索引从1开始
             //将当前页索引转为int类型
             var intPageIndex = parseInt(pageIndex);
-            var limit = 5;//每页显示文章数量
+            var limit = 8;//每页显示文章数量
 
             $.ajax({
                 url: "${ctx}/api/file/list/"+nodeId+"?offset=" + (intPageIndex - 1) * limit + "&limit=" + limit,
-                timeout:3000,
-                success:function (data) {
+                timeout:3000
+            }).done(function (data) {
                     //加载文件
                     files.html("");
                     $.each(data, function (index, item) {
@@ -197,7 +197,6 @@
                             pager.append(a);
                         } //else
                     } //for
-                }
             });
         };
 
@@ -205,7 +204,13 @@
         $("#browser").treeview();
         $(".leafnode").click(function(){
             $("#file-list").show();
-            PageClick($(this).attr("id"), 1, 9, 5);
+            nodeId = $(this).attr("id");
+            $.ajax({
+                url: "${ctx}/api/file/count/"+nodeId,
+                timeout:3000
+            }).done(function (data) {
+                PageClick(nodeId, 1, data, 5);
+            });
         });
 
         // 图片展示控制

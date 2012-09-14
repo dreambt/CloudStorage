@@ -14,7 +14,7 @@ import java.util.List;
  * 文件资源的REST服务
  * <p/>
  * User: baitao.jibt@gmail.com
- * Date: 12-4-9
+ * Date: 12-8-9
  * Time: 下午7:16
  */
 @Controller
@@ -27,15 +27,29 @@ public class FileResouceService {
     private static final String APP_KEY = "";
 
     /**
-     * 获得分类编号为id 的所有文件， ajax返回
+     * 获得分类编号为id 的所有文件
      *
-     * @param id
+     * @param id 结点id
      * @return
      */
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public List<UploadedFile> listByNode(@PathVariable("id") Long id, @RequestParam("offset") int offset, @RequestParam("limit") int limit) {
+    public List<UploadedFile> listByNode(@PathVariable("id") Long id,
+                                         @RequestParam(value = "offset",defaultValue = "0") int offset,
+                                         @RequestParam(value = "limit",defaultValue = "10") int limit) {
         return fileManager.getByNode(APP_KEY, id, offset, limit);
+    }
+
+    /**
+     * 获得分类编号为id 的文件数量
+     *
+     * @param id 结点id
+     * @return
+     */
+    @RequestMapping(value = "/count/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public long countByNode(@PathVariable("id") Long id) {
+        return fileManager.countByNode(APP_KEY, id);
     }
 
 }

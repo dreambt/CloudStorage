@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/ftpUser")
 public class FtpUserDetailController {
 
+    @Autowired
     private FtpUserManager ftpUserManager;
 
     /**
@@ -64,13 +65,8 @@ public class FtpUserDetailController {
     }
 
     @ModelAttribute("user")
-    public FtpUser getAccount(@PathVariable("id") Long id) {
+    public FtpUser getAccount(@RequestParam("id") Long id) {
         return ftpUserManager.get(id);
-    }
-
-    @Autowired
-    public void setFtpUserManager(FtpUserManager ftpUserManager) {
-        this.ftpUserManager = ftpUserManager;
     }
 
 }

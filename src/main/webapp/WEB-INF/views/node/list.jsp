@@ -24,13 +24,13 @@
 </div>
 <!--分类列表-->
 <div class="row">
-    <div class="span10 hero-unit">
+    <div class="span12">
         <div class="accordion" id="accordion">
             <div class="accordion-group">
                 <c:forEach items="${nodes}" var="node" begin="0" step="1">
                     <div class="accordion-heading">
                         <div class="bs-docs-example">
-                            <table id="${node.id}${node.id}" class="table table-striped" align="center" width="500" cellpadding="0" cellspacing="0">
+                            <table id="${node.id}${node.id}" class="table table-striped" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
                                     <td>${node.displayOrder}</td>
@@ -59,7 +59,7 @@
                                         <c:forEach items="${node.nodeList}" var="node2" begin="0" step="1">
                                             <div class="accordion-heading node${node2.id}">
                                                 <div class="bs-docs-example">
-                                                    <table id="${node2.id}${node2.id}" class="table table-striped" align="center" width="500" cellpadding="0" cellspacing="0">
+                                                    <table id="${node2.id}${node2.id}" class="table table-striped" cellpadding="0" cellspacing="0">
                                                         <tr style="background: #D2E9FF">
                                                             <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
                                                             <td>${node2.displayOrder}</td>
@@ -88,7 +88,7 @@
                                                                 <c:forEach items="${node2.nodeList}" var="node3" begin="0" step="1">
                                                                     <div class="accordion-heading">
                                                                         <div class="bs-docs-example">
-                                                                            <table id="${node3.id}${node3.id}" class="table table-striped" align="center" width="500" cellpadding="0" cellspacing="0">
+                                                                            <table id="${node3.id}${node3.id}" class="table table-striped" cellpadding="0" cellspacing="0">
                                                                                 <tr style="background: #97CBFF">
                                                                                     <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
                                                                                     <td>${node3.displayOrder}</td>

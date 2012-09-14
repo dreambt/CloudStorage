@@ -11,7 +11,7 @@
 
     <description>Spring公共配置</description>
 
-    <!-- 使用annotation 自动注册bean,并检查@Required,@Autowired的属性已被注入 -->
+	<!-- 使用annotation 自动注册bean, 并保证@Required、@Autowired的属性被注入 -->
     <context:component-scan base-package="cn.im47.cloud.storage">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
@@ -72,6 +72,8 @@
             <property name="username" value="${quartz.jdbc.username}"/>
             <property name="password" value="${quartz.jdbc.password}"/>
         </bean>
+	<!-- 数据源配置,使用应用服务器的数据库连接池 -->
+	<!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/ExampleDB" />-->
     </beans>
 
     <!-- local development环境 -->
@@ -139,10 +141,6 @@
         <jdbc:embedded-database id="dataSource" type="H2">
             <jdbc:script location="classpath:sql/h2/schema.sql"/>
             <jdbc:script location="classpath:data/import-data.sql"/>
-        </jdbc:embedded-database>
-
-        <jdbc:embedded-database id="quartzDataSource" type="H2">
-            <jdbc:script location="classpath:sql/h2/quartz.sql"/>
         </jdbc:embedded-database>
     </beans>
 </beans>
