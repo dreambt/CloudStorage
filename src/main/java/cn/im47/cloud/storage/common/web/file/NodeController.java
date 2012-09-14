@@ -37,7 +37,7 @@ public class NodeController {
     public String createFrom(Model model) {
         model.addAttribute("node", new Node());
         model.addAttribute("action", "create");
-        return "node/edit";
+        return "redirect:/node/edit";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)

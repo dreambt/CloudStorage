@@ -1,8 +1,8 @@
 <%--
   用户管理
-  User: dengxiaolan(824688439@qq.com)
-  Date: 12-9-1
-  Time: 下午1:01.
+  User: zhangnan
+  Date: 12-9-10
+  Time: 上午10:01.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -93,6 +93,8 @@
 </div>
 <script type="text/javascript">
     $(function(){
+        $("#user-page").addClass("active");
+
         //全选
         $("#checkedAll").click(function(){
             if(this.checked){

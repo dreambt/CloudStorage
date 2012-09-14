@@ -39,110 +39,105 @@
                         </tr>
                         </thead>
                     </table>
-                <c:forEach items="${nodes}" var="node" begin="0" step="1">
-                    <div class="accordion-heading">
-                        <div class="bs-docs-example">
-                            <table id="${node.id}${node.id}" class="table table-striped" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
-                                    <td>${node.displayOrder}</td>
-                                    <td><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse${node.id}">展开分类</a></td>
-                                    <td class="nodeName">${node.name}</td>
-                                    <td>${node.type}</td>
-                                    <td>
-                                        <i id="${node.id}" class="icon-trash deleteSingleNode" style="cursor: pointer" title="删除"></i>
-                                        <a data-toggle="modal" href="#myModal" class="modify" name="${node.id}"><i class="icon-asterisk" title="修改"></i></a>
-                                    </td>
-                                    <td><a data-toggle="modal" href="#myModal" class="btn btn-link start click" name="${node.parentId}">
-                                        <span>添加分类</span></a>
-                                    </td>
-                                </tr>
-                            </table>
+                    <c:forEach items="${nodes}" var="node" begin="0" step="1">
+                        <div class="accordion-heading">
+                            <div class="bs-docs-example">
+                                <table id="${node.id}${node.id}" class="table table-striped" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>${node.displayOrder}</td>
+                                        <td><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse${node.id}">展开分类</a></td>
+                                        <td class="nodeName">${node.name}</td>
+                                        <td>${node.type}</td>
+                                        <td>
+                                            <i id="${node.id}" class="icon-trash deleteSingleNode" style="cursor: pointer" title="删除"></i>
+                                            <a data-toggle="modal" href="#myModal" class="modify" name="${node.id}"><i class="icon-asterisk" title="修改"></i></a>
+                                        </td>
+                                        <td><a data-toggle="modal" href="#myModal" class="btn btn-link start click" name="${node.parentId}">
+                                            <span>添加分类</span></a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <div id="collapse${node.id}" class="accordion-body collapse">
-                        <div class="accordion-inner">
-                            <div class="accordion" id="accordion${node.id}">
-                                <div class="accordion-group">
-                                    <c:if test="${empty node.nodeList}">
-                                        已是最后一级分类
-                                    </c:if>
-                                    <c:if test="${not empty node.nodeList}">
-                                        <c:forEach items="${node.nodeList}" var="node2" begin="0" step="1">
-                                            <div class="accordion-heading node${node2.id}">
-                                                <div class="bs-docs-example">
-                                                    <table id="${node2.id}${node2.id}" class="table table-striped" cellpadding="0" cellspacing="0">
-                                                        <tr style="background: #D2E9FF">
-                                                            <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
-                                                            <td>${node2.displayOrder}</td>
-                                                            <td><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion${node.id}" href="#collapse${node2.id}">展开分类</a></td>
-                                                            <td class="nodeName">${node2.name}</td>
-                                                            <td>${node2.type}</td>
-                                                            <td>
-                                                                <i id="${node2.id}" class="icon-trash deleteSingleNode" style="cursor: pointer" title="删除"></i>
-                                                                <a data-toggle="modal" href="#myModal" class="modify" name="${node2.id}"><i class="icon-asterisk" title="修改"></i></a>
-                                                            </td>
-                                                            <td><a data-toggle="modal" href="#myModal" class="btn btn-link start click" name="${node2.parentId}">
-                                                                <span>添加分类</span></a>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
+                        <div id="collapse${node.id}" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <div class="accordion" id="accordion${node.id}">
+                                    <div class="accordion-group">
+                                        <c:if test="${empty node.nodeList}">
+                                            已是最后一级分类
+                                        </c:if>
+                                        <c:if test="${not empty node.nodeList}">
+                                            <c:forEach items="${node.nodeList}" var="node2" begin="0" step="1">
+                                                <div class="accordion-heading node${node2.id}">
+                                                    <div class="bs-docs-example">
+                                                        <table id="${node2.id}${node2.id}" class="table table-striped" cellpadding="0" cellspacing="0">
+                                                            <tr style="background: #D2E9FF">
+                                                                <td>${node2.displayOrder}</td>
+                                                                <td><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion${node.id}" href="#collapse${node2.id}">展开分类</a></td>
+                                                                <td class="nodeName">${node2.name}</td>
+                                                                <td>${node2.type}</td>
+                                                                <td>
+                                                                    <i id="${node2.id}" class="icon-trash deleteSingleNode" style="cursor: pointer" title="删除"></i>
+                                                                    <a data-toggle="modal" href="#myModal" class="modify" name="${node2.id}"><i class="icon-asterisk" title="修改"></i></a>
+                                                                </td>
+                                                                <td><a data-toggle="modal" href="#myModal" class="btn btn-link start click" name="${node2.parentId}">
+                                                                    <span>添加分类</span></a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div id="collapse${node2.id}" class="accordion-body collapse">
-                                                <div class="accordion-inner">
-                                                    <div class="accordion" id="accordion${node2.id}">
-                                                        <div class="accordion-group">
-                                                            <c:if test="${empty node2.nodeList}">
-                                                                已是最后一级分类
-                                                            </c:if>
-                                                            <c:if test="${not empty node2.nodeList}">
-                                                                <c:forEach items="${node2.nodeList}" var="node3" begin="0" step="1">
-                                                                    <div class="accordion-heading">
-                                                                        <div class="bs-docs-example">
-                                                                            <table id="${node3.id}${node3.id}" class="table table-striped" cellpadding="0" cellspacing="0">
-                                                                                <tr style="background: #97CBFF">
-                                                                                    <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
-                                                                                    <td>${node3.displayOrder}</td>
-                                                                                    <td><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion${node2.id}" href="#collapse${node3.id}">展开分类</a></td>
-                                                                                    <td class="nodeName">${node3.name}</td>
-                                                                                    <td>${node3.type}</td>
-                                                                                    <td>
-                                                                                            <%--<a data-toggle="modal" id="${node3.id}" href="" class="deleteSingleNode"><i class="icon-trash" title="删除"></i></a>--%>
-                                                                                        <i id="${node3.id}" class="icon-trash deleteSingleNode" style="cursor: pointer" title="删除"></i>
-                                                                                        <a data-toggle="modal" href="#myModal" class="modify" name="${node3.id}"><i class="icon-asterisk" title="修改"></i></a>
-                                                                                    </td>
-                                                                                    <td><a data-toggle="modal" href="#myModal" class="btn btn-link start click" name="${node3.parentId}">
-                                                                                        <span>添加分类</span></a>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </table>
+                                                <div id="collapse${node2.id}" class="accordion-body collapse">
+                                                    <div class="accordion-inner">
+                                                        <div class="accordion" id="accordion${node2.id}">
+                                                            <div class="accordion-group">
+                                                                <c:if test="${empty node2.nodeList}">
+                                                                    已是最后一级分类
+                                                                </c:if>
+                                                                <c:if test="${not empty node2.nodeList}">
+                                                                    <c:forEach items="${node2.nodeList}" var="node3" begin="0" step="1">
+                                                                        <div class="accordion-heading">
+                                                                            <div class="bs-docs-example">
+                                                                                <table id="${node3.id}${node3.id}" class="table table-striped" cellpadding="0" cellspacing="0">
+                                                                                    <tr style="background: #97CBFF">
+                                                                                        <td>${node3.displayOrder}</td>
+                                                                                        <td><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion${node2.id}" href="#collapse${node3.id}">展开分类</a></td>
+                                                                                        <td class="nodeName">${node3.name}</td>
+                                                                                        <td>${node3.type}</td>
+                                                                                        <td>
+                                                                                                <%--<a data-toggle="modal" id="${node3.id}" href="" class="deleteSingleNode"><i class="icon-trash" title="删除"></i></a>--%>
+                                                                                            <i id="${node3.id}" class="icon-trash deleteSingleNode" style="cursor: pointer" title="删除"></i>
+                                                                                            <a data-toggle="modal" href="#myModal" class="modify" name="${node3.id}"><i class="icon-asterisk" title="修改"></i></a>
+                                                                                        </td>
+                                                                                        <td><a data-toggle="modal" href="#myModal" class="btn btn-link start click" name="${node3.parentId}">
+                                                                                            <span>添加分类</span></a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                    <div id="collapse${node3.id}" class="accordion-body collapse">
-                                                                        <div class="accordion-inner">
-                                                                           已是最后一级分类
+                                                                        <div id="collapse${node3.id}" class="accordion-body collapse">
+                                                                            <div class="accordion-inner">
+                                                                               已是最后一级分类
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </c:forEach>
-                                                            </c:if>
+                                                                    </c:forEach>
+                                                                </c:if>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
+                                            </c:forEach>
+                                        </c:if>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
+                </div>
             </div>
         </div>
     </div>
-    </div>
-</div>
-
 </div>
 
 <!--分类弹窗内容-->
@@ -268,7 +263,6 @@
                 return false;
             }
         });
-
     });
 </script>
 </body>
