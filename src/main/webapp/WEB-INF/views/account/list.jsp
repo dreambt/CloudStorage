@@ -58,7 +58,6 @@
                             </td>
                             <td>
                                 <a href="${ctx}/ftpUser/edit/${user.id}"><i class="icon-asterisk click" title="修改"></i></a>
-                                <a href="${ctx}/ftpUser/create" class="btn btn-link start"><i class="icon-th-list" title="添加用户"></i></a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -73,6 +72,10 @@
             <a data-toggle="modal" href="#Tips" class="btn btn-danger delete" id="deleteAllUser">
                 <i class="icon-trash icon-white"></i>
                 <span>批量删除</span>
+            </a>
+            <a data-toggle="modal" href="${ctx}/ftpUser/create" class="btn btn-primary">
+                <i class="icon-user icon-white"></i>
+                <span>添加用户</span>
             </a>
         </div>
     </div>
@@ -89,29 +92,20 @@
     </div>
 </div>
 <script type="text/javascript">
-    $("#user-page").addClass("active");
-<%--    $(function(){
-        $(".click").click(function(){
-            $.ajax({
-                url:"${ctx}/api/ftpUser/get/"+${user.id},
-                success:function(data){
-                    alert(data);
-                    $('#userNmae').val(data.userName);
-                    $('#userPassword').val(data.userPassword);
-                    $('#homeDirectory').val(data.homeDirectory);
-                    $('#writePermission').val(data.writePermission);
-                    $('#enableFlag').val(data.enableFlag);
-                    $('#idleTime').val(data.idleTime);
-                    $('#uploadRate').val(data.uploadRate);
-                    $('#downloadRate').val(data.downloadRate);
-                    $('#maxLoginNumber').val(data.maxLoginNumber);
-                    $('#maxLoginPerIp').val(data.maxLoginPerIp);
-                    $('#createdDate').val(data.createdDate);
-                    $('#lastModifiedDate').val(data.lastModifiedDate);
-                }
-            });
+    $(function(){
+        //全选
+        $("#checkedAll").click(function(){
+            if(this.checked){
+                $("input[name='subBox']").each(function(){
+                    this.checked=true;
+                });
+            }else{
+                $("input[name='subBox']").each(function(){
+                    this.checked=false;
+                });
+            }
         });
-    });--%>
+    });
 </script>
 </body>
 </html>

@@ -79,14 +79,6 @@
                 </div>
 
 
-
-
-
-
-
-
-
-
             <form id="fileupload" action="${ctx}/file/create" method="post" enctype="multipart/form-data">
             <div class="row fileupload-buttonbar">
                 <div class="span9">

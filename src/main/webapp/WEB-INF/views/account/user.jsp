@@ -37,11 +37,13 @@
                             <td><label for="homeDirectory">用户根路径</label></td>
                             <td><input type="text" name="homeDirectory" id="homeDirectory" value="${user.homeDirectory}"/></td>
                             <td><label for="writePermission">写权限</label></td>
-                            <td><input type="text" name="writePermission" id="writePermission" value="${user.writePermission}"/></td>
+                            <%--<td><input type="text" name="writePermission" id="writePermission" value="${user.writePermission}"/></td>--%>
+                            <td><select id="writePermission"><option  value="${user.writePermission}">${user.writePermission}</option><c:choose><c:when test="${true==user.writePermission}"><option value="false">false</option></c:when><c:when test="${true!=user.writePermission}"><option value="true">true</option></c:when></c:choose></select></td>
                         </tr>
                         <tr>
                             <td><label for="enableFlag">是否可用</label></td>
-                            <td><input type="text" name="enableFlag" id="enableFlag" value="${user.enableFlag}"/></td>
+                            <%--<td><input type="text" name="enableFlag" id="enableFlag" value="${user.enableFlag}"/></td>--%>
+                            <td><select id="enableFlag"><option  value="${user.enableFlag}">${user.enableFlag}</option><c:choose><c:when test="${true==user.enableFlag}"><option value="false">false</option></c:when><c:when test="${true!=user.enableFlag}"><option value="true">true</option></c:when></c:choose></select></td>
                             <td><label for="idleTime">最大空闲时间</label></td>
                             <td><input type="text" name="idleTime" id="idleTime" value="${user.idleTime}"/></td>
                         </tr>
@@ -91,9 +93,9 @@
 <script type="text/javascript">
     $(function(){
 
-        <c:if test="${deal =='add'}">$("input").val("");</c:if>
+        <c:if test="${deal =='add'}">$("input").val("");$("select").val("");</c:if>
 
-        <c:if test="${deal =='show'}">$("input").attr("disabled",true);</c:if>
+        <c:if test="${deal =='show'}">$("input").attr("disabled",true);$("select").attr("disabled",true);</c:if>
 
         $("#edit").click(function(){
            $("#saveM").attr("action","${ctx}/ftpUser/save/${user.id}").submit();

@@ -27,6 +27,18 @@
     <div class="span12">
         <div class="accordion" id="accordion">
             <div class="accordion-group">
+                    <table class="table table-striped" align="center" width="500" cellpadding="0" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th>序号</th>
+                            <th>展开分类</th>
+                            <th>分类名称</th>
+                            <th>所属类型</th>
+                            <th>更多操作</th>
+                            <th>添加分类</th>
+                        </tr>
+                        </thead>
+                    </table>
                 <c:forEach items="${nodes}" var="node" begin="0" step="1">
                     <div class="accordion-heading">
                         <div class="bs-docs-example">
@@ -128,15 +140,6 @@
             </div>
         </div>
     </div>
-</div>
-
-<!--操作按钮-->
-<div class="row fileupload-buttonbar">
-    <div class="span9">
-        <a data-toggle="modal" href="#Tips" class="btn btn-danger delete" id="deleteAllNode">
-            <i class="icon-trash icon-white"></i>
-            <span>批量删除</span>
-        </a>
     </div>
 </div>
 
