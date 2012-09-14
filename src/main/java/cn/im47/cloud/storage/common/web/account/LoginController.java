@@ -1,4 +1,4 @@
-package cn.im47.cloud.storage.common.web;
+package cn.im47.cloud.storage.common.web.account;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
@@ -40,6 +40,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
+    //@ResponseBody
     public String fail(@RequestParam(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM) String username, Model model) {
         model.addAttribute(FormAuthenticationFilter.DEFAULT_USERNAME_PARAM, username);
         return "security/login";

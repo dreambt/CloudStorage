@@ -20,16 +20,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping(value = "/node")
 public class NodeController {
 
+    @Autowired
     private NodeManager nodeManager;
 
     private static final String APP_KEY = "";
 
-    /**
-     * 获得所有节点
-     *
-     * @return
-     */
-    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @RequestMapping(value = {"", "list"}, method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute("nodes", nodeManager.getTree(APP_KEY));
         model.addAttribute("node", new Node());
@@ -37,28 +33,15 @@ public class NodeController {
         return "node/list";
     }
 
-    /**
-     * /**
-     * 跳转到添加分类页面
-     *
-     * @param model
-     * @return
-     */
-    @RequestMapping(value = "create")
-    public String create(Model model) {
+    @RequestMapping(value = "create", method = RequestMethod.GET)
+    public String createFrom(Model model) {
         model.addAttribute("node", new Node());
+        model.addAttribute("action", "create");
         return "node/edit";
     }
 
-    /**
-     * 保存分类信息
-     *
-     * @param model
-     * @param node
-     * @return
-     */
-    @RequestMapping(value = "save")
-    public String save(Model model, Node node) {
+    @RequestMapping(value = "create", method = RequestMethod.POST)
+    public String create(Model model, Node node) {
         if (nodeManager.save(APP_KEY, node) > 0) {
             model.addAttribute("info", "添加分类成功");
         } else {
@@ -67,14 +50,14 @@ public class NodeController {
         return "redirect:/node/list";
     }
 
-    /**
-     * 删除分类
-     *
-     * @param redirectAttributes
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "update/{id}", method = RequestMethod.GET)
+    public String update(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("node", nodeManager.get(APP_KEY, id));
+        model.addAttribute("action", "update");
+        return "redirect:/node/edit";
+    }
+
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
     public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Node node = null;
         if (null != nodeManager.get(APP_KEY, id)) {
@@ -100,11 +83,6 @@ public class NodeController {
     @ResponseBody
     public boolean isUsedNodeName(@RequestParam("parentId") Long parentId, @RequestParam("nodeName") String nodeName) {
         return nodeManager.isUsedNodeName(APP_KEY, parentId, nodeName);
-    }
-
-    @Autowired
-    public void setNodeManager(NodeManager nodeManager) {
-        this.nodeManager = nodeManager;
     }
 
 }
