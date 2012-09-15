@@ -68,8 +68,8 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
-    public int save(String appKey, UploadedFile uploadedFile, MultipartFile file) {
-        int result = 0;
+    public UploadedFile save(String appKey, MultipartFile file) {
+        UploadedFile uploadedFile = new UploadedFile();
 
         String fileName = file.getOriginalFilename();
         File fileOnServer = UploadFile.uploadFile(file, new File(UPLOADED_PATH + fileName));
@@ -99,10 +99,11 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
         uploadedFile.setShared(false);
         uploadedFile.setStatus(true);
         uploadedFile.setDeleted(true);
-        result = uploadedFileMapper.save(appKey, uploadedFile);
-
-        return result;
-
+        if(uploadedFileMapper.save(appKey, uploadedFile) > 0) {
+            return uploadedFile;
+        } else {
+            return null;
+        }
     }
 
     @Override

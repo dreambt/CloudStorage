@@ -38,7 +38,7 @@ public interface UploadedFileManager extends GenericAppManager<UploadedFile, Lon
      */
     long countByNode(String appKey, Long id);
 
-    int save(String appKey, UploadedFile uploadedFile, MultipartFile file);
+    UploadedFile save(String appKey, MultipartFile file);
 
     int updateBool(String appKey, String fileKey, String column);
 

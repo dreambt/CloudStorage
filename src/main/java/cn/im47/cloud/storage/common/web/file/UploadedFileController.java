@@ -105,13 +105,11 @@ public class UploadedFileController {
      *
      * @param model
      * @param file
-     * @param uploadedFile
      * @return
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(Model model, @RequestParam(value = "file", required = false) MultipartFile file,
-                         UploadedFile uploadedFile) {
-        if (uploadedFileManager.save(APP_KEY, uploadedFile, file) > 0) {
+    public String create(Model model, @RequestParam(value = "file", required = false) MultipartFile file) {
+        if (uploadedFileManager.save(APP_KEY, file) != null) {
             model.addAttribute("info", "上传文件成功");
         } else {
             model.addAttribute("error", "上传文件失败");
