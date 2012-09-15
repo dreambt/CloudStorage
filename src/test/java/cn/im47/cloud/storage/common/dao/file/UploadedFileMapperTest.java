@@ -70,6 +70,12 @@ public class UploadedFileMapperTest extends SpringTransactionalTestCase {
 
     }
 
+    @Test
+    public void testGetByFileKey() throws Exception {
+        UploadedFile uploadedFile = uploadedFileMapper.getByFileKey(APP_KEY, "ASKFAGERDFASDSDFAF.jpg");
+        assertEquals("aaa.jpg", uploadedFile.getRealName());
+    }
+
     @Autowired
     public void setFtpUserMapper(UploadedFileMapper uploadedFileMapper) {
         this.uploadedFileMapper = uploadedFileMapper;

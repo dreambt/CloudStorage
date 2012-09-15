@@ -53,24 +53,26 @@ public class UploadedFileController {
     /**
      * 获得分类编号为id 的所有文件
      *
-     * @param id
+     * @param fileKey
      * @return
      */
-    @RequestMapping(value = "/get/{id}", method = RequestMethod.GET)
-    public String get(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("file", uploadedFileManager.get(APP_KEY, id));
+    @RequestMapping(value = "/get/{fileKey}", method = RequestMethod.GET)
+    public String get(Model model, @PathVariable("fileKey") String fileKey) {
+        model.addAttribute("file", uploadedFileManager.get(APP_KEY, fileKey));
         return "file/video";
     }
 
-    @RequestMapping("/download/{fileName}")
-    public void download(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+    @RequestMapping("/download/{fileName}.{suffix}")
+    public void download(@PathVariable("fileName") String fileName, @PathVariable("suffix") String suffix, HttpServletResponse response) {
         response.setCharacterEncoding("utf-8");
         response.setContentType("multipart/form-data");
 
-        response.setHeader("Content-Disposition", "attachment;fileName=" + fileName);
+        String realName = uploadedFileManager.get(APP_KEY, fileName + "." + suffix).getRealName();
+        response.setHeader("Content-Disposition", "attachment;fileName=" + realName);
+
         try {
-            File file = new File(fileName);
-            System.out.println(file.getAbsolutePath());
+            File file = new File(fileName + "." + suffix);
+            //System.out.println(file.getAbsolutePath());
             InputStream inputStream = new FileInputStream(FILE_PATH + file);
             OutputStream os = response.getOutputStream();
             byte[] b = new byte[1024];
@@ -108,7 +110,7 @@ public class UploadedFileController {
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(Model model, @RequestParam(value = "file", required = false) MultipartFile file,
-                         UploadedFile uploadedFile, HttpServletRequest request) {
+                         UploadedFile uploadedFile) {
         if (uploadedFileManager.save(APP_KEY, uploadedFile, file) > 0) {
             model.addAttribute("info", "上传文件成功");
         } else {
@@ -121,17 +123,17 @@ public class UploadedFileController {
      * 标记删除上传文件
      *
      * @param model
-     * @param id
+     * @param fileKey
      * @return
      */
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String delete(Model model, @PathVariable("id") Long id) {
-        if (uploadedFileManager.updateBool(APP_KEY, id, "deleted") > 0) {
+    @RequestMapping(value = "/delete/{fileKey}.{suffix}", method = RequestMethod.GET)
+    public String delete(Model model, @PathVariable("fileKey") String fileKey, @PathVariable("suffix") String suffix) {
+        if (uploadedFileManager.updateBool(APP_KEY, fileKey + "." + suffix, "deleted") > 0) {
             model.addAttribute("info", "删除文件成功");
         } else {
             model.addAttribute("error", "删除文件失败");
         }
-        return "redirect:/file/list/" + uploadedFileManager.get(APP_KEY, id).getNode().getId();
+        return "redirect:/file/list/" + uploadedFileManager.get(APP_KEY, fileKey + "." + suffix).getNode().getId();
     }
 
 }

@@ -7,7 +7,7 @@
     <resultMap id="fileDetailMap" type="UploadedFile">
         <id property="id" column="id"/>
         <result property="customName" column="custom_name"/>
-        <result property="fileKey" column="virtual_name"/>
+        <result property="fileKey" column="file_key"/>
         <result property="realName" column="real_name"/>
         <result property="md5" column="md5"/>
         <result property="CRC" column="CRC"/>
@@ -37,7 +37,7 @@
         SELECT
         <include refid="fileColumns"/>
         FROM ${appKey}CS_FILE AS F
-        WHERE realName =#{filekey}
+        WHERE file_key =#{fileKey}
         LIMIT 1
     </select>
 
@@ -73,7 +73,7 @@
 
     <delete id="delete">
 		DELETE FROM ${appKey}CS_FILE
-		WHERE id=#{id}
+		WHERE file_key=#{fileKey}
 	</delete>
 
     <update id="update" parameterType="UploadedFile">
@@ -99,20 +99,20 @@
             </if>
             last_modified_date = null
         </set>
-        WHERE id=#{object.id}
+        WHERE file_key=#{fileKey}
     </update>
 
     <!-- 更新下载次数 -->
     <update id="updateDownload" parameterType="Long">
         UPDATE ${appKey}CS_FILE
         SET download_count = download_count + 1
-        WHERE id=#{id}
+        WHERE file_key=#{fileKey}
     </update>
 
     <update id="updateBool">
         UPDATE ${appKey}CS_FILE
         SET ${column}=1-${column}
-        WHERE id=#{id}
+        WHERE file_key=#{fileKey}
     </update>
 
     <select id="search" parameterType="map" resultMap="fileDetailMap">

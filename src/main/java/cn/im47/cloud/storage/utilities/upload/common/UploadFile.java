@@ -17,11 +17,10 @@ public class UploadFile {
      * 上传文件
      *
      * @param file
-     * @param request
      * @param fileOnServer
      * @return
      */
-    public static File uploadFile(MultipartFile file, HttpServletRequest request, File fileOnServer) {
+    public static File uploadFile(MultipartFile file, File fileOnServer) {
         //原文件名
         String imageName = file.getOriginalFilename();
         String ext = imageName.substring(imageName.lastIndexOf("."), imageName.length());

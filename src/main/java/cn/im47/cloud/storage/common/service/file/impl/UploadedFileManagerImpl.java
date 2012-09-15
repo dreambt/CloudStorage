@@ -5,6 +5,7 @@ import cn.im47.cloud.storage.common.dao.file.UploadedFileMapper;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
 import cn.im47.cloud.storage.utilities.file.FileHandler;
+import cn.im47.cloud.storage.utilities.upload.common.UploadFile;
 import org.apache.commons.net.ntp.TimeStamp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,7 +34,9 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
 
     private static final Logger logger = LoggerFactory.getLogger(UploadedFileManagerImpl.class);
 
-    private static final String UPLOAD_PATH = "D:/";
+    private static final String FILE_PATH = "D:/";
+
+    private static final String UPLOADED_PATH = "D:/sources/";
 
     private UploadedFileMapper uploadedFileMapper;
 
@@ -68,19 +71,10 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     public int save(String appKey, UploadedFile uploadedFile, MultipartFile file) {
         int result = 0;
 
-        File fileOnServer = new File(file.getOriginalFilename());
-        try {
-            FileOutputStream fos = new FileOutputStream(fileOnServer);
-            fos.write(file.getBytes());
-            fos.flush();
-        } catch (FileNotFoundException e) {
-            logger.error(e.getMessage());
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
+        String fileName = file.getOriginalFilename();
+        File fileOnServer = UploadFile.uploadFile(file, new File(UPLOADED_PATH + fileName));
 
         /* 对文件md5 */
-        String fileName = fileOnServer.getName();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
         int fileSize = ((Long) fileOnServer.length()).intValue();
         String md5 = FileHandler.MD5(fileOnServer);
@@ -90,6 +84,9 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
         timeStamp = timeStamp.substring(length - 8, length);
         String fileKey = md5 + timeStamp;
         String crc32 = FileHandler.CRC32(fileOnServer);
+
+        /* 移动文件到文件目录 */
+        FileHandler.moveFile(fileOnServer, new File(FILE_PATH + fileKey + "." + suffix));
 
         /* 入库 */
         uploadedFile.setNode(nodeMapper.get(appKey, 1L));
@@ -114,8 +111,8 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
-    public int updateBool(String appKey, Long id, String column) {
-        return uploadedFileMapper.updateBool(appKey, id, column);
+    public int updateBool(String appKey, String fileKey, String column) {
+        return uploadedFileMapper.updateBool(appKey, fileKey, column);
     }
 
     @Override
@@ -124,8 +121,8 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
-    public int delete(String appKey, Long id) {
-        return uploadedFileMapper.updateBool(appKey, id, "deleted");
+    public int delete(String appKey, String fileKey) {
+        return uploadedFileMapper.updateBool(appKey, fileKey, "deleted");
     }
 
     @Override
@@ -140,6 +137,11 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
         parameters.put("offset", offset);
         parameters.put("limit", limit);
         return uploadedFileMapper.search(appKey, parameters);
+    }
+
+    @Override
+    public int delete(String appKey, Long id) {
+        return 0;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Autowired

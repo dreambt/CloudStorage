@@ -40,9 +40,11 @@ public interface UploadedFileManager extends GenericAppManager<UploadedFile, Lon
 
     int save(String appKey, UploadedFile uploadedFile, MultipartFile file);
 
-    int updateBool(String appKey, Long id, String column);
+    int updateBool(String appKey, String fileKey, String column);
 
     long updateDownload(String appKey, Long id);
+
+    int delete(String appKey, String fileKey);
 
     /**
      * Generic method used to get all objects of a particular type. This
