@@ -42,7 +42,7 @@ public interface UploadedFileManager extends GenericAppManager<UploadedFile, Lon
 
     int updateBool(String appKey, String fileKey, String column);
 
-    long updateDownload(String appKey, Long id);
+    long updateDownload(String appKey, String fileKey);
 
     int delete(String appKey, String fileKey);
 

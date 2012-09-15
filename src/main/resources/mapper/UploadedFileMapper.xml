@@ -9,6 +9,7 @@
         <result property="customName" column="custom_name"/>
         <result property="fileKey" column="file_key"/>
         <result property="realName" column="real_name"/>
+        <result property="suffix" column="suffix"/>
         <result property="md5" column="md5"/>
         <result property="CRC" column="CRC"/>
         <result property="downloadCount" column="download_count"/>
@@ -22,7 +23,7 @@
         </association>
     </resultMap>
 
-    <sql id="fileColumns">F.id, F.custom_name, F.file_key, F.real_name, F.size, F.md5, F.CRC, F.download_count, F.shared, F.status,
+    <sql id="fileColumns">F.id, F.custom_name, F.file_key, F.real_name, F.suffix, F.size, F.md5, F.CRC, F.download_count, F.shared, F.status,
         F.last_modified_date, F.created_date, F.deleted</sql>
 
     <select id="get" parameterType="Long" resultMap="fileDetailMap">
@@ -65,10 +66,10 @@
 
     <insert id="save" parameterType="UploadedFile">
 		INSERT INTO ${appKey}CS_FILE
-		(id, node_id, custom_name, file_key, real_name, size, md5, CRC, download_count, shared, status, deleted, last_modified_date, created_date)
+		(id, node_id, custom_name, file_key, real_name, suffix, size, md5, CRC, download_count, shared, status, deleted, created_date)
 		VALUES
-		(null, #{object.node.id}, #{object.customName}, #{object.fileKey}, #{object.realName}, #{object.size}, #{object.md5}, #{object.CRC}, #{object.downloadCount},
-		 #{object.shared}, #{object.status}, #{object.deleted}, #{object.lastModifiedDate}, null)
+		(null, #{object.node.id}, #{object.customName}, #{object.fileKey}, #{object.realName}, #{object.suffix}, #{object.size}, #{object.md5}, #{object.CRC}, #{object.downloadCount},
+		 #{object.shared}, #{object.status}, #{object.deleted}, null)
 	</insert>
 
     <delete id="delete">
@@ -88,6 +89,9 @@
             <if test="object.realName != null and object.realName !=''">
                 real_name=#{object.realName},
             </if>
+            <if test="object.suffix != null and object.suffix !=''">
+                suffix=#{object.suffix},
+            </if>
             <if test="object.size != null">
                 size=#{object.size},
             </if>
@@ -103,7 +107,7 @@
     </update>
 
     <!-- 更新下载次数 -->
-    <update id="updateDownload" parameterType="Long">
+    <update id="updateDownload" parameterType="String">
         UPDATE ${appKey}CS_FILE
         SET download_count = download_count + 1
         WHERE file_key=#{fileKey}
@@ -128,6 +132,9 @@
             </if>
             <if test="parameters.realName != null and parameters.realName !=''">
                 and real_name=#{parameters.realName}
+            </if>
+            <if test="parameters.suffix != null and parameters.suffix !=''">
+                and suffix=#{parameters.suffix}
             </if>
             <if test="parameters.size != null">
                 and size=#{parameters.size}

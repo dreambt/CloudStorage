@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `CS_FILE` (
   `file_key` varchar(50) NOT NULL,
   `custom_name` varchar(50) NOT NULL,
   `real_name` varchar(50) NOT NULL,
+  `suffix` varchar(5) NOT NULL,
   `size` int(11) NOT NULL,
   `md5` varchar(32) NOT NULL,
   `CRC` varchar(8) NOT NULL,

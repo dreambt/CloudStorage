@@ -117,8 +117,8 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
-    public long updateDownload(String appKey, Long id) {
-        return uploadedFileMapper.updateDownload(appKey, id);
+    public long updateDownload(String appKey, String fileKey) {
+        return uploadedFileMapper.updateDownload(appKey, fileKey);
     }
 
     @Override

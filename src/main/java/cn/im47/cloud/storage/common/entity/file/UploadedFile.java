@@ -21,6 +21,7 @@ public class UploadedFile extends PersistableEntity implements Serializable {
     private String fileKey;    // 物理硬盘上实际存储的文件名
     private String customName;     // 用户自定义文件名（用于前端显示）
     private String realName;       // 上传时的文件名（用于下载）
+    private String suffix;
     private int size;
     private String md5;
     private String CRC;
@@ -68,6 +69,14 @@ public class UploadedFile extends PersistableEntity implements Serializable {
 
     public void setRealName(String realName) {
         this.realName = realName;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 
     public int getSize() {

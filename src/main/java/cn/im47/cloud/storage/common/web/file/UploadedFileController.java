@@ -35,7 +35,7 @@ public class UploadedFileController {
 
     private static final int PAGE_SIZE = 5;
     private static final String APP_KEY = "";
-    private static final String FILE_PATH = "D:/";
+    private static final String UPLOADED_PATH = "D:/sources/";
 
     @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
     public String listDefault() {
@@ -73,7 +73,7 @@ public class UploadedFileController {
         try {
             File file = new File(fileName + "." + suffix);
             //System.out.println(file.getAbsolutePath());
-            InputStream inputStream = new FileInputStream(FILE_PATH + file);
+            InputStream inputStream = new FileInputStream(UPLOADED_PATH + file);
             OutputStream os = response.getOutputStream();
             byte[] b = new byte[1024];
             int length;
@@ -108,12 +108,15 @@ public class UploadedFileController {
      * @return
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(Model model, @RequestParam(value = "file", required = false) MultipartFile file) {
-        if (uploadedFileManager.save(APP_KEY, file) != null) {
+    public String create(Model model, @RequestParam(value = "files", required = false) MultipartFile file) {
+        //for(MultipartFile file: files) {
+            uploadedFileManager.save(APP_KEY, file);
+        //}
+        /*if ( != null) {
             model.addAttribute("info", "上传文件成功");
         } else {
             model.addAttribute("error", "上传文件失败");
-        }
+        }*/
         return "redirect:/file/list";
     }
 

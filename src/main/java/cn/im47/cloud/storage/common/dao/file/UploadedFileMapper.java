@@ -23,6 +23,6 @@ public interface UploadedFileMapper extends GenericAppDao<UploadedFile, Long> {
 
     int updateBool(@Param("appKey") String appKey, @Param("fileKey") String fileKey, @Param("column") String column);
 
-    long updateDownload(@Param("appKey") String appKey, @Param("id") Long id);
+    long updateDownload(@Param("appKey") String appKey, @Param("fileKey") String fileKey);
 
 }

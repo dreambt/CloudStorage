@@ -18,6 +18,7 @@ public class UploadedFileData {
         uploadedFile.setCustomName("eee.jpg");
         uploadedFile.setFileKey("asdfasdfasfewavx");
         uploadedFile.setRealName("ea.jpg");
+        uploadedFile.setSuffix("jpg");
         uploadedFile.setSize(100);
         uploadedFile.setMd5("asdfawevasdfwe");
         uploadedFile.setCRC("evaeads");
