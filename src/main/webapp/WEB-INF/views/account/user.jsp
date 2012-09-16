@@ -24,65 +24,56 @@
     <!--分类列表-->
     <div class="row">
         <div class="span10 hero-unit">
-            <form:form modelAttribute="user" action="${ctx}/account/user/save/${user.id}" id="saveM" method="post">
+            <form:form modelAttribute="ftpUser" action="${ctx}/ftpUser/${action}" method="post" autocomplete="false" >
                 <table id="user" class="user-message" align="center">
                     <tbody>
                         <tr>
                             <td><label for="userName">FTP账号</label></td>
-                            <td><input type="text" name="userName" id="userName" value="${user.userName}"/></td>
+                            <td><input type="hidden" name="id" value="${ftpUser.id}"/>
+                                <input type="text" name="userName" id="userName" value="${ftpUser.userName}"/></td>
                             <td><label for="userPassword">密码</label></td>
-                            <td><input type="text" name="userPassword" id="userPassword" value="加密信息"/></td>
+                            <td><input type="password" name="userPassword" id="userPassword" placeholder="加密信息"/></td>
                         </tr>
                         <tr>
                             <td><label for="homeDirectory">用户根路径</label></td>
-                            <td><input type="text" name="homeDirectory" id="homeDirectory" value="${user.homeDirectory}"/></td>
+                            <td><input type="text" name="homeDirectory" id="homeDirectory" value="${ftpUser.homeDirectory}"/></td>
                             <td><label for="writePermission">写权限</label></td>
-                            <%--<td><input type="text" name="writePermission" id="writePermission" value="${user.writePermission}"/></td>--%>
-                            <td><select id="writePermission"><option  value="${user.writePermission}">${user.writePermission}</option><c:choose><c:when test="${true==user.writePermission}"><option value="false">false</option></c:when><c:when test="${true!=user.writePermission}"><option value="true">true</option></c:when></c:choose></select></td>
+                            <%--<td><input type="text" name="writePermission" id="writePermission" value="${ftpUser.writePermission}"/></td>--%>
+                            <td><select id="writePermission"><option  value="${ftpUser.writePermission}">${ftpUser.writePermission}</option><c:choose><c:when test="${true==ftpUser.writePermission}"><option value="false">false</option></c:when><c:when test="${true!=ftpUser.writePermission}"><option value="true">true</option></c:when></c:choose></select></td>
                         </tr>
                         <tr>
                             <td><label for="enableFlag">是否可用</label></td>
-                            <%--<td><input type="text" name="enableFlag" id="enableFlag" value="${user.enableFlag}"/></td>--%>
-                            <td><select id="enableFlag"><option  value="${user.enableFlag}">${user.enableFlag}</option><c:choose><c:when test="${true==user.enableFlag}"><option value="false">false</option></c:when><c:when test="${true!=user.enableFlag}"><option value="true">true</option></c:when></c:choose></select></td>
+                            <%--<td><input type="text" name="enableFlag" id="enableFlag" value="${ftpUser.enableFlag}"/></td>--%>
+                            <td><select id="enableFlag"><option  value="${ftpUser.enableFlag}">${ftpUser.enableFlag}</option><c:choose><c:when test="${true==ftpUser.enableFlag}"><option value="false">false</option></c:when><c:when test="${true!=ftpUser.enableFlag}"><option value="true">true</option></c:when></c:choose></select></td>
                             <td><label for="idleTime">最大空闲时间</label></td>
-                            <td><input type="text" name="idleTime" id="idleTime" value="${user.idleTime}"/></td>
+                            <td><input type="text" name="idleTime" id="idleTime" value="${ftpUser.idleTime}"/></td>
                         </tr>
                         <tr>
                             <td><label for="uploadRate">上传速度</label></td>
-                            <td><input type="text" name="uploadRate" id="uploadRate" value="${user.uploadRate}"/></td>
+                            <td><input type="text" name="uploadRate" id="uploadRate" value="${ftpUser.uploadRate}"/></td>
                             <td><label for="downloadRate">下载速度</label></td>
-                            <td><input type="text" name="downloadRate" id="downloadRate" value="${user.downloadRate}"/></td>
+                            <td><input type="text" name="downloadRate" id="downloadRate" value="${ftpUser.downloadRate}"/></td>
                         </tr>
                         <tr>
                             <td><label for="maxLoginNumber">最大登陆次数</label></td>
-                            <td><input type="text" name="maxLoginNumber" id="maxLoginNumber" value="${user.maxLoginNumber}"/></td>
+                            <td><input type="text" name="maxLoginNumber" id="maxLoginNumber" value="${ftpUser.maxLoginNumber}"/></td>
                             <td><label for="maxLoginPerIp">最大登陆次数IP</label></td>
-                            <td><input type="text" name="maxLoginPerIp" id="maxLoginPerIp" value="${user.maxLoginPerIp}"/></td>
+                            <td><input type="text" name="maxLoginPerIp" id="maxLoginPerIp" value="${ftpUser.maxLoginPerIp}"/></td>
                         </tr>
 
                         <tr>
                             <td><label for="createdDate">创建时间</label></td>
-                            <td><input type="text" name="createdDate" id="createdDate" value="${user.createdDate}"/></td>
+                            <td><input type="text" name="createdDate" id="createdDate" value="${ftpUser.createdDate}" disabled/></td>
                             <td><label for="lastModifiedDate">最后修改时间</label></td>
-                            <td><input type="text" name="lastModifiedDate" id="lastModifiedDate" value="${user.lastModifiedDate}"/></td>
+                            <td><input type="text" name="lastModifiedDate" id="lastModifiedDate" value="${ftpUser.lastModifiedDate}" disabled/></td>
                         </tr>
                     </tbody>
                     <tfoot>
                     <tr>
                         <td>
-                            <c:choose>
-                            <c:when test="${deal=='show'}">
-                                <a href="${ctx}/ftpUser/list" style="color: #ffffff;"><button class="btn btn-primary">返回</button></a>
-                            </c:when>
-                            <c:when test="${deal=='edit'}">
-                                <button  class="btn btn-primary" id="edit">保存修改</button>
-                            </c:when>
-                            <c:when test="${deal=='add'}">
-                                <button class="btn btn-primary" id="add">添加</button>
-                            </c:when>
-                            </c:choose>
+                            <button  class="btn btn-primary <c:if test="${action =='show'}">hide</c:if>" type="submit">保存</button>
+                            <a href="${ctx}/ftpUser/list"><button class="btn">返回</button></a>
                         </td>
-                        <td><a href="${ctx}/ftpUser/list"><button id="cancel" class="btn <c:if test="${deal=='show'}">hide</c:if>">取消</button></a></td></td>
                     </tr>
                     </tfoot>
                 </table>
@@ -92,17 +83,9 @@
 </div>
 <script type="text/javascript">
     $(function(){
-
-        <c:if test="${deal =='add'}">$("input").val("");$("select").val("");</c:if>
-
-        <c:if test="${deal =='show'}">$("input").attr("disabled",true);$("select").attr("disabled",true);</c:if>
-
-        $("#edit").click(function(){
-           $("#saveM").attr("action","${ctx}/ftpUser/save/${user.id}").submit();
-        });
-        $("#add").click(function(){
-            $("#saveM").attr("action","${ctx}/ftpUser/save").submit();
-        });
+        $("#user-page").addClass("active");
+        <c:if test="${action =='create'}">$("input").val("");$("select").val("");</c:if>
+        <c:if test="${action =='show'}">$("input").attr("disabled",true);$("select").attr("disabled",true);</c:if>
     });
 </script>
 </body>

@@ -28,11 +28,10 @@ public class NodeDetailController {
     public String save(@ModelAttribute("node") Node node, RedirectAttributes redirectAttributes) {
         if (null == node) {
             redirectAttributes.addFlashAttribute("info", "该分类不存在，请刷新重试");
-            return "redirect:/file/userinfo";
+        } else {
+            nodeManager.update(APP_KEY, node);
+            redirectAttributes.addFlashAttribute("info", "修改分类成功");
         }
-
-        nodeManager.update(APP_KEY, node);
-        redirectAttributes.addFlashAttribute("info", "修改分类成功");
         return "redirect:/node/list";
     }
 

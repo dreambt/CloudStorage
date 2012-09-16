@@ -27,9 +27,9 @@ public class NodeController {
 
     @RequestMapping(value = {"", "list"}, method = RequestMethod.GET)
     public String list(Model model) {
-        model.addAttribute("nodes", nodeManager.getTree(APP_KEY));
         model.addAttribute("node", new Node());
         model.addAttribute("types", NodeTypeEnum.values());
+        model.addAttribute("nodes", nodeManager.getTree(APP_KEY));
         return "node/list";
     }
 
@@ -37,15 +37,17 @@ public class NodeController {
     public String createFrom(Model model) {
         model.addAttribute("node", new Node());
         model.addAttribute("action", "create");
-        return "redirect:/node/edit";
+        model.addAttribute("types", NodeTypeEnum.values());
+        model.addAttribute("nodes", nodeManager.getTree(APP_KEY));
+        return "node/edit";
     }
 
     @RequestMapping(value = "create", method = RequestMethod.POST)
-    public String create(Model model, Node node) {
+    public String create(RedirectAttributes redirectAttributes, Node node) {
         if (nodeManager.save(APP_KEY, node) > 0) {
-            model.addAttribute("info", "添加分类成功");
+            redirectAttributes.addFlashAttribute("info", "添加分类成功");
         } else {
-            model.addAttribute("error", "添加分类失败");
+            redirectAttributes.addFlashAttribute("error", "添加分类失败");
         }
         return "redirect:/node/list";
     }
@@ -54,10 +56,12 @@ public class NodeController {
     public String update(@PathVariable("id") Long id, Model model) {
         model.addAttribute("node", nodeManager.get(APP_KEY, id));
         model.addAttribute("action", "update");
-        return "redirect:/node/edit";
+        model.addAttribute("types", NodeTypeEnum.values());
+        model.addAttribute("nodes", nodeManager.getTree(APP_KEY));
+        return "node/edit";
     }
 
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
     public String delete(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Node node = null;
         if (null != nodeManager.get(APP_KEY, id)) {

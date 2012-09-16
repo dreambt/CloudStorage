@@ -40,24 +40,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach items="${users}" var="user" begin="0" step="1">
+                    <c:forEach items="${ftpUsers}" var="ftpUser" begin="0" step="1">
                         <tr>
                             <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
-                            <td class="userName click"><a href="${ctx}/ftpUser/get/${user.id}"title="点击查看详细信息">${user.userName}</a></td>
-                            <td>${user.homeDirectory}</td>
-                            <td>${user.uploadRate}</td>
-                            <td>${user.downloadRate}</td>
+                            <td class="userName click"><a href="${ctx}/ftpUser/get/${ftpUser.id}"title="点击查看详细信息">${ftpUser.userName}</a></td>
+                            <td>${ftpUser.homeDirectory}</td>
+                            <td>${ftpUser.uploadRate}</td>
+                            <td>${ftpUser.downloadRate}</td>
                             <td>
-                                <a href="${ctx}/ftpUser/start/${user.id}"><c:choose><c:when test="${user.enableFlag}">启用</c:when><c:otherwise>停用</c:otherwise></c:choose></a>
+                                <a href="${ctx}/ftpUser/start/${ftpUser.id}"><c:choose><c:when test="${ftpUser.enableFlag}">启用</c:when><c:otherwise>停用</c:otherwise></c:choose></a>
                             </td>
                             <td>
-                                <a href="${ctx}/ftpUser/allowWrite/${user.id}"><c:choose><c:when test="${user.writePermission}">有</c:when><c:otherwise>无</c:otherwise></c:choose></a>
+                                <a href="${ctx}/ftpUser/allowWrite/${ftpUser.id}"><c:choose><c:when test="${ftpUser.writePermission}">有</c:when><c:otherwise>无</c:otherwise></c:choose></a>
                             </td>
                             <td>
-                                <a href="${ctx}/ftpUser/delete/${user.id}"><c:choose><c:when test="${user.deleted}">删除</c:when><c:otherwise>找回</c:otherwise></c:choose></a>
+                                <a href="${ctx}/ftpUser/delete/${ftpUser.id}"><c:choose><c:when test="${ftpUser.deleted}">删除</c:when><c:otherwise>找回</c:otherwise></c:choose></a>
                             </td>
                             <td>
-                                <a href="${ctx}/ftpUser/edit/${user.id}"><i class="icon-asterisk click" title="修改"></i></a>
+                                <a href="${ctx}/ftpUser/update/${ftpUser.id}"><i class="icon-asterisk click" title="修改"></i></a>
                             </td>
                         </tr>
                     </c:forEach>
@@ -69,13 +69,13 @@
     <!--操作按钮-->
     <div class="row fileupload-buttonbar">
         <div class="span9">
-            <a data-toggle="modal" href="#Tips" class="btn btn-danger delete" id="deleteAllUser">
-                <i class="icon-trash icon-white"></i>
-                <span>批量删除</span>
-            </a>
             <a data-toggle="modal" href="${ctx}/ftpUser/create" class="btn btn-primary">
                 <i class="icon-user icon-white"></i>
                 <span>添加用户</span>
+            </a>
+            <a data-toggle="modal" href="#Tips" class="btn btn-danger delete" id="deleteAllUser">
+                <i class="icon-trash icon-white"></i>
+                <span>批量删除</span>
             </a>
         </div>
     </div>

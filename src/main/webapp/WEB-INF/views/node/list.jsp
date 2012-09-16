@@ -27,7 +27,7 @@
     <div class="span12">
         <div class="accordion" id="accordion">
             <div class="accordion-group">
-                    <table class="table table-striped" align="center" width="500" cellpadding="0" cellspacing="0">
+                    <table class="table table-striped" align="center" width="500" cellpadding="0" cellspacing="0"style="margin: 8px">
                         <thead>
                         <tr>
                             <th>序号</th>
@@ -35,25 +35,21 @@
                             <th>分类名称</th>
                             <th>所属类型</th>
                             <th>更多操作</th>
-                            <th>添加分类</th>
                         </tr>
                         </thead>
                     </table>
                     <c:forEach items="${nodes}" var="node" begin="0" step="1">
                         <div class="accordion-heading">
                             <div class="bs-docs-example">
-                                <table id="${node.id}${node.id}" class="table table-striped" cellpadding="0" cellspacing="0">
+                                <table id="${node.id}${node.id}" class="table table-striped" cellpadding="0" cellspacing="0" style="margin-bottom: 0px">
                                     <tr>
                                         <td>${node.displayOrder}</td>
                                         <td><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse${node.id}">展开分类</a></td>
                                         <td class="nodeName">${node.name}</td>
                                         <td>${node.type}</td>
                                         <td>
-                                            <i id="${node.id}" class="icon-trash deleteSingleNode" style="cursor: pointer" title="删除"></i>
-                                            <a data-toggle="modal" href="#myModal" class="modify" name="${node.id}"><i class="icon-asterisk" title="修改"></i></a>
-                                        </td>
-                                        <td><a data-toggle="modal" href="#myModal" class="btn btn-link start click" name="${node.parentId}">
-                                            <span>添加分类</span></a>
+                                            <a href="${ctx}/node/delete/${node.id}"><i class="icon-trash" title="删除"></i></a>
+                                            <a href="${ctx}/node/update/${node.id}" name="${node.id}"><i class="icon-asterisk" title="修改"></i></a>
                                         </td>
                                     </tr>
                                 </table>
@@ -63,25 +59,19 @@
                             <div class="accordion-inner">
                                 <div class="accordion" id="accordion${node.id}">
                                     <div class="accordion-group">
-                                        <c:if test="${empty node.nodeList}">
-                                            已是最后一级分类
-                                        </c:if>
                                         <c:if test="${not empty node.nodeList}">
                                             <c:forEach items="${node.nodeList}" var="node2" begin="0" step="1">
                                                 <div class="accordion-heading node${node2.id}">
                                                     <div class="bs-docs-example">
-                                                        <table id="${node2.id}${node2.id}" class="table table-striped" cellpadding="0" cellspacing="0">
+                                                        <table id="${node2.id}${node2.id}" class="table table-striped" cellpadding="0" cellspacing="0" style="margin-bottom: 0px">
                                                             <tr style="background: #D2E9FF">
                                                                 <td>${node2.displayOrder}</td>
                                                                 <td><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion${node.id}" href="#collapse${node2.id}">展开分类</a></td>
                                                                 <td class="nodeName">${node2.name}</td>
                                                                 <td>${node2.type}</td>
                                                                 <td>
-                                                                    <i id="${node2.id}" class="icon-trash deleteSingleNode" style="cursor: pointer" title="删除"></i>
-                                                                    <a data-toggle="modal" href="#myModal" class="modify" name="${node2.id}"><i class="icon-asterisk" title="修改"></i></a>
-                                                                </td>
-                                                                <td><a data-toggle="modal" href="#myModal" class="btn btn-link start click" name="${node2.parentId}">
-                                                                    <span>添加分类</span></a>
+                                                                    <a href="${ctx}/node/delete/${node2.id}"><i class="icon-trash"title="删除"></i></a>
+                                                                    <a href="${ctx}/node/update/${node2.id}" name="${node2.id}"><i class="icon-asterisk" title="修改"></i></a>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -91,14 +81,11 @@
                                                     <div class="accordion-inner">
                                                         <div class="accordion" id="accordion${node2.id}">
                                                             <div class="accordion-group">
-                                                                <c:if test="${empty node2.nodeList}">
-                                                                    已是最后一级分类
-                                                                </c:if>
                                                                 <c:if test="${not empty node2.nodeList}">
                                                                     <c:forEach items="${node2.nodeList}" var="node3" begin="0" step="1">
                                                                         <div class="accordion-heading">
                                                                             <div class="bs-docs-example">
-                                                                                <table id="${node3.id}${node3.id}" class="table table-striped" cellpadding="0" cellspacing="0">
+                                                                                <table id="${node3.id}${node3.id}" class="table table-striped" cellpadding="0" cellspacing="0" style="margin-bottom: 0px">
                                                                                     <tr style="background: #97CBFF">
                                                                                         <td>${node3.displayOrder}</td>
                                                                                         <td><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion${node2.id}" href="#collapse${node3.id}">展开分类</a></td>
@@ -106,20 +93,15 @@
                                                                                         <td>${node3.type}</td>
                                                                                         <td>
                                                                                                 <%--<a data-toggle="modal" id="${node3.id}" href="" class="deleteSingleNode"><i class="icon-trash" title="删除"></i></a>--%>
-                                                                                            <i id="${node3.id}" class="icon-trash deleteSingleNode" style="cursor: pointer" title="删除"></i>
-                                                                                            <a data-toggle="modal" href="#myModal" class="modify" name="${node3.id}"><i class="icon-asterisk" title="修改"></i></a>
-                                                                                        </td>
-                                                                                        <td><a data-toggle="modal" href="#myModal" class="btn btn-link start click" name="${node3.parentId}">
-                                                                                            <span>添加分类</span></a>
+                                                                                            <a href="${ctx}/node/delete/${node3.id}"><i class="icon-trash"title="删除"></i></a>
+                                                                                            <a href="#${ctx}/node/update/${node2.id}" name="${node3.id}"><i class="icon-asterisk" title="修改"></i></a>
                                                                                         </td>
                                                                                     </tr>
                                                                                 </table>
                                                                             </div>
                                                                         </div>
                                                                         <div id="collapse${node3.id}" class="accordion-body collapse">
-                                                                            <div class="accordion-inner">
-                                                                               已是最后一级分类
-                                                                            </div>
+                                                                            <div class="accordion-inner"></div>
                                                                         </div>
                                                                     </c:forEach>
                                                                 </c:if>
@@ -138,10 +120,19 @@
             </div>
         </div>
     </div>
+    <!--操作按钮-->
+    <div class="row fileupload-buttonbar">
+        <div class="span9">
+            <a data-toggle="modal" href="${ctx}/node/create" class="btn btn-primary">
+                <i class="icon-user icon-white"></i>
+                <span>添加分类</span>
+            </a>
+        </div>
+    </div>
 </div>
 
 <!--分类弹窗内容-->
-<form:form modelAttribute="node" action="${ctx}/node/save" id="saveM" method="post">
+<%--<form:form modelAttribute="node" action="${ctx}/node/save" id="saveM" method="post">
     <div id="myModal" class="modal hide fade">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -161,7 +152,9 @@
             <button class="btn" data-dismiss="modal">关闭</button>
         </div>
     </div>
-</form:form>
+</form:form>--%>
+
+
 <!--提示-->
 <%--<div id="Tips" class="modal hide fade">
     <div class="modal-body">
@@ -235,34 +228,34 @@
             });
         });*/
 
-       //删除
-        $(".deleteSingleNode").click(function(){
-            var id=$(this).attr("id");
-            //当前节点的父类
-            var parent=$(this).parent();
-            //当前节点的父类
-            var grand=parent.parent();
-            //当前节点的所有兄弟节点
-            var brother=grand.siblings();
-            /*alert(parent);
-            alert(grand);*/
-            if(confirm("确定要删除吗？")){
-                $.ajax({
-                    url:"${ctx}/node/delete/"+id,
-                    success:function(data){
-                        $(".node"+id).remove();
-                        $("#collapse"+id).remove();
-                        alert("已删除！");
-                       /* if (null == brother) {
-                            $(parent).remove();
-                            $(grand).remove();
-                        }*/
+         //删除
+              /*  $(".deleteSingleNode").click(function(){
+                    var id=$(this).attr("id");
+                    //当前节点的父类
+                    var parent=$(this).parent();
+                    //当前节点的父类
+                    var grand=parent.parent();
+                    //当前节点的所有兄弟节点
+                    var brother=grand.siblings();
+                    *//*alert(parent);
+                    alert(grand);*//*
+                    if(confirm("确定要删除吗？")){
+                        $.ajax({
+                            url:"${ctx}/node/delete/"+id,
+                            success:function(data){
+                                $(".node"+id).remove();
+                                $("#collapse"+id).remove();
+                                alert("已删除！");
+                               *//* if (null == brother) {
+                                    $(parent).remove();
+                                    $(grand).remove();
+                                }*//*
+                            }
+                        });
+                    }else{
+                        return false;
                     }
-                });
-            }else{
-                return false;
-            }
-        });
+                });*/
     });
 </script>
 </body>
