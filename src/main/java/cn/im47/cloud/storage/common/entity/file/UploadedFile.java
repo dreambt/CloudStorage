@@ -22,7 +22,7 @@ public class UploadedFile extends PersistableEntity implements Serializable {
     private String customName;     // 用户自定义文件名（用于前端显示）
     private String realName;       // 上传时的文件名（用于下载）
     private String suffix;
-    private int size;
+    private long size;
     private String md5;
     private String CRC;
     private int downloadCount;      //下载次数
@@ -79,11 +79,11 @@ public class UploadedFile extends PersistableEntity implements Serializable {
         this.suffix = suffix;
     }
 
-    public int getSize() {
+    public long getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(long size) {
         this.size = size;
     }
 

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springside.modules.cache.memcached.SpyMemcachedClient;
 import org.springside.modules.mapper.JsonMapper;
 
-import java.text.BreakIterator;
 import java.util.List;
 import java.util.Map;
 
@@ -165,21 +164,21 @@ public class NodeManagerImpl implements NodeManager {
         path = path.substring(1, path.length());
         String[] paths = path.split("/");
 
-        if(paths.length < 3) {
+        if (paths.length < 3) {
             logger.error("请选择叶子节点");
             return null;
         }
 
         List<Node> nodes = this.getTree(appKey);
-        for(Node node1: nodes) {
+        for (Node node1 : nodes) {
             /* 一级节点比较 */
-            if(paths[0].equals(node1.getName())) {
-                for(Node node2: node1.getNodeList()) {
+            if (paths[0].equals(node1.getName())) {
+                for (Node node2 : node1.getNodeList()) {
                     /* 二级节点比较 */
-                    if(paths[1].equals(node2.getName())) {
-                        for(Node node3: node2.getNodeList()) {
+                    if (paths[1].equals(node2.getName())) {
+                        for (Node node3 : node2.getNodeList()) {
                             /* 三级节点比较 */
-                            if(paths[2].equals(node3.getName())) {
+                            if (paths[2].equals(node3.getName())) {
                                 return node3;
                             }
                         }
@@ -191,7 +190,6 @@ public class NodeManagerImpl implements NodeManager {
     }
 
 
-
     @Override
     public Node getByName(String appKey, String nodeName, Long id) {
         return nodeMapper.getByName(appKey, nodeName, id);
@@ -199,7 +197,7 @@ public class NodeManagerImpl implements NodeManager {
 
     @Override
     public boolean isUsedNodeName(String appKey, Long parentId, String nodeName) {
-        if(nodeMapper.isUsedNodeName(appKey, parentId, nodeName)>0) {
+        if (nodeMapper.isUsedNodeName(appKey, parentId, nodeName) > 0) {
             return true;
         } else {
             return false;

@@ -39,6 +39,7 @@ public interface FtpUserManager extends GenericManager<FtpUser, Long> {
 
     /**
      * 启用或者停用 ftp用户
+     *
      * @param id
      * @return
      */

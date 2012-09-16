@@ -2,7 +2,6 @@ package cn.im47.cloud.storage.utilities.upload.common;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 
 /**

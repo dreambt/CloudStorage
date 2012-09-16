@@ -64,7 +64,7 @@
 		FROM ${appKey}CS_FILE
 	</select>
 
-    <insert id="save" parameterType="UploadedFile">
+    <insert id="save" parameterType="UploadedFile" useGeneratedKeys="true" keyProperty="object.id">
 		INSERT INTO ${appKey}CS_FILE
 		(id, node_id, custom_name, file_key, real_name, suffix, size, md5, CRC, download_count, shared, status, deleted, created_date)
 		VALUES

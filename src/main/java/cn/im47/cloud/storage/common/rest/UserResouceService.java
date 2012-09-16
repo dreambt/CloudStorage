@@ -1,14 +1,13 @@
 package cn.im47.cloud.storage.common.rest;
 
-import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.account.UserManager;
-import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 用户资源的REST服务

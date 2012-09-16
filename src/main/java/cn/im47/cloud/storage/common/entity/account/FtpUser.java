@@ -15,9 +15,9 @@ public class FtpUser extends PersistableEntity {
     private String homeDirectory;      //用户根路径
     private boolean enableFlag;       //是否可用
     private boolean writePermission; //写权限
-    private int idleTime;
-    private int uploadRate;            //上传速度
-    private int downloadRate;         //下载速度
+    private int idleTime = 3;
+    private int uploadRate = 100;            //上传速度
+    private int downloadRate = 50;         //下载速度
     private int maxLoginNumber;
     private int maxLoginPerIp;
     private boolean deleted;           //是否删除

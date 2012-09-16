@@ -5,7 +5,6 @@ import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
 import cn.im47.cloud.storage.utilities.file.FileHandler;
-import com.google.common.collect.Maps;
 import org.apache.commons.net.ntp.TimeStamp;
 import org.apache.ftpserver.ftplet.*;
 import org.slf4j.Logger;
@@ -15,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * ftp 文件事件通知类
@@ -89,7 +86,7 @@ public class FileFtplet extends DefaultFtplet {
 
         /* 对文件md5 */
         File fromFile = new File(user.getHomeDirectory() + realName);
-        int fileSize = ((Long)fromFile.length()).intValue();
+        int fileSize = ((Long) fromFile.length()).intValue();
         String md5 = FileHandler.MD5(fromFile);
         String timeStamp = new TimeStamp(new Date()).toString();
         int length = timeStamp.length();

@@ -28,7 +28,7 @@
     </div>
     <div class="row">
         <!-- 目录树 -->
-        <div class="span3">
+        <div class="span2">
             <div class="well" id="parent">
                 <ul id="browser" class="filetree treeview">
                     <c:forEach items="${nodes}" var="node" begin="0" step="1">
@@ -58,7 +58,7 @@
             </div>
         </div>
         <!-- 文件列表 -->
-        <div class="span9">
+        <div class="span10">
             <div class="well">
                 <div id="file-list" class="hide">
                     <!-- 文件列表 -->
@@ -88,7 +88,7 @@
                     <div class="btn-group">
                     <span class="btn btn-success fileinput-button" style="margin-right:0px;">
                     <span>选择文件...</span>
-                    <input type="file" name="file" />
+                    <input type="file" name="file" multiple="multiple" />
                     <%--<input type="file" name="files[]" multiple>--%>
                     </span>
                         <button class="btn start">开始上传</button>
@@ -250,7 +250,6 @@
         $("#file-page").addClass("active");
 
         $("#fileupload").fileupload({
-            dataType:'json',
             maxFileSize:500000000, //500MB
             acceptFileTypes:/(\.|\/)(gif|jpe?g|png|mp4|avi|flv)$/i,
             process:[
@@ -268,75 +267,14 @@
                     action:'save'
                 }
             ],
-            done:function (e, data) {
-                alert(data);
-                $.each(data.result, function (index, file) {
-                    $('<p/>').text(file.name).appendTo(document.body);
-                });
-            },
             progressall:function (e, data) {
                 var progress = parseInt(data.loaded / data.total * 100, 10);
-                alert(progress);
                 $('#progress .bar').css(
                         'width',
                         progress + '%'
                 );
             }
         });
-
-        // 文件上传fileupload
-        <%--$("#fileupload").fileupload('option', {--%>
-        <%--url: '${ctx}/file/create',--%>
-        <%--maxFileSize: 5000000,--%>
-        <%--acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,--%>
-        <%--process: [--%>
-        <%--{--%>
-        <%--action: 'load',--%>
-        <%--fileTypes: /^image\/(gif|jpeg|png)$/,--%>
-        <%--maxFileSize: 20000000 // 20MB--%>
-        <%--},--%>
-        <%--{--%>
-        <%--action: 'resize',--%>
-        <%--maxWidth: 1440,--%>
-        <%--maxHeight: 900--%>
-        <%--},--%>
-        <%--{--%>
-        <%--action: 'save'--%>
-        <%--}--%>
-        <%--],--%>
-        <%--dataType: 'json',--%>
-        <%--add: function (e, data) {--%>
-        <%--data.context = $('<p/>').text('Uploading...').appendTo(document.body);--%>
-        <%--$(this).fileupload('process', data).done(function () {--%>
-        <%--data.submit();--%>
-        <%--});--%>
-        <%--},--%>
-        <%--done: function (e, data) {--%>
-        <%--data.context.text('Upload finished.')--%>
-        <%--}--%>
-        <%--});--%>
-        <%--// Upload server status check for browsers with CORS support:--%>
-        <%--if ($.support.cors) {--%>
-        <%--$.ajax({--%>
-        <%--url: '${ctx}',--%>
-        <%--type: 'HEAD'--%>
-        <%--}).fail(function () {--%>
-        <%--$('<span class="alert alert-error"/>')--%>
-        <%--.text('Upload server currently unavailable - ' +--%>
-        <%--new Date())--%>
-        <%--.appendTo('#fileupload');--%>
-        <%--});--%>
-        <%--}--%>
-
-
-//        $("#choosefile").change(function(){
-//            $("#gp_information").show();
-//            var filePath=$("#choosefile").val();
-//            var pre = filePath.substr(filePath.lastIndexOf('\\')+1);
-//            var realName =pre.substr(0,10);
-//            var upload="<tr class='template-upload fade in'><td class='preview'><span class='fade' style='width: 6px'></span></td><td class='name'><span id='realName' title='"+pre+"'>" + realName + "</span></td><td class='size'><span id='size'></span></td><td><div class='progress progress-success progress-striped active' role='progressbar' aria-valuemin='0' aria-valuemax='100' aria-valuenow='0'><div class='bar' style='width:0%;'></div></div></td><td class='start'><button class='btn btn-primary'><i class='icon-upload icon-white'></i><span>开始上传</span></button></td><td class='cancel'><button class='btn btn-warning'><i class='icon-ban-circle icon-white'></i><span>取消</span></button></td></tr>";
-//            $("#hasfile").append(upload);
-//        });
 
         //分页
         var nodeId;
@@ -355,15 +293,15 @@
                         //加载文件
                         files.html("");
                         $.each(data, function (index, item) {
-                            var row = "<tr><td><label class='checkbox'><input type='checkbox' name='subBox' value=''></label></td><td><a href='${ctx}/file/get/" + item.id + "'>" + item.customName + "</a></td><td>不支持</td><td>不支持</td><td>" + ChangeDateFormat(item.createdDate) + "</td><td>" + item.md5 + "</td><td><a href='#'><i class='icon-star' title='收藏'></i></a> | ";
+                            var row = "<tr><td><label class='checkbox'><input type='checkbox' name='subBox' value=''></label></td><td><a href='${ctx}/file/show/" + item.fileKey + "'>" + item.customName + "</a></td><td>" + item.suffix + "</td><td>不支持</td><td>" + ChangeDateFormat(item.createdDate) + "</td><td>" + item.md5 + "</td><td><a href='#'><i class='icon-star' title='收藏'></i></a> | ";
                             if (item.status)
-                                row += "<a href='${ctx}/file/get/" + item.id + "'><i class='icon-download' title='下载'></i></a> | ";
+                                row += "<a href='${ctx}/file/get/" + item.fileKey + "'><i class='icon-download' title='下载'></i></a> | ";
                             if (item.shared)
-                                row += "<a href='${ctx}/share/create/" + item.id + "'><i class='icon-share' title='分享'></i></a> | ";
+                                row += "<a href='${ctx}/share/create/" + item.fileKey + "'><i class='icon-share' title='分享'></i></a> | ";
                             row = row.substr(0, row.length - 3);
                             row += "</td>";
                             // TODO 判断管理员身份
-                            row += "<td><a href='${ctx}/file/edit/" + item.id + "'><i class='icon-pencil' title='修改'></i></a> | <a href='#'><i class='icon-eye-close' title='禁止下载'></i></a> | <a href='${ctx}/file/delete/" + item.id + "'><i class='icon-remove' title='删除'></i></a></td></tr>";
+                            row += "<td><a href='${ctx}/file/update/" + item.fileKey + "'><i class='icon-pencil' title='修改'></i></a> | <a href='#'><i class='icon-eye-close' title='禁止下载'></i></a> | <a href='${ctx}/file/delete/" + item.fileKey + "'><i class='icon-remove' title='删除'></i></a></td></tr>";
                             files.append(row);
                         });
 

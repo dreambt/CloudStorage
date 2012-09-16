@@ -71,7 +71,7 @@ public class ShareResouceService {
         try {
             File file = new File(uploadedFile.getRealName());
             System.out.println(file.getAbsolutePath());
-            InputStream inputStream = new FileInputStream(uploadedFile.getRealName().substring(1, 2) + "/" + uploadedFile.getRealName().substring(3, 4) + "/" + file);
+            InputStream inputStream = new FileInputStream(uploadedFile.getRealName().substring(0, 2) + "/" + uploadedFile.getRealName().substring(2, 4) + "/" + file);
             OutputStream os = response.getOutputStream();
             byte[] b = new byte[1024];
             int length;

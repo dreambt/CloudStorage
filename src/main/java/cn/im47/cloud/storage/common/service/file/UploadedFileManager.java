@@ -4,8 +4,6 @@ import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.GenericAppManager;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 

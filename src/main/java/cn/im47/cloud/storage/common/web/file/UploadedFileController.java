@@ -1,20 +1,23 @@
 package cn.im47.cloud.storage.common.web.file;
 
+import cn.im47.cloud.storage.common.dto.ResponseMessage;
+import cn.im47.cloud.storage.common.dto.UploadedFileDTO;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.NodeManager;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.util.List;
 
 /**
  * 文件控制器
@@ -35,7 +38,7 @@ public class UploadedFileController {
 
     private static final int PAGE_SIZE = 5;
     private static final String APP_KEY = "";
-    private static final String UPLOADED_PATH = "D:/sources/";
+    private static final String FILE_PATH = "D:/";
 
     @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
     public String listDefault() {
@@ -51,15 +54,53 @@ public class UploadedFileController {
     }
 
     /**
-     * 获得分类编号为id 的所有文件
+     * 获得 fileKey 的文件
      *
      * @param fileKey
      * @return
      */
     @RequestMapping(value = "/get/{fileKey}", method = RequestMethod.GET)
-    public String get(Model model, @PathVariable("fileKey") String fileKey) {
-        model.addAttribute("file", uploadedFileManager.get(APP_KEY, fileKey));
-        return "file/video";
+    public void get(@PathVariable("fileKey") String fileKey, HttpServletResponse response) {
+        UploadedFile uploadedFile = uploadedFileManager.get(APP_KEY, fileKey);
+        response.setContentType("video/mp4");
+        response.setHeader("Content-Disposition", "attachment;fileName=" + uploadedFile.getCustomName());
+        response.setHeader("Accept-Ranges", "bytes");
+        try {
+            InputStream inputStream = new FileInputStream("/" + fileKey.substring(0, 2) + "/" + fileKey.substring(2, 4) + "/" + fileKey + "." + uploadedFile.getSuffix());
+            OutputStream os = response.getOutputStream();
+            byte[] b = new byte[1024];
+            int length;
+            while ((length = inputStream.read(b)) > 0) {
+                os.write(b, 0, length);
+            }
+            inputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 获得 fileKey 的文件
+     *
+     * @param fileKey
+     * @return
+     */
+    @RequestMapping(value = "/show/{fileKey}", method = RequestMethod.GET)
+    public String show(Model model, @PathVariable("fileKey") String fileKey) {
+        UploadedFile uploadedFile = uploadedFileManager.get(APP_KEY, fileKey);
+        model.addAttribute("file", uploadedFile);
+
+        // 根据文件类型选择不同的展示方式
+        String fileType = uploadedFile.getSuffix();
+        if ("avi".equals(fileType) || "mpg".equals(fileType) || "mp4".equals(fileType)) {
+            return "file/video";
+        } else if ("jpg".equals(fileType) || "png".equals(fileType)) {
+            return "file/photo";
+        } else {
+            return "file/list";
+        }
     }
 
     @RequestMapping("/download/{fileName}.{suffix}")
@@ -73,7 +114,7 @@ public class UploadedFileController {
         try {
             File file = new File(fileName + "." + suffix);
             //System.out.println(file.getAbsolutePath());
-            InputStream inputStream = new FileInputStream(UPLOADED_PATH + file);
+            InputStream inputStream = new FileInputStream(FILE_PATH + file);
             OutputStream os = response.getOutputStream();
             byte[] b = new byte[1024];
             int length;
@@ -103,21 +144,20 @@ public class UploadedFileController {
     /**
      * 保存上传文件
      *
-     * @param model
      * @param file
      * @return
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(Model model, @RequestParam(value = "files", required = false) MultipartFile file) {
-        //for(MultipartFile file: files) {
-            uploadedFileManager.save(APP_KEY, file);
-        //}
-        /*if ( != null) {
-            model.addAttribute("info", "上传文件成功");
+    @ResponseBody
+    public ResponseEntity<?> create(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request) {
+        UploadedFile uploadedFile = uploadedFileManager.save(APP_KEY, file);
+        if (null == uploadedFile) {
+            return new ResponseEntity(new ResponseMessage("上传文件失败"), HttpStatus.OK);
         } else {
-            model.addAttribute("error", "上传文件失败");
-        }*/
-        return "redirect:/file/list";
+            List<UploadedFileDTO> dtoList = Lists.newArrayList();
+            dtoList.add(UploadedFileDTO.convert(file, uploadedFile, request.getContextPath()));
+            return new ResponseEntity(dtoList, HttpStatus.OK);
+        }
     }
 
     /**

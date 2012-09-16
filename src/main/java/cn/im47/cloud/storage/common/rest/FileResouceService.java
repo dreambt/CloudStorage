@@ -2,7 +2,6 @@ package cn.im47.cloud.storage.common.rest;
 
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
-import org.apache.lucene.analysis.tokenattributes.OffsetAttribute;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -35,8 +34,8 @@ public class FileResouceService {
     @RequestMapping(value = "/list/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public List<UploadedFile> listByNode(@PathVariable("id") Long id,
-                                         @RequestParam(value = "offset",defaultValue = "0") int offset,
-                                         @RequestParam(value = "limit",defaultValue = "10") int limit) {
+                                         @RequestParam(value = "offset", defaultValue = "0") int offset,
+                                         @RequestParam(value = "limit", defaultValue = "10") int limit) {
         return fileManager.getByNode(APP_KEY, id, offset, limit);
     }
 

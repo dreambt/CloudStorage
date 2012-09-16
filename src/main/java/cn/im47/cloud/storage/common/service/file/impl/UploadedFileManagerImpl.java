@@ -13,11 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -58,8 +54,8 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
     }
 
     @Override
-    public long countByNode(String appKey, Long id){
-       return uploadedFileMapper.countByNode(appKey,id);
+    public long countByNode(String appKey, Long id) {
+        return uploadedFileMapper.countByNode(appKey, id);
     }
 
     @Override
@@ -69,8 +65,6 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
 
     @Override
     public UploadedFile save(String appKey, MultipartFile file) {
-        UploadedFile uploadedFile = new UploadedFile();
-
         String fileName = file.getOriginalFilename();
         File fileOnServer = UploadFile.uploadFile(file, new File(UPLOADED_PATH + fileName));
 
@@ -89,6 +83,7 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
         FileHandler.moveFile(fileOnServer, new File(FILE_PATH + fileKey + "." + suffix));
 
         /* 入库 */
+        UploadedFile uploadedFile = new UploadedFile();
         uploadedFile.setNode(nodeMapper.get(appKey, 1L));
         uploadedFile.setFileKey(fileKey + "." + suffix);
         uploadedFile.setCustomName(fileName);
@@ -99,7 +94,7 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
         uploadedFile.setShared(false);
         uploadedFile.setStatus(true);
         uploadedFile.setDeleted(true);
-        if(uploadedFileMapper.save(appKey, uploadedFile) > 0) {
+        if (uploadedFileMapper.save(appKey, uploadedFile) > 0) {
             return uploadedFile;
         } else {
             return null;

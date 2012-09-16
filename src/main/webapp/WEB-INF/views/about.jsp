@@ -4,8 +4,7 @@
   Date: 12-8-24
   Time: 下午21:21
 --%>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page session="false" %>
+<%@ page contentType="text/html;charset=UTF-8" session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>

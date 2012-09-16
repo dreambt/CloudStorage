@@ -62,4 +62,11 @@
     <bean class="cn.im47.commons.utilities.patch.MappingJacksonJsonView"
           p:extractValueFromSingleKeyModel="true"/>
 
+    <bean id="rangingResourceHandler" class="cn.im47.cloud.storage.utilities.RangingResourceHttpRequestHandler"/>
+    <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <value>/media/**=rangingResourceHandler</value>
+     	</property>
+    </bean>
+
 </beans>

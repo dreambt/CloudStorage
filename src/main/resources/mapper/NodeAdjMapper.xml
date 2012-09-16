@@ -26,7 +26,7 @@
 		FROM ${appKey}CS_NODE_ADJ
 	</select>
 
-    <insert id="save" parameterType="NodeAdjacencies">
+    <insert id="save" parameterType="NodeAdjacencies" useGeneratedKeys="true" keyProperty="object.id">
 		INSERT INTO ${appKey}CS_NODE_ADJ(p_id, c_id, p_len)
 		VALUES (#{object.pId}, #{object.cId}, #{object.pLen})
 	</insert>

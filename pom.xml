@@ -32,7 +32,6 @@
         <jdbc.driver.artifactId>h2</jdbc.driver.artifactId>
         <jdbc.driver.version>${h2.version}</jdbc.driver.version>
 
-
         <!--
             <jdbc.driver.groupId>com.oracle</jdbc.driver.groupId>
             <jdbc.driver.artifactId>ojdbc14</jdbc.driver.artifactId>
@@ -55,19 +54,6 @@
     </prerequisites>
 
     <repositories>
-        <repository>
-            <id>project.local</id>
-            <name>project</name>
-            <releases>
-                <enabled>true</enabled>
-                <checksumPolicy>ignore</checksumPolicy>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <url>file:${project.basedir}/lib</url>
-        </repository>
-
         <repository>
             <releases>
                 <enabled>true</enabled>
@@ -106,7 +92,7 @@
         <dependency>
             <groupId>cn.im47.commons</groupId>
             <artifactId>commons</artifactId>
-            <version>0.0.3</version>
+            <version>0.0.4</version>
         </dependency>
 
         <!-- SPRINGSIDE begin -->
@@ -435,8 +421,14 @@
             <artifactId>patchca</artifactId>
             <version>0.5.0</version>
         </dependency>
-        <!-- OTHER UTILS end-->
 
+        <!-- 支持 Spring 和 G 的依赖注入 -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+        <!-- OTHER UTILS end-->
 
         <!-- selenium 2.0 -->
         <dependency>
