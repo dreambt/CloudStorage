@@ -6,7 +6,7 @@
 <html>
 <head>
 	<title>用户注册</title>
-    <link rel="stylesheet" href="${ctx}/static/js/validation/validate.css?v=1.9.0"/>
+    <link rel="stylesheet" href="${ctx}/static/js/validation/validate.css"/>
 </head>
 <body>
 <div class="page page-ex">
@@ -52,8 +52,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${ctx}/static/js/validation/jquery.validate.min.js?v=1.9.0"></script>
-<script type="text/javascript" src="${ctx}/static/js/validation/messages_bs_cn.js?v=1.9.0"></script>
+<script type="text/javascript" src="${ctx}/min?t=css&f=/js/validation/jquery.validate.js,/js/validation/messages_bs_cn.js"></script>
 <script type="text/javascript">
     $(function(){
         // 导航栏高亮

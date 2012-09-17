@@ -12,8 +12,8 @@
 <html>
 <head>
     <title>关于我们</title>
-    <link href="${ctx}/static/js/fancyBox/jquery.fancybox.css" type="text/css" rel="stylesheet" />
-    <script src="${ctx}/static/js/fancyBox/jquery.fancybox.pack.js" type="text/javascript"></script>
+    <link href="${ctx}/min?t=css&f=/js/fancyBox/jquery.fancybox.css" type="text/css" rel="stylesheet" />
+    <script src="${ctx}/min?t=js&f=/js/fancyBox/jquery.fancybox.pack.js" type="text/javascript"></script>
 </head>
 <body>
 <div class="page page-ex">

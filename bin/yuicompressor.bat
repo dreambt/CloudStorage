@@ -23,6 +23,6 @@ java -jar yuicompressor-2.4.7.jar -o ..\src\main\webapp\static\js\filetree\jquer
 java -jar yuicompressor-2.4.7.jar -o ..\src\main\webapp\static\js\filetree\jquery.treeview.sortable.js ..\src\main\webapp\static\js\filetree\jquery.treeview.sortable.js
 
 echo Compressing.... static\jquery-validation/1.9.0/validate.css
-java -jar yuicompressor-2.4.7.jar -o ..\src\main\webapp\static\jquery-validation/1.9.0/validate.min.css ..\src\main\webapp\static\jquery-validation/1.9.0/validate.css
+java -jar yuicompressor-2.4.7.jar -o ..\src\main\webapp\static\js/validation/validate.min.css ..\src\main\webapp\static\js/validation/validate.css
 
 pause

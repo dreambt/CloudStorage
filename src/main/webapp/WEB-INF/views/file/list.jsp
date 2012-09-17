@@ -14,10 +14,8 @@
     <link rel="stylesheet" href="${ctx}/static/js/filetree/jquery.treeview.css"/>
     <link rel="stylesheet" href="${ctx}/static/js/fileupload/jquery.fileupload-ui.css"/>
     <link rel="stylesheet" href="${ctx}/static/js/fancyBox/jquery.fancybox.css?v=2.0.5" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-buttons.css?v=2.0.5" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-thumbs.css?v=2.0.5" type="text/css"
-          media="screen"/>
+    <link rel="stylesheet" href="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-buttons.css?v=2.0.5" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-thumbs.css?v=2.0.5" type="text/css" media="screen"/>
 </head>
 <body>
 <div class="page">
@@ -224,27 +222,11 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${ctx}/static/js/filetree/jquery.treeview.js"></script>
-<script type="text/javascript" src="${ctx}/static/js/fancyBox/jquery.mousewheel-3.0.6.pack.js"></script>
-<script type="text/javascript" src="${ctx}/static/js/fancyBox/jquery.fancybox.pack.js?v=2.1.0"></script>
-<script type="text/javascript" src="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-buttons.js?v=2.1.0"></script>
-<script type="text/javascript" src="${ctx}/static/js/fancyBox/helpers/jquery.fancybox-thumbs.js?v=2.1.0"></script>
-<script type="text/javascript" src="${ctx}/static/js/jquery-ui/jquery-ui-1.8.23.custom.min.js"></script>
-<script type="text/javascript" src="${ctx}/static/js/fileupload/vendor/jquery.ui.widget.js?v=5.16.1"></script>
-<script type="text/javascript" src="${ctx}/static/js/fileupload/tmpl.min.js"></script>
-<script type="text/javascript" src="${ctx}/static/js/fileupload/jquery.iframe-transport.js?v=5.16.1"></script>
-<script type="text/javascript" src="${ctx}/static/js/fileupload/jquery.fileupload.js?v=5.16.1"></script>
-<!-- image resizing functionality start -->
-<script type="text/javascript" src="${ctx}/static/js/fileupload/load-image.min.js"></script>
-<script type="text/javascript" src="${ctx}/static/js/fileupload/canvas-to-blob.min.js"></script>
-<script type="text/javascript" src="${ctx}/static/js/fileupload/jquery.fileupload-fp.js?v=5.16.1"></script>
-<!-- image resizing functionality end -->
-<script type="text/javascript" src="${ctx}/static/js/fileupload/jquery.fileupload-ui.js?v=5.16.1"></script>
-<script type="text/javascript" src="${ctx}/static/js/fileupload/locale.js?v=5.16.1"></script>
+<script type="text/javascript" src="${ctx}/min?t=css&f=/js/filetree/jquery.treeview.js,/js/fancyBox/jquery.mousewheel-3.0.6.pack.js,/js/fancyBox/jquery.fancybox.pack.js,/js/fancyBox/helpers/jquery.fancybox-buttons.js,/js/fancyBox/helpers/jquery.fancybox-thumbs.js,/js/jquery-ui/jquery-ui-1.8.23.custom.min.js,/js/fileupload/vendor/jquery.ui.widget.js,/js/fileupload/tmpl.min.js,/js/fileupload/jquery.iframe-transport.js,/js/fileupload/jquery.fileupload.js,/js/fileupload/load-image.min.js,/js/fileupload/canvas-to-blob.min.js,/js/fileupload/jquery.fileupload-fp.js,/js/fileupload/jquery.fileupload-ui.js,/js/fileupload/locale.js"></script>
 <!--[if gte IE 8]>
 <script src="type=" text/javascript" src="${ctx}/static/js/fileupload/cors/jquery.xdr-transport.js"></script>
 <![endif]-->
-<script type="text/javascript" src="${ctx}/static/js/main.min.js?v=0.0.1"></script>
+<script type="text/javascript" src="${ctx}/static/js/main.js?v=0.0.1"></script>
 <script type="text/javascript">
     $(function () {
         $("#file-page").addClass("active");

@@ -22,11 +22,8 @@
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
 
-    <link href="${ctx}/static/bootstrap/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <link href="${ctx}/static/bootstrap/css/bootstrap-responsive.min.css" type="text/css" rel="stylesheet"/>
-    <link href="${ctx}/static/js/msgUI/msgGrowl.css" type="text/css" rel="stylesheet"/>
-    <link href="${ctx}/static/style/main.css" type="text/css" rel="stylesheet"/>
-    <script src="${ctx}/static/js/jquery.min.js" type="text/javascript"></script>
+    <link href="${ctx}/min?t=css&f=/style/bootstrap.css,/style/bootstrap-responsive.css,/js/msgUI/msgGrowl.css,/style/main.css" type="text/css" rel="stylesheet"/>
+    <script src="${ctx}/min?t=js&f=/js/jquery.js,/js/bootstrap.js,/js/msgUI/msgGrowl.js" type="text/javascript"></script>
     <sitemesh:head/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -59,7 +56,5 @@
             ${error}
     </div>
 </c:if>
-<script src="${ctx}/static/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="${ctx}/static/js/msgUI/msgGrowl.js" type="text/javascript"></script>
 </body>
 </html>
