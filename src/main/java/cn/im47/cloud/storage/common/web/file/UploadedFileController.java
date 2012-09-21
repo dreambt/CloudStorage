@@ -2,6 +2,7 @@ package cn.im47.cloud.storage.common.web.file;
 
 import cn.im47.cloud.storage.common.dto.ResponseMessage;
 import cn.im47.cloud.storage.common.dto.UploadedFileDTO;
+import cn.im47.cloud.storage.common.entity.node.NodeTypeEnum;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.node.NodeManager;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
@@ -38,7 +39,7 @@ public class UploadedFileController {
 
     private static final int PAGE_SIZE = 5;
     private static final String APP_KEY = "";
-    private static final String FILE_PATH = "D:/";
+    private static final String UPLOADED_PATH = "D:/sources/";
 
     @RequestMapping(value = {"", "/list"}, method = RequestMethod.GET)
     public String listDefault() {
@@ -50,6 +51,7 @@ public class UploadedFileController {
         model.addAttribute("nodeId", id);
         model.addAttribute("nodes", nodeManager.getTree(APP_KEY));
         model.addAttribute("files", uploadedFileManager.getByNode(APP_KEY, id, 0, PAGE_SIZE));
+        model.addAttribute("nodeTypes", NodeTypeEnum.values());
         return "file/list";
     }
 
@@ -116,7 +118,7 @@ public class UploadedFileController {
         try {
             File file = new File(fileName + "." + suffix);
             //System.out.println(file.getAbsolutePath());
-            InputStream inputStream = new FileInputStream(FILE_PATH + file);
+            InputStream inputStream = new FileInputStream(UPLOADED_PATH + file);
             OutputStream os = response.getOutputStream();
             byte[] b = new byte[1024];
             int length;
@@ -147,6 +149,7 @@ public class UploadedFileController {
      * 保存上传文件
      *
      * @param file
+     * @param request
      * @return
      */
     @RequestMapping(value = "/create", method = RequestMethod.POST)

@@ -10,6 +10,7 @@
         <result property="fileKey" column="file_key"/>
         <result property="realName" column="real_name"/>
         <result property="suffix" column="suffix"/>
+        <result property="size" column="size"/>
         <result property="md5" column="md5"/>
         <result property="CRC" column="CRC"/>
         <result property="downloadCount" column="download_count"/>
@@ -23,29 +24,32 @@
         </association>
     </resultMap>
 
-    <sql id="fileColumns">F.id, F.custom_name, F.file_key, F.real_name, F.suffix, F.size, F.md5, F.CRC, F.download_count, F.shared, F.status,
+    <sql id="fileColumns">F.id, F.node_id, F.custom_name, F.file_key, F.real_name, F.suffix, F.size, F.md5, F.CRC, F.download_count, F.shared, F.status,
         F.last_modified_date, F.created_date, F.deleted</sql>
 
     <select id="get" parameterType="Long" resultMap="fileDetailMap">
         SELECT
-        <include refid="fileColumns"/>
+        <include refid="fileColumns"/>, N.name, N.type, N.left_sibling, N.parent_id, N.display_order
         FROM ${appKey}CS_FILE AS F
+        INNER JOIN ${appKey}CS_NODE AS N ON N.id=F.node_id
         WHERE id =#{id}
         LIMIT 1
     </select>
 
     <select id="getByFileKey" parameterType="map" resultMap="fileDetailMap">
         SELECT
-        <include refid="fileColumns"/>
+        <include refid="fileColumns"/>, N.name, N.type, N.left_sibling, N.parent_id, N.display_order
         FROM ${appKey}CS_FILE AS F
+        INNER JOIN ${appKey}CS_NODE AS N ON N.id=F.node_id
         WHERE file_key =#{fileKey}
         LIMIT 1
     </select>
 
     <select id="getByNode" parameterType="Long" resultMap="fileDetailMap">
         SELECT
-        <include refid="fileColumns"/>
+        <include refid="fileColumns"/>, N.name, N.type, N.left_sibling, N.parent_id, N.display_order
         FROM ${appKey}CS_FILE AS F
+        INNER JOIN ${appKey}CS_NODE AS N ON N.id=F.node_id
         WHERE node_id =#{id}
         ORDER BY F.last_modified_date DESC
         <if test="limit != null and limit>0">

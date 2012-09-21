@@ -88,6 +88,7 @@ public class UploadedFileManagerImpl implements UploadedFileManager {
         uploadedFile.setFileKey(fileKey + "." + suffix);
         uploadedFile.setCustomName(fileName);
         uploadedFile.setRealName(fileName);
+        uploadedFile.setSuffix(suffix);
         uploadedFile.setSize(fileSize);
         uploadedFile.setMd5(md5);
         uploadedFile.setCRC(crc32);

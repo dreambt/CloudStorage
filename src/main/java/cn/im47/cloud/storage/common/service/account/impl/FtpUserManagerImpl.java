@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springside.modules.utils.Encodes;
 
 import java.util.List;
 import java.util.Map;
@@ -38,6 +39,7 @@ public class FtpUserManagerImpl implements FtpUserManager {
     @Transactional(readOnly = false)
     public int save(FtpUser ftpUser) {
         logger.debug("== Save ftp user={}.", ftpUser.toString());
+        ftpUser.setUserPassword(MessageDigest.md5(ftpUser.getUserPassword().getBytes()));
         return ftpUserMapper.save(ftpUser);
     }
 

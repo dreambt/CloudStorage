@@ -105,6 +105,7 @@ public class FileFtplet extends DefaultFtplet {
         uploadedFile.setFileKey(fileKey + "." + suffix);
         uploadedFile.setCustomName(realName);   //TODO 自定义名称
         uploadedFile.setRealName(realName);
+        uploadedFile.setSuffix(suffix);
         uploadedFile.setSize(fileSize);               //单位为B
         uploadedFile.setMd5(md5);
         uploadedFile.setCRC(crc32);
