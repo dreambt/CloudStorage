@@ -10,6 +10,7 @@ import cn.im47.commons.entity.PersistableEntity;
  */
 public class FtpUser extends PersistableEntity {
 
+    private Long userId;
     private String userName;            //ftp用户名
     private String userPassword;
     private String homeDirectory;      //用户根路径
@@ -21,6 +22,14 @@ public class FtpUser extends PersistableEntity {
     private int maxLoginNumber;
     private int maxLoginPerIp;
     private boolean deleted;           //是否删除
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getUserName() {
         return userName;

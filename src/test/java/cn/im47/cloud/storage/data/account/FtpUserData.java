@@ -14,6 +14,7 @@ public class FtpUserData {
     public static FtpUser getFtpUser() {
         FtpUser ftpUser = new FtpUser();
         ftpUser.setId(3L);
+        ftpUser.setUserId(1L);
         ftpUser.setUserName("111");
         ftpUser.setUserPassword("123456");
         ftpUser.setHomeDirectory(".");

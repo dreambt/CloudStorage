@@ -6,6 +6,7 @@
 
     <resultMap id="ftpUserDetailMap" type="FtpUser">
         <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
         <result property="userPassword" column="user_password"/>
         <result property="homeDirectory" column="home_directory"/>
@@ -21,7 +22,7 @@
         <result property="deleted" column="deleted"/>
     </resultMap>
 
-    <sql id="ftpUserColumns">FU.id, FU.user_name, FU.user_password, FU.home_directory, FU.enable_flag, FU.write_permission,
+    <sql id="ftpUserColumns">FU.id, FU.user_id, FU.user_name, FU.user_password, FU.home_directory, FU.enable_flag, FU.write_permission,
         FU.idle_time, FU.upload_rate, FU.download_rate, FU.max_login_number, FU.max_login_per_ip, FU.last_modified_date, FU.created_date, FU.deleted</sql>
 
     <!-- 查询用户 -->
@@ -40,14 +41,17 @@
 
     <!-- 保存用户 -->
     <insert id="save" parameterType="FtpUser" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO CS_FTP_USER (id, user_name, user_password, home_directory, enable_flag, write_permission, idle_time, upload_rate, download_rate, max_login_number, max_login_per_ip)
-        VALUES (#{id}, #{userName},#{userPassword},#{homeDirectory},#{enableFlag},#{writePermission},#{idleTime},#{uploadRate},#{downloadRate},#{maxLoginNumber},#{maxLoginPerIp})
+        INSERT INTO CS_FTP_USER (id, user_id, user_name, user_password, home_directory, enable_flag, write_permission, idle_time, upload_rate, download_rate, max_login_number, max_login_per_ip)
+        VALUES (#{id}, #{userId}, #{userName},#{userPassword},#{homeDirectory},#{enableFlag},#{writePermission},#{idleTime},#{uploadRate},#{downloadRate},#{maxLoginNumber},#{maxLoginPerIp})
 	</insert>
 
     <!-- 更新用户 -->
     <update id="update" parameterType="FtpUser">
         UPDATE CS_FTP_USER
         <set>
+            <if test="userId != null">
+                user_id=#{userId},
+            </if>
             <if test="userName != null and userName !=''">
                 user_name=#{userName},
             </if>
@@ -96,6 +100,9 @@
         FROM CS_FTP_USER AS FU
         <where>
             1=1
+            <if test="userId != null">
+                and user_id=#{userId}
+            </if>
             <if test="userName != null and userName !=''">
                 and user_name=#{userName}
             </if>

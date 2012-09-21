@@ -68,29 +68,6 @@ CREATE TABLE IF NOT EXISTS `CS_FILE` (
   PRIMARY KEY (`id`)
 );
 
-
---
--- 表的结构 `CS_FTP_USER`
---
-DROP TABLE IF EXISTS `CS_FTP_USER`;
-CREATE TABLE IF NOT EXISTS `CS_FTP_USER` (
-  `id` int(11) default NULL  AUTO_INCREMENT,
-  `user_name` varchar(64) default NULL,
-  `user_password` varchar(64) DEFAULT NULL,
-  `home_directory` varchar(128) DEFAULT NULL,
-  `enable_flag` tinyint(1) DEFAULT '1',
-  `write_permission` tinyint(1) DEFAULT '0',
-  `idle_time` int(11) DEFAULT '0',
-  `upload_rate` int(11) DEFAULT '0',
-  `download_rate` int(11) DEFAULT '0',
-  `max_login_number` int(11) DEFAULT '0',
-  `max_login_per_ip` int(11) DEFAULT '0',
-  `deleted` tinyint(1) DEFAULT '0',
-  `last_modified_date` TIMESTAMP DEFAULT null,
-  `created_date` TIMESTAMP DEFAULT null,
-  PRIMARY KEY (`id`)
-);
-
 -- -----------------------------------------------------
 -- 用户组 `CS_GROUP`
 -- -----------------------------------------------------
@@ -135,6 +112,30 @@ CREATE  TABLE IF NOT EXISTS `CS_USER` (
   `last_modified_date` TIMESTAMP DEFAULT NULL,
   `created_date` TIMESTAMP DEFAULT NULL,
   PRIMARY KEY (`id`)
+);
+
+--
+-- 表的结构 `CS_FTP_USER`
+--
+DROP TABLE IF EXISTS `CS_FTP_USER`;
+CREATE TABLE IF NOT EXISTS `CS_FTP_USER` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `user_name` varchar(64) default NULL,
+  `user_password` varchar(64) DEFAULT NULL,
+  `home_directory` varchar(128) DEFAULT NULL,
+  `enable_flag` tinyint(1) DEFAULT '1',
+  `write_permission` tinyint(1) DEFAULT '0',
+  `idle_time` int(11) DEFAULT '0',
+  `upload_rate` int(11) DEFAULT '0',
+  `download_rate` int(11) DEFAULT '0',
+  `max_login_number` int(11) DEFAULT '0',
+  `max_login_per_ip` int(11) DEFAULT '0',
+  `deleted` tinyint(1) DEFAULT '0',
+  `last_modified_date` TIMESTAMP DEFAULT null,
+  `created_date` TIMESTAMP DEFAULT null,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`id`) REFERENCES CS_USER(`id`)
 );
 
 

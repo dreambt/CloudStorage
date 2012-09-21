@@ -45,9 +45,9 @@ INSERT INTO `CS_FILE` (`id`, `node_id`, `custom_name`, `file_key`, `real_name`, 
 --
 -- 转存表中的数据 `FTP_USER`
 --
-INSERT INTO `CS_FTP_USER` (`id`, `user_name`, `user_password`, `home_directory`, `enable_flag`, `write_permission`, `idle_time`, `upload_rate`, `download_rate`, `max_login_number`, `max_login_per_ip`, `deleted`, `last_modified_date`, `created_date`) VALUES
-('1', 'admin', '21232F297A57A5A743894A0E4A801FC3', '.', 1, 1, 0, 0, 0, 0, 0, 0, '2012-04-16 10:46:32', '1987-05-31 15:00:00'),
-('2', 'admin1', '21232F297A57A5A743894A0E4A801FC3', '.', 1, 1, 0, 0, 0, 0, 0, 0, '2012-04-16 10:46:32', '1987-05-31 15:00:00');
+INSERT INTO `CS_FTP_USER` (`id`, `user_id`, `user_name`, `user_password`, `home_directory`, `enable_flag`, `write_permission`, `idle_time`, `upload_rate`, `download_rate`, `max_login_number`, `max_login_per_ip`, `deleted`, `last_modified_date`, `created_date`) VALUES
+('1', '1', 'admin', '21232F297A57A5A743894A0E4A801FC3', '.', 1, 1, 0, 0, 0, 0, 0, 0, '2012-04-16 10:46:32', '1987-05-31 15:00:00'),
+('2', '1', 'admin1', '21232F297A57A5A743894A0E4A801FC3', '.', 1, 1, 0, 0, 0, 0, 0, 0, '2012-04-16 10:46:32', '1987-05-31 15:00:00');
 
 -- -----------------------------------------------------
 -- 用户组测试数据

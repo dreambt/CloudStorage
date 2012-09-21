@@ -2,7 +2,10 @@ package cn.im47.cloud.storage.common.web.account;
 
 import cn.im47.cloud.storage.common.entity.account.FtpUser;
 import cn.im47.cloud.storage.common.service.account.FtpUserManager;
+import cn.im47.cloud.storage.security.ShiroDbRealm;
 import com.google.common.collect.Maps;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -80,6 +83,8 @@ public class FtpUserController {
      */
     @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(FtpUser ftpUser, RedirectAttributes redirectAttributes) {
+        ShiroDbRealm.ShiroUser shiroUser = (ShiroDbRealm.ShiroUser) SecurityUtils.getSubject().getPrincipal();
+        ftpUser.setUserId(shiroUser.getId());
         if (ftpUserManager.save(ftpUser) > 0) {
             redirectAttributes.addFlashAttribute("info", "添加ftp用户成功.");
         } else {
