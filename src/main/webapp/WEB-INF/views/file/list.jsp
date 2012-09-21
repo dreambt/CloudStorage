@@ -86,12 +86,11 @@
                 <div class="btn-group">
                     <span class="btn btn-success fileinput-button" style="margin-right:0px;">
                     <span>选择文件...</span>
-                    <input type="file" name="file" multiple="multiple"/>
+                    <input type="file" name="file[]" multiple="multiple" />
                     </span>
-                    <button class="btn start" id="uploadAll">开始上传</button>
-                    <button class="btn cancel">取消上传</button>
-                    <button class="btn delete">取消</button>
-                </div>
+                        <button class="btn start">开始上传</button>
+                        <button class="btn cancel">取消上传</button>
+                    </div>
 
 
                 <!-- The global progress information -->

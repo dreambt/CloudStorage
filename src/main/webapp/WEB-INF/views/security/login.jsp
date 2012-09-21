@@ -64,7 +64,7 @@
     </div>
     </div>
 </div>
-<script src="${ctx}/min?t=css&f=/js/validation/jquery.validate.js,/js/validation/messages_bs_cn.js" type="text/javascript"></script>
+<script src="${ctx}/min?t=js&f=/js/validation/jquery.validate.js,/js/validation/messages_bs_cn.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(function() {
         $("#login-page").addClass("active");

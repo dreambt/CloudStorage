@@ -52,7 +52,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${ctx}/min?t=css&f=/js/validation/jquery.validate.js,/js/validation/messages_bs_cn.js"></script>
+<script type="text/javascript" src="${ctx}/min?t=js&f=/js/validation/jquery.validate.js,/js/validation/messages_bs_cn.js"></script>
 <script type="text/javascript">
     $(function(){
         // 导航栏高亮
