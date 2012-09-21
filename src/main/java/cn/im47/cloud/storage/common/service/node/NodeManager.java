@@ -1,6 +1,6 @@
-package cn.im47.cloud.storage.common.service.file;
+package cn.im47.cloud.storage.common.service.node;
 
-import cn.im47.cloud.storage.common.entity.file.Node;
+import cn.im47.cloud.storage.common.entity.node.Node;
 import cn.im47.cloud.storage.common.service.GenericAppManager;
 
 import java.util.List;

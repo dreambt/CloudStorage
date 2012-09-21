@@ -1,8 +1,8 @@
 package cn.im47.cloud.storage.data.file;
 
-import cn.im47.cloud.storage.common.entity.file.NodeTypeEnum;
-import cn.im47.cloud.storage.common.entity.file.Node;
-import cn.im47.cloud.storage.common.entity.file.NodeAdjacencies;
+import cn.im47.cloud.storage.common.entity.node.NodeTypeEnum;
+import cn.im47.cloud.storage.common.entity.node.Node;
+import cn.im47.cloud.storage.common.entity.node.NodeAdjacencies;
 
 /**
  * FtpUser相关实体测试数据生成.

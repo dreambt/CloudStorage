@@ -1,8 +1,8 @@
-package cn.im47.cloud.storage.common.service.file.impl;
+package cn.im47.cloud.storage.common.service.node.impl;
 
-import cn.im47.cloud.storage.common.dao.file.NodeMapper;
-import cn.im47.cloud.storage.common.entity.file.Node;
-import cn.im47.cloud.storage.common.service.file.NodeManager;
+import cn.im47.cloud.storage.common.dao.node.NodeMapper;
+import cn.im47.cloud.storage.common.entity.node.Node;
+import cn.im47.cloud.storage.common.service.node.NodeManager;
 import cn.im47.cloud.storage.utilities.memcached.MemcachedObjectType;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

@@ -222,11 +222,8 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${ctx}/min?t=css&f=/js/filetree/jquery.treeview.js,/js/fancyBox/jquery.mousewheel-3.0.6.pack.js,/js/fancyBox/jquery.fancybox.pack.js,/js/fancyBox/helpers/jquery.fancybox-buttons.js,/js/fancyBox/helpers/jquery.fancybox-thumbs.js,/js/jquery-ui/jquery-ui-1.8.23.custom.min.js,/js/fileupload/vendor/jquery.ui.widget.js,/js/fileupload/tmpl.min.js,/js/fileupload/jquery.iframe-transport.js,/js/fileupload/jquery.fileupload.js,/js/fileupload/load-image.min.js,/js/fileupload/canvas-to-blob.min.js,/js/fileupload/jquery.fileupload-fp.js,/js/fileupload/jquery.fileupload-ui.js,/js/fileupload/locale.js"></script>
-<!--[if gte IE 8]>
-<script src="type=" text/javascript" src="${ctx}/static/js/fileupload/cors/jquery.xdr-transport.js"></script>
-<![endif]-->
-<script type="text/javascript" src="${ctx}/static/js/main.js?v=0.0.1"></script>
+<script type="text/javascript" src="${ctx}/min?t=js&f=/js/main.js,/js/filetree/jquery.treeview.js,/js/fancyBox/jquery.mousewheel-3.0.6.pack.js,/js/fancyBox/jquery.fancybox.pack.js,/js/fancyBox/helpers/jquery.fancybox-buttons.js,/js/fancyBox/helpers/jquery.fancybox-thumbs.js,/js/jquery-ui/jquery-ui-1.8.23.custom.min.js,/js/fileupload/vendor/jquery.ui.widget.js,/js/fileupload/tmpl.min.js,/js/fileupload/jquery.iframe-transport.js,/js/fileupload/jquery.fileupload.js,/js/fileupload/load-image.min.js,/js/fileupload/canvas-to-blob.min.js,/js/fileupload/jquery.fileupload-fp.js,/js/fileupload/jquery.fileupload-ui.js,/js/fileupload/locale.js"></script>
+<!--[if gte IE 8]><script src="type=" text/javascript" src="${ctx}/static/js/fileupload/cors/jquery.xdr-transport.js"></script><![endif]-->
 <script type="text/javascript">
     $(function () {
         $("#file-page").addClass("active");

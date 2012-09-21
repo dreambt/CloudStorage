@@ -1,6 +1,7 @@
 package cn.im47.cloud.storage.common.dao.file;
 
-import cn.im47.cloud.storage.common.entity.file.NodeAdjacencies;
+import cn.im47.cloud.storage.common.dao.node.NodeAdjMapper;
+import cn.im47.cloud.storage.common.entity.node.NodeAdjacencies;
 import cn.im47.cloud.storage.data.file.NodeData;
 import com.google.common.collect.Maps;
 import org.junit.Test;

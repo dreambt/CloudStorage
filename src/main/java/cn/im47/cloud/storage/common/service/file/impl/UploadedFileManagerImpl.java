@@ -1,6 +1,6 @@
 package cn.im47.cloud.storage.common.service.file.impl;
 
-import cn.im47.cloud.storage.common.dao.file.NodeMapper;
+import cn.im47.cloud.storage.common.dao.node.NodeMapper;
 import cn.im47.cloud.storage.common.dao.file.UploadedFileMapper;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;

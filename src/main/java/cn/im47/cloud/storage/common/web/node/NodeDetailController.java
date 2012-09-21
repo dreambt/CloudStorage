@@ -1,7 +1,7 @@
-package cn.im47.cloud.storage.common.web.file;
+package cn.im47.cloud.storage.common.web.node;
 
-import cn.im47.cloud.storage.common.entity.file.Node;
-import cn.im47.cloud.storage.common.service.file.NodeManager;
+import cn.im47.cloud.storage.common.entity.node.Node;
+import cn.im47.cloud.storage.common.service.node.NodeManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;

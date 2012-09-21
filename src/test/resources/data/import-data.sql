@@ -2,13 +2,18 @@
 -- 目录表测试数据
 -- -----------------------------------------------------
 INSERT INTO `CS_NODE` (`id`, `name`, `type`, `left_sibling`, `parent_id`, `display_order`) VALUES
-(1, 'node 1', 'OTHER', 0, 0, 1),
-(2, 'node 1.1', 'OTHER', 0, 1, 2),
-(3, 'node 2', 'OTHER', 1, 0, 3),
-(4, 'node 1.1.1', 'OTHER', 0, 2, 4),
-(5, 'node 2.1', 'TXT', 0, 3, 5),
-(6, 'node 1.2', 'MOVIE', 2, 1, 6),
-(7, 'node 1.3', 'PIC', 6, 1, 7);
+(1, '小学三年级', 'NONE', 0, 0, 1),
+(2, '英语', 'NONE', 0, 1, 5),
+(3, '视频', 'MOVIE', 0, 2, 10),
+(4, '其他', 'OTHER', 3, 2, 15),
+(5, '小学四年级', 'NONE', 1, 0, 20),
+(6, '英语', 'NONE', 0, 5, 25),
+(7, '视频', 'MOVIE', 0, 6, 30),
+(8, '其他', 'OTHER', 7, 6, 35),
+(9, '小学五年级', 'NONE', 5, 0, 40),
+(10, '英语', 'NONE', 0, 9, 45),
+(11, '视频', 'MOVIE', 0, 10, 50),
+(12, '其他', 'OTHER', 11, 10, 55);
 
 
 -- -----------------------------------------------------
@@ -42,6 +47,7 @@ INSERT INTO `CS_NODE_ADJ`(`c_id`, `p_id`, `p_len`) VALUES
 INSERT INTO `CS_FILE` (`id`, `node_id`, `custom_name`, `file_key`, `real_name`, `suffix`, `size`, `md5`, `CRC`, `download_count`, `shared`, `status`, `last_modified_date`, `created_date`, `deleted`) VALUES
 (1, 2, 'aaa.jpg', 'ASKFAGERDFASDSDFAF', 'aaa.jpg', 'jpg', 10, 'ASDFASDFASDF', 'ASDFDF', 0, 1, 1, '2012-04-16 10:46:32', '1987-05-31 15:00:00', 0),
 (2, 2, 'CCC.jpg', 'ASKFAGERDFASDSDFAF', 'aaa.jpg', 'jpg', 13, 'ASDFASDFASDF', 'ASDFAS', 0, 1, 1, '2012-04-16 10:46:32', '1987-05-31 15:00:00', 0);
+
 --
 -- 转存表中的数据 `FTP_USER`
 --
@@ -94,11 +100,8 @@ INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (34,2,'
 
 -- 普通用户
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (51,3,'user:update');
-
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (59,3,'group:list');
-
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (64,3,'file:list');
-
 INSERT INTO `CS_GROUP_PERMISSION`(`id`, `group_id`, `permission`) VALUES (69,3,'node:list');
 
 

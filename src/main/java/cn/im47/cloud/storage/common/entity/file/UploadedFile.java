@@ -1,5 +1,6 @@
 package cn.im47.cloud.storage.common.entity.file;
 
+import cn.im47.cloud.storage.common.entity.node.Node;
 import cn.im47.commons.entity.PersistableEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

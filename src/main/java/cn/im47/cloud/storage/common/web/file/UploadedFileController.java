@@ -3,7 +3,7 @@ package cn.im47.cloud.storage.common.web.file;
 import cn.im47.cloud.storage.common.dto.ResponseMessage;
 import cn.im47.cloud.storage.common.dto.UploadedFileDTO;
 import cn.im47.cloud.storage.common.entity.file.UploadedFile;
-import cn.im47.cloud.storage.common.service.file.NodeManager;
+import cn.im47.cloud.storage.common.service.node.NodeManager;
 import cn.im47.cloud.storage.common.service.file.UploadedFileManager;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +74,8 @@ public class UploadedFileController {
                 os.write(b, 0, length);
             }
             inputStream.close();
+            os.flush();
+            os.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

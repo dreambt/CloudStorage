@@ -89,7 +89,7 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="${ctx}/min?t=css&f=/js/jPlayer/jquery.jplayer.min.js,/js/jPlayer/add-on/jplayer.playlist.min.js"></script>
+<script type="text/javascript" src="${ctx}/min?t=js&f=/js/jPlayer/jquery.jplayer.min.js,/js/jPlayer/add-on/jplayer.playlist.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         new jPlayerPlaylist({

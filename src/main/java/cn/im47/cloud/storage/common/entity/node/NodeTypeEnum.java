@@ -1,4 +1,4 @@
-package cn.im47.cloud.storage.common.entity.file;
+package cn.im47.cloud.storage.common.entity.node;
 
 import com.google.common.collect.Maps;
 

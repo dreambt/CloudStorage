@@ -1,4 +1,4 @@
-package cn.im47.cloud.storage.common.entity.file;
+package cn.im47.cloud.storage.common.entity.node;
 
 import cn.im47.commons.entity.IdEntity;
 import com.google.common.collect.Lists;

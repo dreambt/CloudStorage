@@ -19,7 +19,7 @@
         <result property="createdDate" column="created_date"/>
         <result property="deleted" column="deleted"/>
         <association property="node" column="node_id" javaType="Node"
-                    resultMap="cn.im47.cloud.storage.common.dao.file.NodeMapper.nodeDetailMap">
+                    resultMap="cn.im47.cloud.storage.common.dao.node.NodeMapper.nodeDetailMap">
         </association>
     </resultMap>
 

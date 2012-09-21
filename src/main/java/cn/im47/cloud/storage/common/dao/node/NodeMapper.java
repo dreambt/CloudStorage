@@ -1,7 +1,7 @@
-package cn.im47.cloud.storage.common.dao.file;
+package cn.im47.cloud.storage.common.dao.node;
 
 import cn.im47.cloud.storage.common.dao.GenericAppDao;
-import cn.im47.cloud.storage.common.entity.file.Node;
+import cn.im47.cloud.storage.common.entity.node.Node;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

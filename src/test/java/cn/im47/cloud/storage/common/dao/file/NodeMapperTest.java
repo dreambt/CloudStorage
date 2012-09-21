@@ -1,7 +1,8 @@
 package cn.im47.cloud.storage.common.dao.file;
 
-import cn.im47.cloud.storage.common.entity.file.NodeTypeEnum;
-import cn.im47.cloud.storage.common.entity.file.Node;
+import cn.im47.cloud.storage.common.dao.node.NodeMapper;
+import cn.im47.cloud.storage.common.entity.node.NodeTypeEnum;
+import cn.im47.cloud.storage.common.entity.node.Node;
 import cn.im47.cloud.storage.data.file.NodeData;
 import com.google.common.collect.Maps;
 import org.junit.Test;
