@@ -31,4 +31,8 @@ dreambt@gmail.com
 
 ## 各路酱油帝
 
+# Support me
+
+[https://www.gittip.com/dreambt/](https://www.gittip.com/dreambt/)
+
 ....
