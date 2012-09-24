@@ -18,7 +18,9 @@ public class FtpUser extends PersistableEntity {
     private boolean writePermission; //写权限
     private int idleTime = 3;
     private int uploadRate = 100;            //上传速度
+    private int kbUploadRate = 100;
     private int downloadRate = 50;         //下载速度
+    private int kbDownloadRate = 50;
     private int maxLoginNumber;
     private int maxLoginPerIp;
     private boolean deleted;           //是否删除
@@ -87,12 +89,28 @@ public class FtpUser extends PersistableEntity {
         this.uploadRate = uploadRate;
     }
 
+    public int getKbUploadRate() {
+        return uploadRate/1024;
+    }
+
+    public void setKbUploadRate(int kbUploadRate) {
+        this.uploadRate = kbUploadRate*1024;
+    }
+
     public int getDownloadRate() {
         return downloadRate;
     }
 
     public void setDownloadRate(int downloadRate) {
         this.downloadRate = downloadRate;
+    }
+
+    public int getKbDownloadRate() {
+        return downloadRate/1024;
+    }
+
+    public void setKbDownloadRate(int kbDownloadRate) {
+        this.downloadRate = kbDownloadRate*1024;
     }
 
     public int getMaxLoginNumber() {

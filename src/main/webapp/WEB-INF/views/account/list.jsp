@@ -45,8 +45,8 @@
                             <td><label class="checkbox"><input type="checkbox" name="subBox" value=""></label></td>
                             <td class="userName click"><a href="${ctx}/ftpUser/get/${ftpUser.id}"title="点击查看详细信息">${ftpUser.userName}</a></td>
                             <td>${ftpUser.homeDirectory}</td>
-                            <td>${ftpUser.uploadRate}</td>
-                            <td>${ftpUser.downloadRate}</td>
+                            <td>${ftpUser.kbUploadRate}</td>
+                            <td>${ftpUser.kbDownloadRate}</td>
                             <td>
                                 <a href="${ctx}/ftpUser/start/${ftpUser.id}"><c:choose><c:when test="${ftpUser.enableFlag}">启用</c:when><c:otherwise>停用</c:otherwise></c:choose></a>
                             </td>

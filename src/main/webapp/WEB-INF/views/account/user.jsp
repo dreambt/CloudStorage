@@ -50,9 +50,9 @@
                         </tr>
                         <tr>
                             <td><label for="uploadRate">上传速度</label></td>
-                            <td><input type="text" name="uploadRate" id="uploadRate" value="${ftpUser.uploadRate}"/></td>
+                            <td><input type="text" name="kbUploadRate" id="uploadRate" value="${ftpUser.kbUploadRate}"/></td>
                             <td><label for="downloadRate">下载速度</label></td>
-                            <td><input type="text" name="downloadRate" id="downloadRate" value="${ftpUser.downloadRate}"/></td>
+                            <td><input type="text" name="kbDownloadRate" id="downloadRate" value="${ftpUser.kbDownloadRate}"/></td>
                         </tr>
                         <tr>
                             <td><label for="maxLoginNumber">最大登陆次数</label></td>
